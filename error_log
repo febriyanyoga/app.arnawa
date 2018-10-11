@@ -1,0 +1,2 @@
+[08-Oct-2018 16:48:37 Asia/Jakarta] PHP Fatal error:  Call to a member function result() on null in /home/arnawaco/public_html/registrasikoperasi/application/views/Admin_V.php on line 168
+[08-Oct-2018 16:56:44 Asia/Jakarta] PHP Parse error:  syntax error, unexpected '<' in /home/arnawaco/public_html/registrasikoperasi/application/views/Admin_V.php on line 174
