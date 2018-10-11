@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <!-- Favicon icon -->
-     <link rel="apple-touch-icon" sizes="57x57" href="<?php echo base_url()?>assets/images/icon/-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="57x57" href="<?php echo base_url()?>assets/images/icon/-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="<?php echo base_url()?>assets/images/icon/-icon-60x60.png">
     <link rel="apple-touch-icon" sizes="72x72" href="<?php echo base_url()?>assets/images/icon/-icon-72x72.png">
     <link rel="apple-touch-icon" sizes="76x76" href="<?php echo base_url()?>assets/images/icon/-icon-76x76.png">
@@ -463,6 +463,12 @@
                     <div class="m-t-30">
                         <h2>Mohon menunggu.</h2>
                         <h3>Pengajuan anda sedang dalam proses verifikasi.</h3>
+                        <?php
+                        $a = 9;
+                        echo $b = ((int)$a)/2;
+                        echo "<br>".floor($b)."<br>".ceil($b);
+
+                        ?>
                         <!-- <h5 class="m-b-0 text-muted font-medium">Something wrong going on this page.</h5> -->
                         <h5 class="text-muted font-medium">Customer service kami akan menghubungi Anda setelah proses verifikasi selesai.</h5>
                     </div>

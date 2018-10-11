@@ -7,30 +7,25 @@ class KoperasiC extends CI_Controller {
 	public function __construct() {
 		parent::__construct();
 		$this->load->model(['Registrasi_m','LoginM']);
+		$email_akun = $this->session->userdata('email_akun');
+		$password 	= $this->session->userdata('password');
+		$this->data['jenis_usaha'] 	= $this->LoginM->ceknum($email_akun, $password)->row()->jenis_usaha;
+		$this->data['dataDiri'] 	= $this->session->userdata();
+
 		in_access(); //helper buat batasi akses login/session
 	}
 	
-	public function koperasi()
+	public function isi_data()
 	{
-		$this->data['dataDiri'] = $this->session->userdata();
-		$id  = $this->session->userdata('id');
-		$this->data['data_akun'] = $this->LoginM->get_all_data($id)->result()[0];
-		$this->data['provinsi'] = $this->LoginM->get_all_provinsi();
-		$this->load->view('Register_koperasi_V',$this->data);
+		$id_akun 	= $this->session->userdata('id_akun');
+		
+		$this->data['data_akun'] 	= $this->LoginM->get_all_data($id_akun)->result()[0];
+		$this->data['provinsi'] 	= $this->LoginM->get_all_provinsi();
+		$this->load->view('Isi_data_usaha',$this->data);
 
 	}
 
-	public function umkm()
-	{
-		$this->data['dataDiri'] = $this->session->userdata();
-		$id  = $this->session->userdata('id');
-		$this->data['data_akun'] = $this->LoginM->get_all_data($id)->result()[0];
-		$this->data['provinsi'] = $this->LoginM->get_all_provinsi();
-		$this->load->view('Register_umkm_V',$this->data);
-
-	}
-
-	public function pilih_fitur_koperasi(){
+	public function pilih_fitur(){
 		$this->data['dataDiri'] = $this->session->userdata();
 		$this->load->view('Pilih_fiturV',$this->data);
 
@@ -41,23 +36,16 @@ class KoperasiC extends CI_Controller {
 		$this->data['dataDiri'] = $this->session->userdata();
 // 		$id_register= $this->session->userdata('id');
 // 		$this->data['log_status'] = $this->LoginM->get_history_status($id_register)->result();
-        $this->data['LoginM'] = $this->LoginM;
+		$this->data['LoginM'] = $this->LoginM;
 		$this->load->view('Admin_V',$this->data);
 
 	}
 
 	public function dashboard(){
-		$id  = $this->session->userdata('id');
+		$id  = $this->session->userdata('id_akun');
 		$this->data['data_akun'] = $this->LoginM->get_all_data($id)->result()[0];
 		$this->data['dataDiri'] = $this->session->userdata();
 		$this->load->view('DashboardV',$this->data);
-
-	}
-
-	public function pilih_fitur_umkm(){
-		$this->data['dataDiri'] = $this->session->userdata();
-		$this->load->view('Pilih_fitur_umkmV',$this->data);
-
 	}
 
 	 // alamat
@@ -79,81 +67,40 @@ class KoperasiC extends CI_Controller {
 		echo json_encode($data);
 	}
 
-	public function input_data_koperasi(){
-		$this->form_validation->set_rules('nama_koperasi', 'Nama Koperasi', 'required');  
+	public function input_data(){
+		$this->form_validation->set_rules('nama_usaha', 'Nama Usaha', 'required');  
 		$this->form_validation->set_rules('nama_pimpinan', 'Nama Pimpinan', 'required');  
-		$this->form_validation->set_rules('no_hp', 'Nomor HP', 'required');  
-		$this->form_validation->set_rules('tlp_koperasi', 'Telpon Koperasi');  
-		$this->form_validation->set_rules('alamat_koperasi', 'Alamat Koperasi','required');  
+		$this->form_validation->set_rules('no_hp', 'Nomor HP', 'required');
+		$this->form_validation->set_rules('tlp_usaha', 'Telpon Usaha');  
+		$this->form_validation->set_rules('alamat_usaha', 'Alamat Usaha','required');  
 		$this->form_validation->set_rules('id_kelurahan', 'ID Kelurahan','required');  
 		$this->form_validation->set_rules('kode_pos', 'Kode Pos','required');  
-		$this->form_validation->set_rules('email_koperasi', 'Email Koperasi');  
-		$this->form_validation->set_rules('web_koperasi', 'Website Koperasi');  
-		$this->form_validation->set_rules('jumlah_anggota', 'Jumlah Anggota Koperasi');  
-		$this->form_validation->set_rules('id', 'ID','required');  
-		$this->form_validation->set_message('is_unique', 'Data %s sudah dipakai'); 
+		$this->form_validation->set_rules('email_usaha', 'Email Usaha');  
+		$this->form_validation->set_rules('web_usaha', 'Website Usaha');  
+		$this->form_validation->set_rules('jumlah_anggota', 'Jumlah Anggota Usaha');  
+		$this->form_validation->set_rules('id_akun', 'ID Akun','required');  
 
 		if($this->form_validation->run() == FALSE){
-			$this->session->set_flashdata('error','Data anda tidak berhasil disimpan karena email sudah dipakai');
+			$this->session->set_flashdata('error','Data anda tidak berhasil disimpan');
 			redirect_back();
 		}else{
 			$data = array(
-				'nama_koperasi' 		=> $this->input->post('nama_koperasi'), 
+				'nama_usaha' 			=> $this->input->post('nama_usaha'), 
 				'nama_pimpinan' 		=> $this->input->post('nama_pimpinan'), 
 				'no_hp' 				=> $this->input->post('no_hp'), 
-				'tlp_koperasi' 			=> $this->input->post('tlp_koperasi'), 
-				'alamat_koperasi' 		=> $this->input->post('alamat_koperasi'), 
+				'tlp_usaha' 			=> $this->input->post('tlp_usaha'), 
+				'alamat_usaha' 			=> $this->input->post('alamat_usaha'), 
 				'id_kelurahan' 			=> $this->input->post('id_kelurahan'), 
 				'kode_pos' 				=> $this->input->post('kode_pos'), 
-				'email_koperasi' 		=> $this->input->post('email_koperasi'), 
-				'web_koperasi' 			=> $this->input->post('web_koperasi'), 
+				'email_usaha' 			=> $this->input->post('email_usaha'), 
+				'web_usaha' 			=> $this->input->post('web_usaha'), 
 				'jumlah_anggota' 		=> $this->input->post('jumlah_anggota'), 
 			);
-			$id = $this->input->post('id');
+			$id_akun = $this->input->post('id_akun');
 
-			if($this->Registrasi_m->update_data($id, $data)){
+			if($this->Registrasi_m->update_data($id_akun, $data)){
 				$this->session->set_flashdata('sukses','Data anda berhasil disimpan');
-				redirect('KoperasiC/pilih_fitur_koperasi');
-			}else{
-				$this->session->set_flashdata('error','Data anda tidak berhasil disimpan');
-				redirect_back();
-			}
-		} 
-	}
-	public function input_data_umkm(){
-		$this->form_validation->set_rules('nama_koperasi', 'Nama Koperasi', 'required');  
-		$this->form_validation->set_rules('nama_pimpinan', 'Nama Pimpinan', 'required');  
-		$this->form_validation->set_rules('no_hp', 'Nomor HP', 'required');  
-		$this->form_validation->set_rules('tlp_koperasi', 'Telpon Koperasi');  
-		$this->form_validation->set_rules('alamat_koperasi', 'Alamat Koperasi','required');  
-		$this->form_validation->set_rules('id_kelurahan', 'ID Kelurahan','required');  
-		$this->form_validation->set_rules('kode_pos', 'Kode Pos','required');  
-		$this->form_validation->set_rules('email_koperasi', 'Email Koperasi');  
-		$this->form_validation->set_rules('web_koperasi', 'Website Koperasi');  
-		$this->form_validation->set_rules('id', 'ID','required');  
-		$this->form_validation->set_message('is_unique', 'Data %s sudah dipakai'); 
-
-		if($this->form_validation->run() == FALSE){
-			$this->session->set_flashdata('error','Data anda tidak berhasil disimpan karena email sudah dipakai');
-			redirect_back();
-		}else{
-			$data = array(
-				'nama_koperasi' 		=> $this->input->post('nama_koperasi'), 
-				'nama_pimpinan' 		=> $this->input->post('nama_pimpinan'), 
-				'no_hp' 				=> $this->input->post('no_hp'), 
-				'tlp_koperasi' 			=> $this->input->post('tlp_koperasi'), 
-				'alamat_koperasi' 		=> $this->input->post('alamat_koperasi'), 
-				'id_kelurahan' 			=> $this->input->post('id_kelurahan'), 
-				'kode_pos' 				=> $this->input->post('kode_pos'), 
-				'email_koperasi' 		=> $this->input->post('email_koperasi'), 
-				'web_koperasi' 			=> $this->input->post('web_koperasi'), 
-				'jumlah_anggota' 		=> $this->input->post('jumlah_anggota'), 
-			);
-			$id = $this->input->post('id');
-
-			if($this->Registrasi_m->update_data($id, $data)){
-				$this->session->set_flashdata('sukses','Data anda berhasil disimpan');
-				redirect('KoperasiC/pilih_fitur_umkm');
+				redirect('KoperasiC/pilih_fitur');
 			}else{
 				$this->session->set_flashdata('error','Data anda tidak berhasil disimpan');
 				redirect_back();
@@ -163,51 +110,52 @@ class KoperasiC extends CI_Controller {
 
 	public function input_fitur(){
 		$this->form_validation->set_rules('fitur', 'Fitur');
-		$this->form_validation->set_rules('id', 'ID','required');  
+		$this->form_validation->set_rules('id_akun', 'ID Akun','required');  
 
 		if($this->form_validation->run() == FALSE){
 			$this->session->set_flashdata('error','Data anda tidak berhasil disimpan');
 			redirect_back();
 		}else{
-			$data = array(
-				'fitur' => implode(", ",$this->input->post('fitur',TRUE)),
-			);
-			$id = $this->input->post('id');
-
-			if($this->Registrasi_m->update_data($id, $data)){
-				$this->session->set_flashdata('sukses','Data anda berhasil disimpan');
-				redirect('KoperasiC/dashboard');
-			}else{
-				$this->session->set_flashdata('error','Data anda tidak berhasil disimpan');
-				redirect_back();
+			$fitur = $this->input->post('fitur');
+			foreach ($fitur as $key) {
+				$id_akun 	= $this->input->post('id_akun');
+				$status 	= 'non-aktif';
+				$data 		= array(
+					'id_akun' 	=> $id_akun, 
+					'id_fitur' 	=> $key, 
+					'status' 	=> $status, 
+				);
+				$this->LoginM->insert_fitur($data);
 			}
+			$this->session->set_flashdata('sukses','Data anda berhasil disimpan');
+			redirect('KoperasiC/dashboard');
 		}
 	}
 	
 	
 // 	admin
-    public function update_verified($id){
-        $data = array('status' => 'verified');
-        if($this->LoginM->update($id, $data)){
-            $this->session->set_flashdata('sukses','Data anda berhasil diubah');
+	public function update_verified($id){
+		$data = array('status' => 'verified');
+		if($this->LoginM->update($id, $data)){
+			$this->session->set_flashdata('sukses','Data anda berhasil diubah');
 			redirect_back();
-        }else{
-            $this->session->set_flashdata('error','Data anda tidak berhasil diubah');
+		}else{
+			$this->session->set_flashdata('error','Data anda tidak berhasil diubah');
 			redirect_back();
-        }
-    }
-    
-    public function update_waiting($id){
-         $data = array('status' => 'waiting');
-        if($this->LoginM->update($id, $data)){
-            $this->session->set_flashdata('sukses','Data anda berhasil diubah');
+		}
+	}
+
+	public function update_waiting($id){
+		$data = array('status' => 'waiting');
+		if($this->LoginM->update($id, $data)){
+			$this->session->set_flashdata('sukses','Data anda berhasil diubah');
 			redirect_back();
-        }else{
-            $this->session->set_flashdata('error','Data anda tidak berhasil diubah');
+		}else{
+			$this->session->set_flashdata('error','Data anda tidak berhasil diubah');
 			redirect_back();
-        }
-    }
-    
-    
+		}
+	}
+
+
 
 }

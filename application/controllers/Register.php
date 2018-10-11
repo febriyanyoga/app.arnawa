@@ -18,7 +18,7 @@ class Register extends CI_Controller {
 		$this->form_validation->set_rules('nama_akun', 'Nama Akun', 'required');  
 		$this->form_validation->set_rules('jenis_usaha', 'Jenis Usaha', 'required');  
 		$this->form_validation->set_rules('no_hp', 'Nomor Handphone', 'required');  
-		$this->form_validation->set_rules('email_akun', 'Email', 'required|valid_email|is_unique[tbl_register.email_akun]');  
+		$this->form_validation->set_rules('email_akun', 'Email', 'required|valid_email|is_unique[akun.email_akun]');  
 		$this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[6]|max_length[50]|matches[confirm_password]');
 		$this->form_validation->set_rules('confirm_password', 'Password Confirmation', 'trim|required|min_length[6]|max_length[10]'); 
 		$this->form_validation->set_message('is_unique', 'Data %s sudah dipakai'); 
@@ -30,7 +30,6 @@ class Register extends CI_Controller {
 			$data = array(
 				'nama_akun' 		=> $this->input->post('nama_akun'), 
 				'email_akun' 		=> $this->input->post('email_akun'),
-				'email_encryption' 	=> md5($this->input->post('email_akun')),
 				'no_hp' 			=> $this->input->post('no_hp'),
 				'jenis_usaha' 		=> $this->input->post('jenis_usaha'),
 				'password' 			=> $this->input->post('password'),
@@ -66,20 +65,8 @@ class Register extends CI_Controller {
 		$headers    = 'MIME-Version: 1.0' . "\r\n";
 		$headers    .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
 		$headers    .= 'To:  <'.$to.'>' . "\r\n";
-		$headers    .= 'From: Arnawa.co.id <'.$from_mail.'>' . "\r\n";
+		$headers    .= 'From: info@arnawa.co.id <'.$from_mail.'>' . "\r\n";
 
 		mail($to, $subject, $message, $headers);
-	}
-	
-	public function kirim(){
-        ini_set( 'display_errors', 1 );   
-        error_reporting( E_ALL );    
-        $from = "testing@domainanda.com";    
-        $to = "febriyanyoga@domain.com";    
-        $subject = "Checking PHP mail";    
-        $message = "PHP mail berjalan dengan baik";   
-        $headers = "From:" . $from;    
-        mail($to,$subject,$message, $headers);    
-        echo "Pesan email sudah terkirim.";
 	}
 }

@@ -7,7 +7,12 @@ class LoginM extends CI_Model{
 	public function ceknum($email_akun, $password){ //cek akun di db pengguna jabatan (berapa rows)
 		$this->db->where('email_akun', $email_akun);
 		$this->db->where('password', $password);
-		return $this->db->get('tbl_register');
+		return $this->db->get('akun');
+	}
+
+	public function cek_fitur($id_akun){ //cek akun di db pengguna jabatan (berapa rows)
+		$this->db->where('id_akun', $id_akun);
+		return $this->db->get('detail_fitur');
 	}
 
 	// alamat
@@ -54,14 +59,14 @@ class LoginM extends CI_Model{
 		return $response;
 	}
 
-	public function get_all_data($id){
+	public function get_all_data($id_akun){
 		$this->db->select('*');
-		$this->db->from('tbl_register R');
+		$this->db->from('akun R');
 		// $this->db->join('kelurahan L', 'R.id_kelurahan = L.id_kelurahan');
 		// $this->db->join('kecamatan C', 'L.id_kecamatan = C.id_kecamatan');
 		// $this->db->join('kabupaten_kota K', 'C.id_kabupaten_kota = K.id_kabupaten_kota');
 		// $this->db->join('propinsi P', 'K.id_propinsi = P.id_propinsi');
-		$this->db->where('R.id', $id);
+		$this->db->where('R.id_akun', $id_akun);
 		$query = $this->db->get();
 		if($query){
 			return $query;
@@ -72,7 +77,7 @@ class LoginM extends CI_Model{
 
 	public function get_all_data2(){
 		$this->db->select('*');
-		$this->db->from('tbl_register R');
+		$this->db->from('akun R');
 		$this->db->join('kelurahan L', 'R.id_kelurahan = L.id_kelurahan');
 		$this->db->join('kecamatan C', 'L.id_kecamatan = C.id_kecamatan');
 		$this->db->join('kabupaten_kota K', 'C.id_kabupaten_kota = K.id_kabupaten_kota');
@@ -89,25 +94,30 @@ class LoginM extends CI_Model{
  		$data = array(
  			'status_email' => 'aktif',
  		);  
- 		$this->db->where('email_encryption', $key);
- 		return $this->db->update('tbl_register', $data);  
+ 		$this->db->where('md5(email_akun)', $key);
+ 		return $this->db->update('akun', $data);  
  	}
  	
  	public function update($id, $data){
- 	    $this->db->where('id', $id);
- 	    $this->db->update('tbl_register', $data);
+ 	    $this->db->where('id_akun', $id);
+ 	    $this->db->update('akun', $data);
  	    return TRUE;
  	}
  	
- 	public function get_history_status($id_register){
+ 	public function get_history_status($id_akun){
  	    $this->db->select('*');
  	    $this->db->from('log_status');
- 	    $this->db->where('id_register', $id_register);
+ 	    $this->db->where('id_akun', $id_akun);
  	    $query = $this->db->get();
  	    if($query){
 			return $query;
 		}else{
 			echo "tidak ditemukan";
 		}
+ 	}
+
+ 	public function insert_fitur($data){
+ 		$this->db->insert('detail_fitur', $data);
+ 		return TRUE;
  	}
 }

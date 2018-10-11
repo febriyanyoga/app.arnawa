@@ -25,33 +25,33 @@ class LoginC extends CI_Controller {
 			$userData 	= array(
 				'email_akun' 		=> $query->email_akun,
 				'nama_akun'			=> $query->nama_akun,
+				'password'			=> $query->password,
 				'no_hp' 			=> $query->no_hp,
 				'jenis_usaha' 		=> $query->jenis_usaha,
-				'id' 				=> $query->id,
+				'id_akun' 			=> $query->id_akun,
 				'logged_in' 		=> TRUE
 			);
 			$this->session->set_userdata($userData);
-			if($query->email_akun == "admin@gmail.com"){
-				redirect('KoperasiC/admin');
-			}else{
-				if($query->nama_koperasi != ""){
-					if($userData['jenis_usaha'] == "koperasi"){
-						redirect('KoperasiC/pilih_fitur_koperasi');
-					}else{	
-						redirect('KoperasiC/pilih_fitur_umkm');
-					}	
-				}else{
-					if($query->fitur != ""){
-						redirect('KoperasiC/dashboard');
+			if($query->status_email == "aktif"){
+				if($query->jenis_akun == "user"){
+					if($query->nama_usaha == "" && $query->nama_pimpinan == ""){
+						redirect('KoperasiC/isi_data');
 					}else{
-						if($userData['jenis_usaha'] == "koperasi"){
-							redirect('KoperasiC/koperasi');
-						}else{	
-							redirect('KoperasiC/umkm');
-						}	
+						if($this->LoginM->cek_fitur($query->id_akun)->num_rows() > 1){
+							redirect('KoperasiC/dashboard');
+						}else{
+							redirect('KoperasiC/pilih_fitur');
+						}
 					}
-				}	
-			}		
+				}elseif ($query->jenis_akun == "admin") {
+					redirect('AdminC/');
+				}elseif ($query->jenis_akun == "operator") {
+					redirect('OperatorC');
+				}
+			}else{
+				$this->session->set_flashdata('error','Email belum dikonfirmasi. Silahkan konfirmasi email anda. Periksa kotak masuk/folder spam email anda dan klik tombol konfirmasi yang kami kirimkan melalui email.');
+				redirect('LoginC');
+			}
 		}else{
 			$this->session->set_flashdata('error','Email atau kata sandi salah');
 			redirect('LoginC');
@@ -73,6 +73,3 @@ class LoginC extends CI_Controller {
 		}  
 	}
 }
-
-
-

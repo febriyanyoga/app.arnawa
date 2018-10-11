@@ -26,7 +26,7 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
-    <title>Pilih Fitur Koperasi - Arnawa/title>
+    <title>Pilih Fitur <?php echo $jenis_usaha;?> - Arnawa Apps</title>
     <!-- Custom CSS -->
     <link href="<?php echo base_url()?>assets/dist/css/style.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
@@ -37,7 +37,7 @@
 <body>
     <div class="logo">
         <span class="db"><img src="<?php echo base_url()?>assets/images/Arnawa_Apps Logo.png" alt="logo" style="width: 20%;" /></span><br><br>
-        <h2 class="font-medium m-b-10" style="color: #4798e8;">Pilih Fitur Koperasi</h2>
+        <h2 class="font-medium m-b-10" style="color: #4798e8;">Pilih Fitur <?php echo $jenis_usaha;?></h2>
     </div>
     <?php
     $data=$this->session->flashdata('sukses');
@@ -64,9 +64,9 @@
     <?php echo validation_errors(); ?>
     <form class="form p-t-20" action="<?php echo base_url('KoperasiC/input_fitur')?>" method="post" onSubmit="return validate()">
         <div class="row">
-            <input type="hidden" class="form-control form-control-lg" placeholder="Nama Koperasi" name="id" id="id"  value="<?php echo $dataDiri['id']?>">
+            <input type="hidden" class="form-control form-control-lg" placeholder="Nama Koperasi" name="id_akun" id="id_akun"  value="<?php echo $dataDiri['id_akun']?>">
             <div class="col-md-6">
-                <input type="checkbox" name="fitur[]" id="shopping" class="checkbox-input" value="shopping" />
+                <input type="checkbox" name="fitur[]" id="shopping" class="checkbox-input" value="2" />
                 <label for="shopping" class="checkbox-label">
                     <div class="checkbox-text">
                         <p class="checkbox-text--title">Shopping</p>
@@ -81,14 +81,19 @@
                         <p class="checkbox-text--description">Klik untuk <span class="un">Tidak</span> Memilih ini!</p>
                     </div>
                 </label>
-
-                <input type="checkbox" name="fitur[]" id="simpin" class="checkbox-input" value="simpin" />
-                <label for="simpin" class="checkbox-label">
-                    <div class="checkbox-text">
-                        <p class="checkbox-text--title">Simpan Pinjam</p>
-                        <p class="checkbox-text--description">Klik untuk <span class="un">Tidak</span> Memilih ini!</p>
-                    </div>
-                </label>
+                <?php
+                if($jenis_usaha == "Koperasi"){
+                    ?>
+                    <input type="checkbox" name="fitur[]" id="simpin" class="checkbox-input" value="simpin" />
+                    <label for="simpin" class="checkbox-label">
+                        <div class="checkbox-text">
+                            <p class="checkbox-text--title">Simpan Pinjam</p>
+                            <p class="checkbox-text--description">Klik untuk <span class="un">Tidak</span> Memilih ini!</p>
+                        </div>
+                    </label>
+                    <?php
+                }
+                ?>
 
                 <input type="checkbox" name="fitur[]" id="travel" class="checkbox-input" value="travel" />
                 <label for="travel" class="checkbox-label">

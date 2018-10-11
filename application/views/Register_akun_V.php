@@ -90,19 +90,19 @@
                             <form class="form-horizontal m-t-20" action="<?php echo site_url('Register/register')?>" method="post">
                                 <div class="form-group row ">
                                     <div class="col-12 ">
-                                        <input class="form-control form-control-lg" name="nama_akun" type="text" required placeholder="Nama Anda">
+                                        <input class="form-control form-control-lg" id="nama_akun" name="nama_akun" type="text" required placeholder="Nama Anda">
                                         <span class="text-danger" style="color: red;"><?php echo form_error('nama_akun'); ?></span> 
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-12 ">
-                                        <input class="form-control form-control-lg" name="no_hp" type="number" required onkeypress="return hanyaAngka(event)" placeholder="No. HP">
+                                        <input class="form-control form-control-lg" id="no_hp" name="no_hp" type="number" required onkeypress="return hanyaAngka(event)" placeholder="No. HP">
                                         <span class="text-danger" style="color: red;"><?php echo form_error('no_hp'); ?></span> 
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-12 ">
-                                        <input type="email" class="form-control form-control-lg" name="email_akun" type="email" required placeholder="Email">
+                                        <input type="email" class="form-control form-control-lg" id="email_akun" name="email_akun" type="email" required placeholder="Email">
                                         <span class="text-danger" style="color: red;"><?php echo form_error('email_akun'); ?></span> 
                                         <span class="text-danger" style="color: red;"><?php echo validation_errors('email_akun'); ?></span> 
                                     </div>
@@ -176,25 +176,28 @@
 
         $(function () {
             $("#btnSubmit").click(function () {
-                var password = $("#password").val();
-                var confirmPassword = $("#confirm_password").val();
-                var pass_length = password.length;
-                if (password != confirmPassword) {
-                    alert("Kata sandi tidak sama.");
-                    return false;
-                }else{
-                    if(pass_length < 6){
-                        alert("Panjang Kata sandi minimal 6 karakter");
+                if($("#nama_akun").val() != "" && $("#no_hp").val() != "" && $("#email_akun").val() && $("#jenis_usaha").val() && $("#password").val() != "" && $("#confirm_password").val() != ""){
+                     var password = $("#password").val();
+                    var confirmPassword = $("#confirm_password").val();
+                    var pass_length = password.length;
+                    if (password != confirmPassword) {
+                        alert("Kata sandi tidak sama.");
                         return false;
                     }else{
-                        if(pass_length > 10){
-                            alert("Panjang Kata sandi maksimal 10 karakter");
+                        if(pass_length < 6){
+                            alert("Panjang Kata sandi minimal 6 karakter");
                             return false;
                         }else{
-                            return true;
+                            if(pass_length > 10){
+                                alert("Panjang Kata sandi maksimal 10 karakter");
+                                return false;
+                            }else{
+                                return true;
+                            }
                         }
                     }
                 }
+               
             });
         });
     </script>
