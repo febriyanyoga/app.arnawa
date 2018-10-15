@@ -37,6 +37,11 @@
     <link href="<?php echo base_url();?>assets/libs/morris.js/morris.css" rel="stylesheet">
     <!-- Custom CSS -->
     <link href="<?php echo base_url();?>assets/dist/css/style.min.css" rel="stylesheet">
+
+    <!--Tambahan CSS-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+    <link rel="stylesheet" href="<?php echo base_url()?>assets/css/style.css">
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -287,7 +292,7 @@
                         </li> -->
 
                         <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link active" href="<?php echo base_url()?>KoperasiC/dashboard" aria-expanded="false">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link " href="<?php echo base_url()?>KoperasiC/dashboard" aria-expanded="false">
                                 <i class="ti-dashboard"></i>
                                 <span class="hide-menu">Dashboards </span>
                             </a>
@@ -331,7 +336,7 @@
                         </li>
 
                         <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?php echo base_url()?>CobaC/mintamodul" aria-expanded="false">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link active" href="<?php echo base_url()?>CobaC/mintamodul" aria-expanded="false">
                                 <i class="ti-dashboard"></i>
                                 <span class="hide-menu">Permintaan Modul </span>
                             </a>
@@ -406,42 +411,83 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="card-title">Manajemen Modul Anda</h4><br>
-                            <div class="table-responsive">
-                                <table id="multi_col_order" class="table table-striped table-bordered display" style="width:100%">
-                                    <thead>
-                                        <tr>
-                                            <th>No</th>
-                                            <th>Fitur</th>
-                                            <th>Status</th>
-                                            <th>Tanggal Aktif</th>
-                                            <th>Tanggal Berakhir</th>
-                                            <th>Akses</th>
-                                            <th>Tagihan</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Simpan Pinjam</td>
-                                            <td>Aktif</td>
-                                            <td>09 0ctober 2018</td>
-                                            <td>09 0ctober 2019</td>
-                                            <td>https://kasupegangsaan.arnawa.co.id</td>
-                                            <td>Rp. 0</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>Shopping</td>
-                                            <td>Aktif</td>
-                                            <td>09 0ctober 2018</td>
-                                            <td>Lifetime</td>
-                                            <td>-</td>
-                                            <td>Rp. 0</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                            <form class="form p-t-20" action="<?php echo base_url('KoperasiC/input_fitur')?>" method="post" onSubmit="return validate()">
+                                <div class="row">
+                                    <input type="hidden" class="form-control form-control-lg" placeholder="Nama Koperasi" name="id" id="id"  value="<?php echo $dataDiri['id']?>">
+                                    <div class="col-md-6">
+                                        <input type="checkbox" name="fitur[]" id="shopping" class="checkbox-input" value="shopping" />
+                                        <label for="shopping" class="checkbox-label">
+                                            <div class="checkbox-text">
+                                                <p class="checkbox-text--title">Shopping</p>
+                                                <p class="checkbox-text--description">Klik untuk <span class="un">Tidak</span> Memilih ini!</p>
+                                            </div>
+                                        </label>
+
+                                        <input type="checkbox" name="fitur[]" id="ppob" class="checkbox-input" value="ppob" />
+                                        <label for="ppob" class="checkbox-label">
+                                            <div class="checkbox-text">
+                                                <p class="checkbox-text--title">PPOB</p>
+                                                <p class="checkbox-text--description">Klik untuk <span class="un">Tidak</span> Memilih ini!</p>
+                                            </div>
+                                        </label>
+                                        <input type="checkbox" name="fitur[]" id="travel" class="checkbox-input" value="travel" />
+                                        <label for="travel" class="checkbox-label">
+                                            <div class="checkbox-text">
+                                                <p class="checkbox-text--title">Travel</p>
+                                                <p class="checkbox-text--description">Klik untuk <span class="un">Tidak</span> Memilih ini!</p>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    
+                                    <div class="col-md-6">
+                                        <input type="checkbox" name="fitur[]" id="forum" class="checkbox-input" value="forum" />
+                                        <label for="forum" class="checkbox-label">
+                                            <div class="checkbox-text">
+                                                <p class="checkbox-text--title">Forum</p>
+                                                <p class="checkbox-text--description">Klik untuk <span class="un">Tidak</span> Memilih ini!</p>
+                                            </div>
+                                        </label>
+
+                                        <input type="checkbox" name="fitur[]" id="event" class="checkbox-input" value="event" />
+                                        <label for="event" class="checkbox-label">
+                                            <div class="checkbox-text">
+                                                <p class="checkbox-text--title">Event</p>
+                                                <p class="checkbox-text--description">Klik untuk <span class="un">Tidak</span> Memilih ini!</p>
+                                            </div>
+                                        </label>
+
+                                        <input type="checkbox" name="fitur[]" id="pos" class="checkbox-input" value="pos" />
+                                        <label for="pos" class="checkbox-label">
+                                            <div class="checkbox-text">
+                                                <p class="checkbox-text--title">Point of Sales</p>
+                                                <p class="checkbox-text--description">Klik untuk <span class="un">Tidak</span> Memilih ini!</p>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-3"></div>
+                                    <div class="col-md-6">
+                                        <input type="checkbox" name="fitur[]" id="news" class="checkbox-input" value="news" />
+                                        <label for="news" class="checkbox-label">
+                                            <div class="checkbox-text">
+                                                <p class="checkbox-text--title">News</p>
+                                                <p class="checkbox-text--description">Klik untuk <span class="un">Tidak</span> Memilih ini!</p>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div class="col-md-3"></div>
+                                </div>
+                                
+                                <div class="row m-t-20">
+                                    <div class="col-md-4"></div>
+                                    <div class="col-md-4">
+                                        <input type="submit" class="btn btn-lg btn-default btn-block" name="submit" id="simpan" value="Simpan">
+                                    </div>
+                                    <div class="col-md-4"></div>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -500,6 +546,10 @@
     <!--This page plugins -->
     <script src="<?php echo base_url();?>assets/extra-libs/DataTables/datatables.min.js"></script>
     <script src="<?php echo base_url();?>assets/dist/js/pages/datatable/datatable-basic.init.js"></script>
+
+    <!--Tambahan JS-->
+    <script src="<?php echo base_url()?>assets/dist/js/app.init.js"></script>
+    <script src="<?php echo base_url()?>assets/dist/js/app-style-switcher.js"></script>
 
 
 </body>
