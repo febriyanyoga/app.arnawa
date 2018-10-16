@@ -1,5 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
+date_default_timezone_set('Asia/Jakarta');
 
 class CobaC extends CI_Controller {
 
@@ -26,7 +27,7 @@ class CobaC extends CI_Controller {
 	}
 
 	public function mintamodul(){
-		$id  = $this->session->userdata('id');
+		$id  = $this->session->userdata('id_akun');
 		$this->data['data_akun'] = $this->LoginM->get_all_data($id)->result()[0];
 		$this->data['dataDiri'] = $this->session->userdata();
 		$this->load->view('PermintaanmodulV',$this->data);

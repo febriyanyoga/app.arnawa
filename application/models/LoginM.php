@@ -140,6 +140,36 @@ class LoginM extends CI_Model{
 		}
 	}
 
+	public function get_detail_fitur_by_akun($id_akun){
+		$this->db->select('*');
+		$this->db->from('detail_fitur D');
+		$this->db->join('akun A', 'D.id_akun = A.id_akun');
+		$this->db->join('fitur F', 'D.id_fitur = F.id_fitur');
+		$this->db->join('tagihan T', 'D.id_detail_fitur = T.id_detail_fitur');
+		$query = $this->db->get();
+		if($query){
+			return $query;
+		}else{
+			echo "tidak ditemukan";
+		}
+	}
+
+	public function get_tagihan_by_fitur($id_detail_fitur){
+		$this->db->select('*');
+		$this->db->from('tagihan T');
+		$this->db->join('detail_fitur D','T.id_detail_fitur = D.id_detail_fitur');
+		$this->db->join('akun A','A.id_akun = D.id_akun');
+		$this->db->join('fitur F','D.id_fitur = F.id_fitur');
+		$query = $this->db->get();
+		if($query){
+			return $query;
+		}else{
+			echo "tidak ditemukan";
+		}
+
+		
+	}
+
 	// reset_password
 	public function getByEmail($email){
 		$this->db->where('email_akun',$email);

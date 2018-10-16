@@ -9,8 +9,12 @@ class KoperasiC extends CI_Controller {
 		$this->load->model(['Registrasi_m','LoginM']);
 		$email_akun = $this->session->userdata('email_akun');
 		$password 	= $this->session->userdata('password');
+		$id_akun 	= $this->session->userdata('id_akun');
+
 		$this->data['jenis_usaha'] 	= $this->LoginM->ceknum($email_akun, $password)->row()->jenis_usaha;
 		$this->data['dataDiri'] 	= $this->session->userdata();
+		$this->data['fitur'] 		= $this->LoginM->get_fitur_by_akun($id_akun)->result();
+
 
 		in_access(); //helper buat batasi akses login/session
 	}
@@ -35,7 +39,20 @@ class KoperasiC extends CI_Controller {
 		$id  = $this->session->userdata('id_akun');
 		$this->data['data_akun'] = $this->LoginM->get_all_data($id)->result()[0];
 		$this->data['dataDiri'] = $this->session->userdata();
+		$this->data['active'] = 'active';
+		$this->data['manajemen_fitur'] 		= $this->LoginM->get_detail_fitur_by_akun($id)->result();
 		$this->load->view('DashboardV',$this->data);
+	}
+
+	
+	// Permintaan modul
+	public function mintamodul(){
+		$id  = $this->session->userdata('id_akun');
+		$this->data['data_akun'] = $this->LoginM->get_all_data($id)->result()[0];
+		$this->data['dataDiri'] = $this->session->userdata();
+		$this->data['active'] = 'active';
+		$this->data['manajemen_fitur'] 		= $this->LoginM->get_detail_fitur_by_akun($id)->result();
+		$this->load->view('PermintaanmodulV',$this->data);
 	}
 
 	 // alamat
@@ -123,6 +140,7 @@ class KoperasiC extends CI_Controller {
 	}
 	
 	
+
 // 	admin
 	public function update_verified($id){
 		$data = array('status' => 'verified');

@@ -413,7 +413,7 @@
                         <div class="card-body">
                             <form class="form p-t-20" action="<?php echo base_url('KoperasiC/input_fitur')?>" method="post" onSubmit="return validate()">
                                 <div class="row">
-                                    <input type="hidden" class="form-control form-control-lg" placeholder="Nama Koperasi" name="id" id="id"  value="<?php echo $dataDiri['id']?>">
+                                    <input type="hidden" class="form-control form-control-lg" placeholder="Nama Koperasi" name="id" id="id"  value="<?php echo $dataDiri['id_akun']?>">
                                     <div class="col-md-6">
                                         <input type="checkbox" name="fitur[]" id="shopping" class="checkbox-input" value="shopping" />
                                         <label for="shopping" class="checkbox-label">

@@ -18,7 +18,7 @@
     <link rel="apple-touch-icon" sizes="144x144" href="<?php echo base_url()?>assets/images/icon/-icon-144x144.png">
     <link rel="apple-touch-icon" sizes="152x152" href="<?php echo base_url()?>assets/images/icon/-icon-152x152.png">
     <link rel="apple-touch-icon" sizes="180x180" href="<?php echo base_url()?>assets/images/icon/-icon-180x180.png">
-    <link rel="icon" type="image/png" sizes="192x192"  href="/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/android-icon-192x192.png">
     <link rel="icon" type="image/png" sizes="32x32" href="<?php echo base_url()?>assets/images/icon/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="96x96" href="<?php echo base_url()?>assets/images/icon/favicon-96x96.png">
     <link rel="icon" type="image/png" sizes="16x16" href="<?php echo base_url()?>assets/images/icon/favicon-16x16.png">
@@ -28,7 +28,7 @@
     <meta name="theme-color" content="#ffffff">
     <title>Arnawasys</title>
     <!-- Custom CSS -->
-    
+
     <!-- This page plugin CSS -->
     <link href="<?php echo base_url();?>assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.css" rel="stylesheet">
 
@@ -137,7 +137,7 @@
                         <!-- ============================================================== -->
                         <!-- End Comment -->
                         <!-- ============================================================== -->
-                        
+
                         <!-- ============================================================== -->
                         <!-- Messages -->
                         <!-- ============================================================== -->
@@ -189,316 +189,307 @@
                                     </div>
 
                                     <div class="m-l-10">
-                                        <h4 class="m-b-0"><?php echo $data_akun->nama_akun?></h4>
-                                        <p class=" m-b-0"><?php echo $data_akun->email_akun?></p>
+                                        <h4 class="m-b-0">
+                                            <?php echo $data_akun->nama_akun?>
+                                        </h4>
+                                        <p class=" m-b-0">
+                                            <?php echo $data_akun->email_akun?>
+                                        </p>
                                     </div>
                                 </div>
 
                                 <a class="dropdown-item" href="javascript:void(0)">
                                     <i class="ti-user m-r-5 m-l-5"></i> My Profile</a>
 
-                                    <a class="dropdown-item" href="javascript:void(0)">
+                                <a class="dropdown-item" href="javascript:void(0)">
                                         <i class="ti-wallet m-r-5 m-l-5"></i> My Balance</a>
 
-                                        <a class="dropdown-item" href="javascript:void(0)">
+                                <a class="dropdown-item" href="javascript:void(0)">
                                             <i class="ti-email m-r-5 m-l-5"></i> Inbox</a>
 
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="javascript:void(0)">
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="javascript:void(0)">
                                                 <i class="ti-settings m-r-5 m-l-5"></i> Account Setting</a>
 
-                                                <div class="dropdown-divider"></div>
-                                                <a class="dropdown-item" href="<?php echo site_url('LoginC/log_out')?>">
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="<?php echo site_url('LoginC/log_out')?>">
                                                     <i class="fa fa-power-off m-r-5 m-l-5"></i> Logout</a>
 
-                                                    <div class="dropdown-divider"></div>
+                                <div class="dropdown-divider"></div>
 
-                                                    <div class="p-l-30 p-10">
-                                                        <a href="javascript:void(0)" class="btn btn-sm btn-success btn-rounded">View Profile</a>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <!-- ============================================================== -->
-                                            <!-- User profile and search -->
-                                            <!-- ============================================================== -->
-                                        </ul>
-                                    </div>
-                                </nav>
-                            </header>
-                            <!-- ============================================================== -->
-                            <!-- End Topbar header -->
-                            <!-- ============================================================== -->
+                                <div class="p-l-30 p-10">
+                                    <a href="javascript:void(0)" class="btn btn-sm btn-success btn-rounded">View Profile</a>
+                                </div>
+                            </div>
+                        </li>
+                        <!-- ============================================================== -->
+                        <!-- User profile and search -->
+                        <!-- ============================================================== -->
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <!-- ============================================================== -->
+        <!-- End Topbar header -->
+        <!-- ============================================================== -->
 
-                            <!-- ============================================================== -->
-                            <!-- Left Sidebar - style you can find in sidebar.scss  -->
-                            <!-- ============================================================== -->
-                            <aside class="left-sidebar">
-                                <!-- Sidebar scroll-->
-                                <div class="scroll-sidebar">
-                                    <!-- Sidebar navigation-->
-                                    <nav class="sidebar-nav">
-                                        <ul id="sidebarnav">
-                                            <!-- User Profile-->
-                                            <li>
-                                                <!-- User Profile-->
-                                                <div class="user-profile dropdown m-t-20">
-                                                    <div class="user-pic">
-                                                        <img src="<?php echo base_url();?>assets/images/users/1.jpg" alt="users" class="rounded-circle img-fluid" />
-                                                    </div>
+        <!-- ============================================================== -->
+        <!-- Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
+        <aside class="left-sidebar">
+            <!-- Sidebar scroll-->
+            <div class="scroll-sidebar">
+                <!-- Sidebar navigation-->
+                <nav class="sidebar-nav">
+                    <ul id="sidebarnav">
+                        <!-- User Profile-->
+                        <li>
+                            <!-- User Profile-->
+                            <div class="user-profile dropdown m-t-20">
+                                <div class="user-pic">
+                                    <img src="<?php echo base_url();?>assets/images/users/1.jpg" alt="users" class="rounded-circle img-fluid" />
+                                </div>
 
-                                                    <div class="user-content hide-menu m-t-10">
-                                                        <h5 class="m-b-10 user-name font-medium"><?php echo $data_akun->nama_akun?></h5>
+                                <div class="user-content hide-menu m-t-10">
+                                    <h5 class="m-b-10 user-name font-medium">
+                                        <?php echo $data_akun->nama_akun?>
+                                    </h5>
 
-                                                        <a href="javascript:void(0)" class="btn btn-circle btn-sm m-r-5" id="Userdd" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <a href="javascript:void(0)" class="btn btn-circle btn-sm m-r-5" id="Userdd" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                             <i class="ti-settings"></i>
                                                         </a>
 
-                                                        <a href="<?php echo site_url('LoginC/log_out')?>" title="Logout" class="btn btn-circle btn-sm">
+                                    <a href="<?php echo site_url('LoginC/log_out')?>" title="Logout" class="btn btn-circle btn-sm">
                                                             <i class="ti-power-off"></i>
                                                         </a>
 
-                                                        <div class="dropdown-menu animated flipInY" aria-labelledby="Userdd">
-                                                            <a class="dropdown-item" href="javascript:void(0)">
+                                    <div class="dropdown-menu animated flipInY" aria-labelledby="Userdd">
+                                        <a class="dropdown-item" href="javascript:void(0)">
                                                                 <i class="ti-user m-r-5 m-l-5"></i> My Profile</a>
 
-                                                                <a class="dropdown-item" href="javascript:void(0)">
+                                        <a class="dropdown-item" href="javascript:void(0)">
                                                                     <i class="ti-wallet m-r-5 m-l-5"></i> My Balance</a>
 
-                                                                    <a class="dropdown-item" href="javascript:void(0)">
+                                        <a class="dropdown-item" href="javascript:void(0)">
                                                                         <i class="ti-email m-r-5 m-l-5"></i> Inbox</a>
 
-                                                                        <div class="dropdown-divider"></div>
-                                                                        <a class="dropdown-item" href="<?php echo site_url('LoginC/log_out')?>">
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="<?php echo site_url('LoginC/log_out')?>">
                                                                             <i class="ti-settings m-r-5 m-l-5"></i> Account Setting</a>
 
-                                                                            <div class="dropdown-divider"></div>
-                                                                            <a class="dropdown-item" href="javascript:void(0)">
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="javascript:void(0)">
                                                                                 <i class="fa fa-power-off m-r-5 m-l-5"></i> Logout</a>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <!-- End User Profile-->
-                                                                </li>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End User Profile-->
+                        </li>
 
-                                                                <!-- User Profile-->
-                        <!--  <li class="nav-small-cap">
-                        <i class="mdi mdi-dots-horizontal"></i>
-                        <span class="hide-menu">Dashboard</span>
-                    </li> -->
-
-                    <li class="sidebar-item">
-                        <a class="sidebar-link waves-effect waves-dark sidebar-link active" href="<?php echo base_url()?>KoperasiC/dashboard" aria-expanded="false">
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link <?php echo $active;?>" href="<?php echo base_url()?>KoperasiC/dashboard" aria-expanded="false">
                             <i class="ti-dashboard"></i>
                             <span class="hide-menu">Dashboards </span>
                         </a>
-                    </li>
+                        </li>
 
-                    <li class="nav-small-cap">
-                        <i class="mdi mdi-dots-horizontal"></i>
-                        <span class="hide-menu">Fitur</span>
-                    </li>
-
-                    <li class="sidebar-item">
-                        <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
-                            <i class="ti-money"></i>
-                            <span class="hide-menu">Simpan Pinjam </span>
-                        </a>
-
-                        <ul aria-expanded="false" class="collapse  first-level">
-                            <li class="sidebar-item">
-                                <a href="#" class="sidebar-link">
-                                    <i class="mdi mdi-email"></i>
-                                    <span class="hide-menu"> Master Data </span>
+                        <li class="nav-small-cap">
+                            <i class="mdi mdi-dots-horizontal"></i>
+                            <span class="hide-menu">Fitur</span>
+                        </li>
+                        <?php
+                        // print_r($fitur);
+                        foreach ($fitur as $fit) {
+                            ?>
+                                <li class="sidebar-item">
+                                    <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
+                                    <i class="<?php echo $fit->icon;?>"></i>
+                                    <span class="hide-menu"><?php echo $fit->nama_fitur?></span>
                                 </a>
-                            </li>
-                        </ul>
-                    </li>
 
-                    <li class="sidebar-item">
-                        <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
-                            <i class="ti-shopping-cart"></i>
-                            <span class="hide-menu">Shopping</span>
-                        </a>
-
-                        <ul aria-expanded="false" class="collapse  first-level">
-                            <li class="sidebar-item">
-                                <a href="#" class="sidebar-link">
-                                    <i class="mdi mdi-email"></i>
-                                    <span class="hide-menu"> Master Data </span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <li class="sidebar-item">
-                        <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?php echo base_url()?>CobaC/mintamodul" aria-expanded="false">
-                            <i class="ti-dashboard"></i>
+                                    <ul aria-expanded="false" class="collapse  first-level">
+                                        <li class="sidebar-item">
+                                            <a href="#" class="sidebar-link">
+                                            <i class="mdi mdi-email"></i>
+                                            <span class="hide-menu"> Master Data </span>
+                                        </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <?php
+                                }
+                            ?>
+                                <li class="sidebar-item">
+                                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?php echo base_url()?>KoperasiC/mintamodul" aria-expanded="false">
+                            <i class="ti-files"></i>
                             <span class="hide-menu">Permintaan Modul </span>
                         </a>
-                    </li>
+                                </li>
 
-                    <li class="sidebar-item">
-                        <a class="sidebar-link waves-effect waves-dark sidebar-link" href="#" aria-expanded="false">
-                            <i class="ti-dashboard"></i>
+                                <li class="sidebar-item">
+                                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="#" aria-expanded="false">
+                            <i class="ti-folder"></i>
                             <span class="hide-menu">Manajemen Koperasi </span>
                         </a>
-                    </li>
-                </ul>
-            </nav>
-            <!-- End Sidebar navigation -->
-        </div>
-        <!-- End Sidebar scroll-->
-    </aside>
-    <!-- ============================================================== -->
-    <!-- End Left Sidebar - style you can find in sidebar.scss  -->
-    <!-- ============================================================== -->
-
-
-    <!-- ============================================================== -->
-    <!-- Page wrapper  -->
-    <!-- ============================================================== -->
-    <div class="page-wrapper">
-        <!-- ============================================================== -->
-        <!-- Bread crumb and right sidebar toggle -->
-        <!-- ============================================================== -->
-        <div class="page-breadcrumb">
-            <div class="row">
-                <div class="col-5 align-self-center">
-                    <!-- <h4 class="page-title">Dashboard</h4> -->
-                    <div class="d-flex align-items-center">
-                    </div>
-                </div>
-
-                <div class="col-7 align-self-center">
-                    <div class="d-flex no-block justify-content-end align-items-center">
-                        <nav aria-label="breadcrumb">
-                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item">
                                 </li>
-                            </ol>
-                        </nav>
-                    </div>
-                </div>
+                    </ul>
+                </nav>
+                <!-- End Sidebar navigation -->
             </div>
-        </div>
+            <!-- End Sidebar scroll-->
+        </aside>
+        <!-- ============================================================== -->
+        <!-- End Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
+
 
         <!-- ============================================================== -->
-        <!-- Container fluid  -->
+        <!-- Page wrapper  -->
         <!-- ============================================================== -->
-        <div class="main-wrapper">
-
+        <div class="page-wrapper">
             <!-- ============================================================== -->
-            <!-- Preloader - style you can find in spinners.css -->
+            <!-- Bread crumb and right sidebar toggle -->
             <!-- ============================================================== -->
-            <div class="preloader">
-                <div class="lds-ripple">
-                    <div class="lds-pos"></div>
-                    <div class="lds-pos"></div>
-                </div>
-                <!-- ============================================================== -->
-                <!-- Preloader - style you can find in spinners.css -->
-                <!-- ============================================================== -->
+            <div class="page-breadcrumb">
+                <div class="row">
+                    <div class="col-5 align-self-center">
+                        <!-- <h4 class="page-title">Dashboard</h4> -->
+                        <div class="d-flex align-items-center">
+                        </div>
+                    </div>
 
-                <!-- ============================================================== -->
-                <!-- MULAI : DATA TABEL -->
-                <!-- ============================================================== -->
-                <div class="col-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <h4 class="card-title">Manajemen Modul Anda</h4><br>
-                            <div class="table-responsive">
-                                <table id="multi_col_order" class="table table-striped table-bordered display" style="width:100%">
-                                    <thead>
-                                        <tr>
-                                            <th>No</th>
-                                            <th>Fitur</th>
-                                            <th>Status</th>
-                                            <th>Tanggal Aktif</th>
-                                            <th>Tanggal Berakhir</th>
-                                            <th>Akses</th>
-                                            <th>Tagihan</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Simpan Pinjam</td>
-                                            <td>Aktif</td>
-                                            <td>09 0ctober 2018</td>
-                                            <td>09 0ctober 2019</td>
-                                            <td>https://kasupegangsaan.arnawa.co.id</td>
-                                            <td>Rp. 0</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>Shopping</td>
-                                            <td>Aktif</td>
-                                            <td>09 0ctober 2018</td>
-                                            <td>Lifetime</td>
-                                            <td>-</td>
-                                            <td>Rp. 0</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                    <div class="col-7 align-self-center">
+                        <div class="d-flex no-block justify-content-end align-items-center">
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item">
+                                    </li>
+                                </ol>
+                            </nav>
                         </div>
                     </div>
                 </div>
-                <!-- ============================================================== -->
-                <!-- END : DATA TABEL -->
-                <!-- ============================================================== -->
             </div>
+
+            <!-- ============================================================== -->
+            <!-- Container fluid  -->
+            <!-- ============================================================== -->
+            <div class="main-wrapper">
+
+                <!-- ============================================================== -->
+                <!-- Preloader - style you can find in spinners.css -->
+                <!-- ============================================================== -->
+                <div class="preloader">
+                    <div class="lds-ripple">
+                        <div class="lds-pos"></div>
+                        <div class="lds-pos"></div>
+                    </div>
+                </div>
+                    <!-- ============================================================== -->
+                    <!-- Preloader - style you can find in spinners.css -->
+                    <!-- ============================================================== -->
+
+                    <!-- ============================================================== -->
+                    <!-- MULAI : DATA TABEL -->
+                    <!-- ============================================================== -->
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Manajemen Modul Anda</h4><br>
+                                <div class="table-responsive">
+                                    <table id="multi_col_order" class="table table-striped table-bordered display" style="width:100%">
+                                        <thead>
+                                            <tr>
+                                                <th>No</th>
+                                                <th>Fitur</th>
+                                                <th>Status</th>
+                                                <th>Tanggal Aktif</th>
+                                                <th>Tanggal Berakhir</th>
+                                                <th>Akses</th>
+                                                <th>Tagihan</th>
+                                                <th>History</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <?php
+                                                // print_r($manajemen_fitur);
+                                                $i=0;
+                                                    foreach ($manajemen_fitur as $macam_fitur) {
+                                                    $i++;
+                                                        ?>
+                                                    <tr>
+                                                        <td><?php echo $i;?></td>
+                                                        <td><?php echo $macam_fitur->nama_fitur;?></td>
+                                                        <td><?php echo $macam_fitur->status;?></td>
+                                                        <td><?php echo $macam_fitur->start_date;?></td>
+                                                        <td><?php echo $macam_fitur->end_date;?></td>
+                                                        <td><?php echo $macam_fitur->link_app;?></td>
+                                                        <td>Rp<?php echo number_format($macam_fitur->harga, 0,',','.');?>,-</td>
+                                                        <td><?php echo $macam_fitur->id_detail_fitur;?></td>
+                                                    </tr>
+                                                        <?php
+                                                    }
+                                                ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ============================================================== -->
+                    <!-- END : DATA TABEL -->
+                    <!-- ============================================================== -->
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Wrapper -->
+            <!-- ============================================================== -->
+
+            <!-- ============================================================== -->
+            <!-- customizer Panel -->
+            <!-- ============================================================== -->
+            <div class="chat-windows"></div>
+            <!-- ============================================================== -->
+            <!-- end customizer Panel -->
+            <!-- ============================================================== -->
         </div>
-        <!-- ============================================================== -->
-        <!-- End Wrapper -->
-        <!-- ============================================================== -->
 
         <!-- ============================================================== -->
-        <!-- customizer Panel -->
+        <!-- All Jquery -->
         <!-- ============================================================== -->
-        <div class="chat-windows"></div> 
-        <!-- ============================================================== -->
-        <!-- end customizer Panel -->
-        <!-- ============================================================== -->
-    </div>
 
-    <!-- ============================================================== -->
-    <!-- All Jquery -->
-    <!-- ============================================================== -->
+        <script src="<?php echo base_url();?>assets/libs/jquery/dist/jquery.min.js"></script>
+        <!-- Bootstrap tether Core JavaScript -->
+        <script src="<?php echo base_url();?>assets/libs/popper.js/dist/umd/popper.min.js"></script>
+        <script src="<?php echo base_url();?>assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+        <!-- apps -->
+        <script src="<?php echo base_url();?>assets/dist/js/app.min.js"></script>
+        <script src="<?php echo base_url();?>assets/dist/js/app.init.js"></script>
+        <script src="<?php echo base_url();?>assets/dist/js/app-style-switcher.js"></script>
+        <!-- slimscrollbar scrollbar JavaScript -->
+        <script src="<?php echo base_url();?>assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
+        <script src="<?php echo base_url();?>assets/extra-libs/sparkline/sparkline.js"></script>
+        <!--Wave Effects -->
+        <script src="<?php echo base_url();?>assets/dist/js/waves.js"></script>
+        <!--Menu sidebar -->
+        <script src="<?php echo base_url();?>assets/dist/js/sidebarmenu.js"></script>
+        <!--Custom JavaScript -->
+        <script src="<?php echo base_url();?>assets/dist/js/custom.min.js"></script>
+        <!--This page JavaScript -->
+        <!--chartis chart-->
+        <script src="<?php echo base_url();?>assets/libs/chartist/dist/chartist.min.js"></script>
+        <script src="<?php echo base_url();?>assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
+        <!--c3 charts -->
+        <script src="<?php echo base_url();?>assets/extra-libs/c3/d3.min.js"></script>
+        <script src="<?php echo base_url();?>assets/extra-libs/c3/c3.min.js"></script>
+        <!--chartjs -->
+        <script src="<?php echo base_url();?>assets/libs/raphael/raphael.min.js"></script>
+        <script src="<?php echo base_url();?>assets/libs/morris.js/morris.min.js"></script>
 
-    <script src="<?php echo base_url();?>assets/libs/jquery/dist/jquery.min.js"></script>
-    <!-- Bootstrap tether Core JavaScript -->
-    <script src="<?php echo base_url();?>assets/libs/popper.js/dist/umd/popper.min.js"></script>
-    <script src="<?php echo base_url();?>assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
-    <!-- apps -->
-    <script src="<?php echo base_url();?>assets/dist/js/app.min.js"></script>
-    <script src="<?php echo base_url();?>assets/dist/js/app.init.js"></script>
-    <script src="<?php echo base_url();?>assets/dist/js/app-style-switcher.js"></script>
-    <!-- slimscrollbar scrollbar JavaScript -->
-    <script src="<?php echo base_url();?>assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
-    <script src="<?php echo base_url();?>assets/extra-libs/sparkline/sparkline.js"></script>
-    <!--Wave Effects -->
-    <script src="<?php echo base_url();?>assets/dist/js/waves.js"></script>
-    <!--Menu sidebar -->
-    <script src="<?php echo base_url();?>assets/dist/js/sidebarmenu.js"></script>
-    <!--Custom JavaScript -->
-    <script src="<?php echo base_url();?>assets/dist/js/custom.min.js"></script>
-    <!--This page JavaScript -->
-    <!--chartis chart-->
-    <script src="<?php echo base_url();?>assets/libs/chartist/dist/chartist.min.js"></script>
-    <script src="<?php echo base_url();?>assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
-    <!--c3 charts -->
-    <script src="<?php echo base_url();?>assets/extra-libs/c3/d3.min.js"></script>
-    <script src="<?php echo base_url();?>assets/extra-libs/c3/c3.min.js"></script>
-    <!--chartjs -->
-    <script src="<?php echo base_url();?>assets/libs/raphael/raphael.min.js"></script>
-    <script src="<?php echo base_url();?>assets/libs/morris.js/morris.min.js"></script>
+        <script src="<?php echo base_url();?>assets/dist/js/pages/dashboards/dashboard1.js"></script>
 
-    <script src="<?php echo base_url();?>assets/dist/js/pages/dashboards/dashboard1.js"></script>
-
-    <!--This page plugins -->
-    <script src="<?php echo base_url();?>assets/extra-libs/DataTables/datatables.min.js"></script>
-    <script src="<?php echo base_url();?>assets/dist/js/pages/datatable/datatable-basic.init.js"></script>
+        <!--This page plugins -->
+        <script src="<?php echo base_url();?>assets/extra-libs/DataTables/datatables.min.js"></script>
+        <script src="<?php echo base_url();?>assets/dist/js/pages/datatable/datatable-basic.init.js"></script>
 
 
 </body>
