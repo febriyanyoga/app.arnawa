@@ -38,7 +38,7 @@ class LoginC extends CI_Controller {
 			if($query->status_email == "aktif"){
 				if($query->jenis_akun == "user"){
 					if($query->nama_usaha == "" && $query->nama_pimpinan == ""){
-						redirect('KoperasiC/isi_data');
+						redirect('KoperasiC/');
 					}else{
 						if($this->LoginM->cek_fitur($query->id_akun)->num_rows() > 1){
 							redirect('KoperasiC/dashboard');

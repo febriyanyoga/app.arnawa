@@ -7,6 +7,9 @@ class KoperasiC extends CI_Controller {
 	public function __construct() {
 		parent::__construct();
 		$this->load->model(['Registrasi_m','LoginM']);
+		in_access(); //helper buat batasi akses login/session
+		user_access();
+	
 		$email_akun = $this->session->userdata('email_akun');
 		$password 	= $this->session->userdata('password');
 		$id_akun 	= $this->session->userdata('id_akun');
@@ -16,16 +19,12 @@ class KoperasiC extends CI_Controller {
 		$this->data['fitur'] 		= $this->LoginM->get_fitur_by_akun($id_akun)->result();
 
 
-		in_access(); //helper buat batasi akses login/session
 	}
-	
-	public function isi_data()
-	{
+	public function index(){
 		$id_akun 	= $this->session->userdata('id_akun');
 		$this->data['data_akun'] 	= $this->LoginM->get_all_data($id_akun)->result()[0];
 		$this->data['provinsi'] 	= $this->LoginM->get_all_provinsi();
 		$this->load->view('Isi_data_usaha',$this->data);
-
 	}
 
 	public function pilih_fitur(){
@@ -41,7 +40,8 @@ class KoperasiC extends CI_Controller {
 		$this->data['dataDiri'] = $this->session->userdata();
 		$this->data['active'] = 'active';
 		$this->data['manajemen_fitur'] 		= $this->LoginM->get_detail_fitur_by_akun($id)->result();
-		$this->load->view('DashboardV',$this->data);
+		$this->data['isi'] = $this->load->view('DashboardV', $this->data, TRUE);
+		$this->load->view('LayoutV', $this->data);
 	}
 
 	
@@ -52,7 +52,8 @@ class KoperasiC extends CI_Controller {
 		$this->data['dataDiri'] = $this->session->userdata();
 		$this->data['active'] = 'active';
 		$this->data['manajemen_fitur'] 		= $this->LoginM->get_detail_fitur_by_akun($id)->result();
-		$this->load->view('PermintaanmodulV',$this->data);
+		$this->data['isi'] = $this->load->view('PermintaanmodulV', $this->data, TRUE);
+		$this->load->view('LayoutV', $this->data);
 	}
 
 	 // alamat

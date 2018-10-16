@@ -280,12 +280,6 @@
                             <!-- End User Profile-->
                         </li>
 
-                        <!-- User Profile-->
-                        <!--  <li class="nav-small-cap">
-                        <i class="mdi mdi-dots-horizontal"></i>
-                        <span class="hide-menu">Dashboard</span>
-                        </li> -->
-
                         <li class="sidebar-item">
                             <a class="sidebar-link waves-effect waves-dark sidebar-link active" href="<?php echo base_url()?>KoperasiC/dashboard" aria-expanded="false">
                                 <i class="ti-dashboard"></i>
@@ -298,47 +292,38 @@
                             <span class="hide-menu">Fitur</span>
                         </li>
 
-                        <li class="sidebar-item">
-                            <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
-                                <i class="ti-money"></i>
-                                <span class="hide-menu">Simpan Pinjam </span>
+                        <?php
+                        // print_r($fitur);
+                        foreach ($fitur as $fit) {
+                        ?>
+                            <li class="sidebar-item">
+                                <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
+                                <i class="<?php echo $fit->icon;?>"></i>
+                                <span class="hide-menu"><?php echo $fit->nama_fitur?></span>
                             </a>
 
-                            <ul aria-expanded="false" class="collapse  first-level">
-                                <li class="sidebar-item">
-                                    <a href="#" class="sidebar-link">
+                                <ul aria-expanded="false" class="collapse  first-level">
+                                    <li class="sidebar-item">
+                                        <a href="#" class="sidebar-link">
                                         <i class="mdi mdi-email"></i>
                                         <span class="hide-menu"> Master Data </span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        <?php
+                            }
+                        ?>
 
                         <li class="sidebar-item">
-                            <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
-                                <i class="ti-shopping-cart"></i>
-                                <span class="hide-menu">Shopping</span>
-                            </a>
-
-                            <ul aria-expanded="false" class="collapse  first-level">
-                                <li class="sidebar-item">
-                                    <a href="#" class="sidebar-link">
-                                        <i class="mdi mdi-email"></i>
-                                        <span class="hide-menu"> Master Data </span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?php echo base_url()?>CobaC/mintamodul" aria-expanded="false">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?php echo base_url()?>KoperasiC/mintamodul" aria-expanded="false">
                                 <i class="ti-dashboard"></i>
                                 <span class="hide-menu">Permintaan Modul </span>
                             </a>
                         </li>
 
                         <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="#" aria-expanded="false">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?php echo base_url()?>AdminC/" aria-expanded="false">
                                 <i class="ti-dashboard"></i>
                                 <span class="hide-menu">Manajemen Koperasi </span>
                             </a>
