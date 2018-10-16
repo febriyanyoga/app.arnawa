@@ -26,7 +26,7 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
-    <title>Login - Arnawa</title>
+    <title>Atur ulang password - Arnawa</title>
     <!-- Custom CSS -->
     <link href="<?php echo base_url()?>assets/dist/css/style.min.css" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -56,10 +56,10 @@
         <!-- ============================================================== -->
         <div class="auth-wrapper d-flex no-block justify-content-center align-items-center" style="background:url(<?php echo base_url()?>assets/images/big/auth-bg.jpg) no-repeat center center;">
             <div class="auth-box" style="max-width: 450px;">
-                <div id="loginform">
+                <div>
                     <div class="logo">
                         <span class="db"><img src="<?php echo base_url()?>assets/images/Arnawa_Apps Logo.png" alt="logo" style="width:35%;"/></span><br><br>
-                        <h5 class="font-medium m-b-20">Silakan masuk ke dalam akun kamu</h5>
+                        <h5 class="font-medium m-b-20">Atur ulang password</h5>
                     </div>
                     <!-- Form -->
                     <div class="row">
@@ -88,71 +88,25 @@
                             } 
                             ?>
                             <?php echo validation_errors(); ?>
-                            <form class="form-horizontal m-t-20" id="loginform" action="<?php echo site_url('LoginC/log_in'); ?>" method="post">
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" id="basic-addon1"><i class="ti-user"></i></span>
-                                    </div>
-                                    <input type="text" class="form-control form-control-lg" placeholder="Email" aria-label="Email" aria-describedby="basic-addon1" name="email_akun">
-                                </div>
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" id="basic-addon2"><i class="ti-pencil"></i></span>
-                                    </div>
-                                    <input type="password" class="form-control form-control-lg" placeholder="Password" aria-label="Password" aria-describedby="basic-addon1" name="password">
-                                </div>
-
+                            <form class="form-horizontal m-t-20" action="<?php echo site_url('LoginC/post_reset')?>" method="post">
                                 <div class="form-group row">
-                                    <div class="col-md-12">
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="customCheck1">
-                                            <label class="custom-control-label" for="customCheck1">Ingat Saya</label>
-                                            <a href="javascript:void(0)" id="to-recover" class="text-dark float-right"><i class="fa fa-lock m-r-5"></i> Lupa password?</a>
-                                        </div>
+                                    <div class="col-12">
+                                        <input class="form-control form-control-lg" type="password" name="password" required="" placeholder="Password">
+                                        <input class="form-control form-control-lg" type="hidden" name="token" required="" placeholder="token" value="<?php echo $token;?>">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-12">
+                                        <input class="form-control form-control-lg" type="password" name="confirmpswd" required="" placeholder="Konfirmasi Password">
                                     </div>
                                 </div>
                                 <div class="form-group text-center">
                                     <div class="col-xs-12 p-b-20">
-                                        <button class="btn btn-block btn-lg btn-info" type="submit" name="submit">Masuk</button>
-                                    </div>
-                                </div>
-                                <div class="form-group m-b-0 m-t-10">
-                                    <div class="col-sm-12 text-center">
-                                        Belum Punya Akun ?<a href="<?php echo site_url('Register/')?>" class="text-info m-l-5"><b>Daftar Sekarang</b></a>
+                                        <input class="btn btn-block btn-lg btn-info" type="submit" id="btnSubmit" value="Atur ulang">
                                     </div>
                                 </div>
                             </form>
                         </div>
-                    </div>
-                </div>
-                <div id="recoverform">
-                    <div class="logo" style="text-align: center;">
-                        <span class="db"><img src="<?php echo base_url()?>assets/images/Arnawa_Apps Logo.png" style="width:35%;" alt="logo" /></span>
-                        <h5 class="font-medium m-b-20">Atur ulang Password</h5>
-                        <span>Masukkan email anda dan ikuti instruksi yang telah dikrimkan. Bila email tidak ada di <b>kotak masuk</b> silahkan cek folder <b>spam</b> anda.</span>
-                    </div>
-                    <div class="row m-t-20">
-                        <!-- Form -->
-                        <form class="col-12" action="<?php echo site_url('LoginC/reset_password')?>" method="post">
-                            <!-- email -->
-                            <div class="form-group row">
-                                <div class="col-12">
-                                    <input class="form-control form-control-lg" type="email" required name="email" id="email" placeholder="Email">
-                                </div>
-                            </div>
-                            <!-- pwd -->
-                            <div class="row m-t-20">
-                                <div class="col-12">
-                                    <input class="btn btn-block btn-lg btn-danger" type="submit" name="submit" value="Reset">
-                            </div>
-                            <div class="form-group m-b-0 m-t-10">
-                                <div class="col-sm-12 text-right">
-                                   <a href="<?php echo site_url('LoginC/')?>" class="text-info m-l-5"><b>Sign in</b></a>
-                                    <b>atau</b>
-                                   <a href="<?php echo site_url('Register/')?>" class="text-info m-l-5"><b>Sign up</b></a>
-                                </div>
-                            </div>
-                        </form>
                     </div>
                 </div>
             </div>
@@ -192,6 +146,32 @@
     $('#to-recover').on("click", function() {
         $("#loginform").slideUp();
         $("#recoverform").fadeIn();
+    });
+
+    $(function () {
+        $("#btnSubmit").click(function () {
+            if($("#password").val() != "" && $("#confirmpswd").val() != ""){
+               var password = $("#password").val();
+               var confirmPassword = $("#confirmpswd").val();
+               var pass_length = password.length;
+               if (password != confirmPassword) {
+                alert("Kata sandi tidak sama.");
+                return false;
+            }else{
+                if(pass_length < 6){
+                    alert("Panjang Kata sandi minimal 6 karakter");
+                    return false;
+                }else{
+                    if(pass_length > 10){
+                        alert("Panjang Kata sandi maksimal 10 karakter");
+                        return false;
+                    }else{
+                        return true;
+                    }
+                }
+            }
+        }
+
     });
 </script>
 </body>

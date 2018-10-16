@@ -18,7 +18,6 @@ class KoperasiC extends CI_Controller {
 	public function isi_data()
 	{
 		$id_akun 	= $this->session->userdata('id_akun');
-		
 		$this->data['data_akun'] 	= $this->LoginM->get_all_data($id_akun)->result()[0];
 		$this->data['provinsi'] 	= $this->LoginM->get_all_provinsi();
 		$this->load->view('Isi_data_usaha',$this->data);
@@ -26,6 +25,7 @@ class KoperasiC extends CI_Controller {
 	}
 
 	public function pilih_fitur(){
+		$this->data['fitur']	= $this->LoginM->get_all_fitur();
 		$this->data['dataDiri'] = $this->session->userdata();
 		$this->load->view('Pilih_fiturV',$this->data);
 

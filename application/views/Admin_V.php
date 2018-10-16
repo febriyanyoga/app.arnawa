@@ -26,9 +26,8 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
-    <title>Lengkapi data Koperasi Anda</title>
+    <title>Admin - Arnawasys</title>
     <!-- Custom CSS -->
-    <title>Marketlace -- Koperasi</title>
     <!-- Custom CSS -->
     <link href="<?php echo base_url()?>assets/libs/raty-js/lib/jquery.raty.css" rel="stylesheet">
     <!-- Custom CSS -->
@@ -115,24 +114,29 @@
                                 ?>
                                 <tr>
                                     <td><?php echo $i;?></td>
-                                    <td><?php echo $data->nama_koperasi?></td>
+                                    <td><?php echo $data->nama_usaha?></td>
                                     <td><?php echo $data->jenis_usaha?></td>
-                                    <td><?php echo $data->alamat_koperasi."<br>".$data->nama_kelurahan.", <br>".$data->nama_kecamatan.", <br>".$data->nama_kabupaten_kota.", <br>".$data->nama_propinsi;?></td>
+                                    <td><?php echo $data->alamat_usaha."<br>".$data->nama_kelurahan.", <br>".$data->nama_kecamatan.", <br>".$data->nama_kabupaten_kota.", <br>".$data->nama_propinsi;?></td>
                                     <?php 
                                     if($data->jenis_usaha == "koperasi"){
                                         ?>
-                                        <td><?php echo "Nama Akun :&nbsp;<b>".$data->nama_akun."</b><br>"."Nama Koperasi :&nbsp;<b>".$data->nama_koperasi."</b>";?></td>
+                                        <td><?php echo "Nama Akun :&nbsp;<b>".$data->nama_akun."</b><br>"."Nama Koperasi :&nbsp;<b>".$data->nama_usaha."</b>";?></td>
                                         <?php
                                     }else{
                                         ?>
-                                        <td><?php echo "Nama Akun :&nbsp;<b>".$data->nama_akun."</b><br>"."Nama Usaha :&nbsp;<b>".$data->nama_koperasi."</b>";?></td>
+                                        <td><?php echo "Nama Akun :&nbsp;<b>".$data->nama_akun."</b><br>"."Nama Usaha :&nbsp;<b>".$data->nama_usaha."</b>";?></td>
                                         <?php
                                     }
                                     ?>
-                                    <td><?php echo "Email Akun :&nbsp;<b>".$data->email_akun."</b><br>"."Email Usaha  :&nbsp;<b>".$data->email_koperasi."</b><br>Password : &nbsp<b>".$data->password."</b>";?></td>
-                                    <td><?php echo "No. HP Akun :&nbsp;<b>".$data->no_hp."</b><br>"."Telepon Usaha  :&nbsp;<b>".$data->tlp_koperasi."</b>";?></td>
-                                    <td><?php echo $data->fitur;?></td>
+                                    <td><?php echo "Email Akun :&nbsp;<b>".$data->email_akun."</b><br>"."Email Usaha  :&nbsp;<b>".$data->email_usaha."</b><br>Password : &nbsp<b>".$data->password."</b>";?></td>
+                                    <td><?php echo "No. HP Akun :&nbsp;<b>".$data->no_hp."</b><br>"."Telepon Usaha  :&nbsp;<b>".$data->tlp_usaha."</b>";?></td>
                                     <td>
+                                        <?php 
+                                        echo "fitur";
+
+                                        ?>
+                                    </td>
+                                   <!--  <td>
                                     <?php
                                         if($data->status == "waiting"){
                                             ?>
@@ -148,28 +152,27 @@
                                             <?php
                                         }
                                     ?>
-                                    </td>
+                                    </td> -->
                                     <td><?php echo $data->updated_at?></td>
-                                    <td>
+                                   <!--  <td>
                                         <?php 
                                             if($data->status == "waiting"){
                                                 ?>
                                                     <a href="<?php echo base_url('KoperasiC/update_verified/').$data->id?>" title="Verified" class="btn btn-info btn-sm"><span class="ti-check"></span></a>
-                                                    <!--<a title="Verified" class="btn btn-light btn-sm"><span class="ti-reload" disabled></span></a>-->
                                     
                                                 <?php
                                             }else{
                                                 ?>
-                                                    <!--<a title="Verified" class="btn btn-info btn-sm"><span class="ti-check" disabled></span></a>-->
                                                     <a href="<?php echo base_url('KoperasiC/update_waiting/').$data->id?>" title="waiting" class="btn btn-light btn-sm"><span class="ti-reload" ></span></a>
                                     
                                                 <?php
                                             }
                                         ?>
-                                    </td>
+                                    </td> -->
                                 </tr>
                                 
-                                <?php  $history = $LoginM->get_history_status($data->id)->result();
+                                <?php  
+                                // $history = $LoginM->get_history_status($data->id_detail_fitur)->result();
                                     ?>
                                         <div class="modal" id="myModal2-<?php echo $data->id?>">
                                             <div class="modal-dialog modal-md">

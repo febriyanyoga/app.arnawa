@@ -91,33 +91,63 @@ class LoginM extends CI_Model{
 	}
 	
 	public function verifyemail($key){  //post konfirmasi email ubah value status_email jadi 1 (aktif)
- 		$data = array(
- 			'status_email' => 'aktif',
- 		);  
- 		$this->db->where('md5(email_akun)', $key);
- 		return $this->db->update('akun', $data);  
- 	}
- 	
- 	public function update($id, $data){
- 	    $this->db->where('id_akun', $id);
- 	    $this->db->update('akun', $data);
- 	    return TRUE;
- 	}
- 	
- 	public function get_history_status($id_akun){
- 	    $this->db->select('*');
- 	    $this->db->from('log_status');
- 	    $this->db->where('id_akun', $id_akun);
- 	    $query = $this->db->get();
- 	    if($query){
+		$data = array(
+			'status_email' => 'aktif',
+		);  
+		$this->db->where('md5(email_akun)', $key);
+		return $this->db->update('akun', $data);  
+	}
+
+	public function update($id, $data){
+		$this->db->where('id_akun', $id);
+		$this->db->update('akun', $data);
+		return TRUE;
+	}
+
+	public function get_history_status($id_detail_fitur){
+		$this->db->select('*');
+		$this->db->from('log_status');
+		$this->db->where('id_detail_fitur', $id_detail_fitur);
+		$query = $this->db->get();
+		if($query){
 			return $query;
 		}else{
 			echo "tidak ditemukan";
 		}
- 	}
+	}
 
- 	public function insert_fitur($data){
- 		$this->db->insert('detail_fitur', $data);
- 		return TRUE;
- 	}
+	public function insert_fitur($data){
+		$this->db->insert('detail_fitur', $data);
+		return TRUE;
+	}
+
+	public function get_all_fitur(){
+		$query = $this->db->get('fitur');
+		return $query;
+	}
+
+	// reset_password
+	public function getByEmail($email){
+		$this->db->where('email_akun',$email);
+		$result = $this->db->get('akun');
+		return $result;
+	}
+
+	public function simpanToken($data){
+		$this->db->insert('forget_password', $data);
+		return $this->db->affected_rows();
+	}
+
+	public function cekToken($token){
+		$this->db->where('token',$token);
+		$result = $this->db->get('forget_password');
+		return $result;
+	}
+
+	public function ubahData($data, $id_akun){
+		$this->db->where('id_akun', $id_akun);
+		$this->db->update('akun', $data);
+		return TRUE;
+	}
+
 }

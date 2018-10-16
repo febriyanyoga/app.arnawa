@@ -65,76 +65,53 @@
     <form class="form p-t-20" action="<?php echo base_url('KoperasiC/input_fitur')?>" method="post" onSubmit="return validate()">
         <div class="row">
             <input type="hidden" class="form-control form-control-lg" placeholder="Nama Koperasi" name="id_akun" id="id_akun"  value="<?php echo $dataDiri['id_akun']?>">
-            <div class="col-md-6">
-                <input type="checkbox" name="fitur[]" id="shopping" class="checkbox-input" value="2" />
-                <label for="shopping" class="checkbox-label">
-                    <div class="checkbox-text">
-                        <p class="checkbox-text--title">Shopping</p>
-                        <p class="checkbox-text--description">Klik untuk <span class="un">Tidak</span> Memilih ini!</p>
-                    </div>
-                </label>
+            <?php
+            $jumlah    = $fitur->num_rows();
+            $kiri      = ceil($jumlah/2);
+            $kanan     = floor($jumlah/2);
 
-                <input type="checkbox" name="fitur[]" id="ppob" class="checkbox-input" value="ppob" />
-                <label for="ppob" class="checkbox-label">
-                    <div class="checkbox-text">
-                        <p class="checkbox-text--title">PPOB</p>
-                        <p class="checkbox-text--description">Klik untuk <span class="un">Tidak</span> Memilih ini!</p>
-                    </div>
-                </label>
+            ?>
+            <div class="col-md-6">
                 <?php
-                if($jenis_usaha == "Koperasi"){
-                    ?>
-                    <input type="checkbox" name="fitur[]" id="simpin" class="checkbox-input" value="simpin" />
-                    <label for="simpin" class="checkbox-label">
-                        <div class="checkbox-text">
-                            <p class="checkbox-text--title">Simpan Pinjam</p>
-                            <p class="checkbox-text--description">Klik untuk <span class="un">Tidak</span> Memilih ini!</p>
-                        </div>
-                    </label>
-                    <?php
+                $macam_fitur = $fitur->result();
+                $i=0;
+                foreach ($macam_fitur as $key) {
+                    $i++;
+                    if($i <= $kiri){
+                        if($key->nama_fitur != "Simpan Pinjam" && $jenis_usaha != "Koperasi"){
+                            ?>
+                            <input type="checkbox" name="fitur[]" id="<?php echo $key->id_fitur;?>" class="checkbox-input" value="<?php echo $key->id_fitur?>" />
+                            <label for="<?php echo $key->id_fitur;?>" class="checkbox-label">
+                                <div class="checkbox-text">
+                                    <p class="checkbox-text--title"><?php echo $key->nama_fitur;?></p>
+                                    <p class="checkbox-text--description">Klik untuk <span class="un">Tidak</span> Memilih ini!</p>
+                                </div>
+                            </label>
+                            <?php
+                        }
+                    }
                 }
                 ?>
-
-                <input type="checkbox" name="fitur[]" id="travel" class="checkbox-input" value="travel" />
-                <label for="travel" class="checkbox-label">
-                    <div class="checkbox-text">
-                        <p class="checkbox-text--title">Travel</p>
-                        <p class="checkbox-text--description">Klik untuk <span class="un">Tidak</span> Memilih ini!</p>
-                    </div>
-                </label>
             </div>
             <div class="col-md-6">
-                <input type="checkbox" name="fitur[]" id="forum" class="checkbox-input" value="forum" />
-                <label for="forum" class="checkbox-label">
-                    <div class="checkbox-text">
-                        <p class="checkbox-text--title">Forum</p>
-                        <p class="checkbox-text--description">Klik untuk <span class="un">Tidak</span> Memilih ini!</p>
-                    </div>
-                </label>
-
-                <input type="checkbox" name="fitur[]" id="event" class="checkbox-input" value="event" />
-                <label for="event" class="checkbox-label">
-                    <div class="checkbox-text">
-                        <p class="checkbox-text--title">Event</p>
-                        <p class="checkbox-text--description">Klik untuk <span class="un">Tidak</span> Memilih ini!</p>
-                    </div>
-                </label>
-
-                <input type="checkbox" name="fitur[]" id="pos" class="checkbox-input" value="pos" />
-                <label for="pos" class="checkbox-label">
-                    <div class="checkbox-text">
-                        <p class="checkbox-text--title">Point of Sales</p>
-                        <p class="checkbox-text--description">Klik untuk <span class="un">Tidak</span> Memilih ini!</p>
-                    </div>
-                </label>
-
-                <input type="checkbox" name="fitur[]" id="news" class="checkbox-input" value="news" />
-                <label for="news" class="checkbox-label">
-                    <div class="checkbox-text">
-                        <p class="checkbox-text--title">News</p>
-                        <p class="checkbox-text--description">Klik untuk <span class="un">Tidak</span> Memilih ini!</p>
-                    </div>
-                </label>
+                <?php
+                $macam_fitur = $fitur->result();
+                $i=0;
+                foreach ($macam_fitur as $key) {
+                    $i++;
+                    if($i > $kanan){
+                        ?>
+                        <input type="checkbox" name="fitur[]" id="<?php echo $key->id_fitur;?>" class="checkbox-input" value="<?php echo $key->id_fitur?>" />
+                        <label for="<?php echo $key->id_fitur;?>" class="checkbox-label">
+                            <div class="checkbox-text">
+                                <p class="checkbox-text--title"><?php echo $key->nama_fitur;?></p>
+                                <p class="checkbox-text--description">Klik untuk <span class="un">Tidak</span> Memilih ini!</p>
+                            </div>
+                        </label>
+                        <?php
+                    }
+                }
+                ?>
             </div>
         </div>
         <div class="row m-t-20">
@@ -194,7 +171,7 @@
     </script>
 
     <script type="text/javascript">
-     function hanyaAngka(evt) {
+       function hanyaAngka(evt) {
         var charCode = (evt.which) ? evt.which : event.keyCode
         if (charCode > 31 && (charCode < 48 || charCode > 57))
             return false;
@@ -203,11 +180,11 @@
 
     $(function () {
       $("#simpan").click(function () {
-       var password = $("#password").val();
-       var confirmPassword = $("#confirmpass").val();
-       var pass_length = password.length;
-       if (password != confirmPassword) {
-        alert("Kata sandi tidak sama.");
+         var password = $("#password").val();
+         var confirmPassword = $("#confirmpass").val();
+         var pass_length = password.length;
+         if (password != confirmPassword) {
+            alert("Kata sandi tidak sama.");
                     // document.getElementById("demo").innerHTML = "Kata sandi tidak sama.";
                     return false;
                 }else{
@@ -235,22 +212,22 @@
         var hasChecked = false;
         for (var i = 0; i < chks.length; i++)
         {
-         if (chks[i].checked)
-         {
-             hasChecked = true;
-             break;
-         }
-     }
+           if (chks[i].checked)
+           {
+               hasChecked = true;
+               break;
+           }
+       }
 
-     if (hasChecked == false)
-     {
-         alert("Silahkan pilih minimal satu fitur.");
-         return false;
-     }
+       if (hasChecked == false)
+       {
+           alert("Silahkan pilih minimal satu fitur.");
+           return false;
+       }
 
-     return true;
- }
- $(document).ready(function(){
+       return true;
+   }
+   $(document).ready(function(){
         // City change
         $('#propinsi').change(function(){
             var propinsi = $(this).val(); //ambil value dr kode_unit

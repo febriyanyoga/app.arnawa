@@ -34,8 +34,8 @@ class Register extends CI_Controller {
 				'jenis_usaha' 		=> $this->input->post('jenis_usaha'),
 				'password' 			=> $this->input->post('password'),
 			);
-    
-            $email_akun 		= $this->input->post('email_akun');
+
+			$email_akun 		= $this->input->post('email_akun');
 			$email_encryption 	= md5($this->input->post('email_akun'));
 
 			if($this->Registrasi_m->register($data)){
@@ -61,12 +61,41 @@ class Register extends CI_Controller {
 
 		$message    = $this->load->view('Konfirmasi_email.php',$data,TRUE);
 
-
 		$headers    = 'MIME-Version: 1.0' . "\r\n";
 		$headers    .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
 		$headers    .= 'To:  <'.$to.'>' . "\r\n";
-		$headers    .= 'From: info@arnawa.co.id <'.$from_mail.'>' . "\r\n";
+		$headers    .= 'From: "info@arnawa.co.id" <'.$from_mail.'>' . "\r\n";
 
 		mail($to, $subject, $message, $headers);
+	}
+
+	public function send_mail($email_akun, $email_encryption) { 
+
+		$from_email = "info@arnawa.co.id"; 
+		$to_email 	= $email_akun;
+		$config 	= Array(
+			'protocol' 	=> 'smtp',
+			'smtp_host' => 'ssl://mail.arnawa.co.id',
+			'smtp_port' => 465,
+			'smtp_user' => $from_email,
+			'smtp_pass' => 'Kosong?123',
+			'mailtype'  => 'html', 
+			'charset'   => 'iso-8859-1'
+		);
+
+		$this->load->library('email', $config);
+		$this->email->set_newline("\r\n");   
+
+		$this->email->from($from_email, 'info@arnawa.co.id'); 
+		$this->email->to($to_email);
+		$this->email->subject('Konfirmasi Email'); 
+		$data       = array(
+			'email'=> $email_encryption,
+		);
+		$message    = $this->load->view('Konfirmasi_email.php', $data, TRUE);
+		$this->email->message($message); 
+
+        //Send mail 
+		$this->email->send();
 	}
 }

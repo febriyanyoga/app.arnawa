@@ -26,7 +26,7 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
-    <title>Dashboard</title>
+    <title>Arnawasys</title>
     <!-- Custom CSS -->
     <link href="<?php echo base_url();?>assets/libs/chartist/dist/chartist.min.css" rel="stylesheet">
     <link href="<?php echo base_url();?>assets/extra-libs/c3/c3.min.css" rel="stylesheet">

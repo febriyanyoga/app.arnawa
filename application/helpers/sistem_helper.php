@@ -2,7 +2,7 @@
 if ( ! function_exists('in_access')){
     function in_access(){
         $ci=& get_instance();
-        if($ci->session->userdata('logged_in') != TRUE){
+        if($ci->session->userdata('logged_in') != TRUE && $ci->session->userdata('jenis_akun') != "user"){
             $ci->session->set_flashdata('error','Anda harus Login terlebih dahulu');
             redirect('LoginC/log_out');
         }
@@ -12,9 +12,9 @@ if ( ! function_exists('in_access')){
 if ( ! function_exists('in_access2')){
     function in_access2(){
         $ci=& get_instance();
-        if($ci->session->userdata('logged_in') == TRUE){
+        if($ci->session->userdata('logged_in') == TRUE && $ci->session->userdata('jenis_akun') != "admin"){
             $ci->session->set_flashdata('error','Anda harus Login terlebih dahulu');
-            redirect('KoperasiC/');
+            redirect('LoginC/log_out');
         }
     }
 }
