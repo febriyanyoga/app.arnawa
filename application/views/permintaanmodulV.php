@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <!-- Favicon icon -->
-    <link rel="apple-touch-icon" sizes="57x57" href="<?php echo base_url()?>assets/images/icon/-icon-57x57.png">
+     <link rel="apple-touch-icon" sizes="57x57" href="<?php echo base_url()?>assets/images/icon/-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="<?php echo base_url()?>assets/images/icon/-icon-60x60.png">
     <link rel="apple-touch-icon" sizes="72x72" href="<?php echo base_url()?>assets/images/icon/-icon-72x72.png">
     <link rel="apple-touch-icon" sizes="76x76" href="<?php echo base_url()?>assets/images/icon/-icon-76x76.png">
@@ -26,7 +26,7 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
-    <title>Arnawasys</title>
+    <title>Dashboard</title>
     <!-- Custom CSS -->
     
     <!-- This page plugin CSS -->
@@ -37,6 +37,11 @@
     <link href="<?php echo base_url();?>assets/libs/morris.js/morris.css" rel="stylesheet">
     <!-- Custom CSS -->
     <link href="<?php echo base_url();?>assets/dist/css/style.min.css" rel="stylesheet">
+
+    <!--Tambahan CSS-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+    <link rel="stylesheet" href="<?php echo base_url()?>assets/css/style.css">
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -165,9 +170,9 @@
                             </a>
                             <form class="app-search position-absolute">
                                 <input type="text" class="form-control" placeholder="Search &amp; enter">
-                                <a class="srh-btn">
-                                    <i class="ti-close"></i>
-                                </a>
+                                    <a class="srh-btn">
+                                        <i class="ti-close"></i>
+                                    </a>
                             </form>
                         </li>
 
@@ -197,203 +202,204 @@
                                 <a class="dropdown-item" href="javascript:void(0)">
                                     <i class="ti-user m-r-5 m-l-5"></i> My Profile</a>
 
-                                    <a class="dropdown-item" href="javascript:void(0)">
-                                        <i class="ti-wallet m-r-5 m-l-5"></i> My Balance</a>
+                                <a class="dropdown-item" href="javascript:void(0)">
+                                    <i class="ti-wallet m-r-5 m-l-5"></i> My Balance</a>
+
+                                <a class="dropdown-item" href="javascript:void(0)">
+                                    <i class="ti-email m-r-5 m-l-5"></i> Inbox</a>
+
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="javascript:void(0)">
+                                    <i class="ti-settings m-r-5 m-l-5"></i> Account Setting</a>
+
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="<?php echo site_url('LoginC/log_out')?>">
+                                    <i class="fa fa-power-off m-r-5 m-l-5"></i> Logout</a>
+
+                                <div class="dropdown-divider"></div>
+
+                                <div class="p-l-30 p-10">
+                                    <a href="javascript:void(0)" class="btn btn-sm btn-success btn-rounded">View Profile</a>
+                                </div>
+                            </div>
+                        </li>
+                        <!-- ============================================================== -->
+                        <!-- User profile and search -->
+                        <!-- ============================================================== -->
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <!-- ============================================================== -->
+        <!-- End Topbar header -->
+        <!-- ============================================================== -->
+
+        <!-- ============================================================== -->
+        <!-- Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
+        <aside class="left-sidebar">
+            <!-- Sidebar scroll-->
+            <div class="scroll-sidebar">
+                <!-- Sidebar navigation-->
+                <nav class="sidebar-nav">
+                    <ul id="sidebarnav">
+                        <!-- User Profile-->
+                        <li>
+                            <!-- User Profile-->
+                            <div class="user-profile dropdown m-t-20">
+                                <div class="user-pic">
+                                    <img src="<?php echo base_url();?>assets/images/users/1.jpg" alt="users" class="rounded-circle img-fluid" />
+                                </div>
+
+                                <div class="user-content hide-menu m-t-10">
+                                    <h5 class="m-b-10 user-name font-medium"><?php echo $data_akun->nama_akun?></h5>
+
+                                    <a href="javascript:void(0)" class="btn btn-circle btn-sm m-r-5" id="Userdd" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="ti-settings"></i>
+                                    </a>
+
+                                    <a href="<?php echo site_url('LoginC/log_out')?>" title="Logout" class="btn btn-circle btn-sm">
+                                        <i class="ti-power-off"></i>
+                                    </a>
+
+                                    <div class="dropdown-menu animated flipInY" aria-labelledby="Userdd">
+                                        <a class="dropdown-item" href="javascript:void(0)">
+                                            <i class="ti-user m-r-5 m-l-5"></i> My Profile</a>
+
+                                        <a class="dropdown-item" href="javascript:void(0)">
+                                            <i class="ti-wallet m-r-5 m-l-5"></i> My Balance</a>
 
                                         <a class="dropdown-item" href="javascript:void(0)">
                                             <i class="ti-email m-r-5 m-l-5"></i> Inbox</a>
 
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="javascript:void(0)">
-                                                <i class="ti-settings m-r-5 m-l-5"></i> Account Setting</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="<?php echo site_url('LoginC/log_out')?>">
+                                            <i class="ti-settings m-r-5 m-l-5"></i> Account Setting</a>
 
-                                                <div class="dropdown-divider"></div>
-                                                <a class="dropdown-item" href="<?php echo site_url('LoginC/log_out')?>">
-                                                    <i class="fa fa-power-off m-r-5 m-l-5"></i> Logout</a>
-
-                                                    <div class="dropdown-divider"></div>
-
-                                                    <div class="p-l-30 p-10">
-                                                        <a href="javascript:void(0)" class="btn btn-sm btn-success btn-rounded">View Profile</a>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <!-- ============================================================== -->
-                                            <!-- User profile and search -->
-                                            <!-- ============================================================== -->
-                                        </ul>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="javascript:void(0)">
+                                            <i class="fa fa-power-off m-r-5 m-l-5"></i> Logout</a>
                                     </div>
-                                </nav>
-                            </header>
-                            <!-- ============================================================== -->
-                            <!-- End Topbar header -->
-                            <!-- ============================================================== -->
+                                </div>
+                            </div>
+                            <!-- End User Profile-->
+                        </li>
 
-                            <!-- ============================================================== -->
-                            <!-- Left Sidebar - style you can find in sidebar.scss  -->
-                            <!-- ============================================================== -->
-                            <aside class="left-sidebar">
-                                <!-- Sidebar scroll-->
-                                <div class="scroll-sidebar">
-                                    <!-- Sidebar navigation-->
-                                    <nav class="sidebar-nav">
-                                        <ul id="sidebarnav">
-                                            <!-- User Profile-->
-                                            <li>
-                                                <!-- User Profile-->
-                                                <div class="user-profile dropdown m-t-20">
-                                                    <div class="user-pic">
-                                                        <img src="<?php echo base_url();?>assets/images/users/1.jpg" alt="users" class="rounded-circle img-fluid" />
-                                                    </div>
-
-                                                    <div class="user-content hide-menu m-t-10">
-                                                        <h5 class="m-b-10 user-name font-medium"><?php echo $data_akun->nama_akun?></h5>
-
-                                                        <a href="javascript:void(0)" class="btn btn-circle btn-sm m-r-5" id="Userdd" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                            <i class="ti-settings"></i>
-                                                        </a>
-
-                                                        <a href="<?php echo site_url('LoginC/log_out')?>" title="Logout" class="btn btn-circle btn-sm">
-                                                            <i class="ti-power-off"></i>
-                                                        </a>
-
-                                                        <div class="dropdown-menu animated flipInY" aria-labelledby="Userdd">
-                                                            <a class="dropdown-item" href="javascript:void(0)">
-                                                                <i class="ti-user m-r-5 m-l-5"></i> My Profile</a>
-
-                                                                <a class="dropdown-item" href="javascript:void(0)">
-                                                                    <i class="ti-wallet m-r-5 m-l-5"></i> My Balance</a>
-
-                                                                    <a class="dropdown-item" href="javascript:void(0)">
-                                                                        <i class="ti-email m-r-5 m-l-5"></i> Inbox</a>
-
-                                                                        <div class="dropdown-divider"></div>
-                                                                        <a class="dropdown-item" href="<?php echo site_url('LoginC/log_out')?>">
-                                                                            <i class="ti-settings m-r-5 m-l-5"></i> Account Setting</a>
-
-                                                                            <div class="dropdown-divider"></div>
-                                                                            <a class="dropdown-item" href="javascript:void(0)">
-                                                                                <i class="fa fa-power-off m-r-5 m-l-5"></i> Logout</a>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <!-- End User Profile-->
-                                                                </li>
-
-                                                                <!-- User Profile-->
+                        <!-- User Profile-->
                         <!--  <li class="nav-small-cap">
                         <i class="mdi mdi-dots-horizontal"></i>
                         <span class="hide-menu">Dashboard</span>
-                    </li> -->
+                        </li> -->
 
-                    <li class="sidebar-item">
-                        <a class="sidebar-link waves-effect waves-dark sidebar-link active" href="<?php echo base_url()?>KoperasiC/dashboard" aria-expanded="false">
-                            <i class="ti-dashboard"></i>
-                            <span class="hide-menu">Dashboards </span>
-                        </a>
-                    </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link " href="<?php echo base_url()?>KoperasiC/dashboard" aria-expanded="false">
+                                <i class="ti-dashboard"></i>
+                                <span class="hide-menu">Dashboards </span>
+                            </a>
+                        </li>
 
-                    <li class="nav-small-cap">
-                        <i class="mdi mdi-dots-horizontal"></i>
-                        <span class="hide-menu">Fitur</span>
-                    </li>
+                        <li class="nav-small-cap">
+                            <i class="mdi mdi-dots-horizontal"></i>
+                            <span class="hide-menu">Fitur</span>
+                        </li>
 
-                    <li class="sidebar-item">
-                        <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
-                            <i class="ti-money"></i>
-                            <span class="hide-menu">Simpan Pinjam </span>
-                        </a>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
+                                <i class="ti-money"></i>
+                                <span class="hide-menu">Simpan Pinjam </span>
+                             </a>
 
-                        <ul aria-expanded="false" class="collapse  first-level">
-                            <li class="sidebar-item">
-                                <a href="#" class="sidebar-link">
-                                    <i class="mdi mdi-email"></i>
-                                    <span class="hide-menu"> Master Data </span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <li class="sidebar-item">
-                        <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
-                            <i class="ti-shopping-cart"></i>
-                            <span class="hide-menu">Shopping</span>
-                        </a>
-
-                        <ul aria-expanded="false" class="collapse  first-level">
-                            <li class="sidebar-item">
-                                <a href="#" class="sidebar-link">
-                                    <i class="mdi mdi-email"></i>
-                                    <span class="hide-menu"> Master Data </span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <li class="sidebar-item">
-                        <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?php echo base_url()?>CobaC/mintamodul" aria-expanded="false">
-                            <i class="ti-dashboard"></i>
-                            <span class="hide-menu">Permintaan Modul </span>
-                        </a>
-                    </li>
-
-                    <li class="sidebar-item">
-                        <a class="sidebar-link waves-effect waves-dark sidebar-link" href="#" aria-expanded="false">
-                            <i class="ti-dashboard"></i>
-                            <span class="hide-menu">Manajemen Koperasi </span>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-            <!-- End Sidebar navigation -->
-        </div>
-        <!-- End Sidebar scroll-->
-    </aside>
-    <!-- ============================================================== -->
-    <!-- End Left Sidebar - style you can find in sidebar.scss  -->
-    <!-- ============================================================== -->
-
-
-    <!-- ============================================================== -->
-    <!-- Page wrapper  -->
-    <!-- ============================================================== -->
-    <div class="page-wrapper">
-        <!-- ============================================================== -->
-        <!-- Bread crumb and right sidebar toggle -->
-        <!-- ============================================================== -->
-        <div class="page-breadcrumb">
-            <div class="row">
-                <div class="col-5 align-self-center">
-                    <!-- <h4 class="page-title">Dashboard</h4> -->
-                    <div class="d-flex align-items-center">
-                    </div>
-                </div>
-
-                <div class="col-7 align-self-center">
-                    <div class="d-flex no-block justify-content-end align-items-center">
-                        <nav aria-label="breadcrumb">
-                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item">
+                            <ul aria-expanded="false" class="collapse  first-level">
+                                <li class="sidebar-item">
+                                    <a href="#" class="sidebar-link">
+                                        <i class="mdi mdi-email"></i>
+                                        <span class="hide-menu"> Master Data </span>
+                                    </a>
                                 </li>
-                            </ol>
-                        </nav>
+                            </ul>
+                        </li>
+
+                        <li class="sidebar-item">
+                            <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
+                                <i class="ti-shopping-cart"></i>
+                                <span class="hide-menu">Shopping</span>
+                            </a>
+
+                            <ul aria-expanded="false" class="collapse  first-level">
+                                <li class="sidebar-item">
+                                    <a href="#" class="sidebar-link">
+                                        <i class="mdi mdi-email"></i>
+                                        <span class="hide-menu"> Master Data </span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link active" href="<?php echo base_url()?>CobaC/mintamodul" aria-expanded="false">
+                                <i class="ti-dashboard"></i>
+                                <span class="hide-menu">Permintaan Modul </span>
+                            </a>
+                        </li>
+
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="#" aria-expanded="false">
+                                <i class="ti-dashboard"></i>
+                                <span class="hide-menu">Manajemen Koperasi </span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <!-- End Sidebar navigation -->
+            </div>
+            <!-- End Sidebar scroll-->
+        </aside>
+        <!-- ============================================================== -->
+        <!-- End Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
+
+
+        <!-- ============================================================== -->
+        <!-- Page wrapper  -->
+        <!-- ============================================================== -->
+        <div class="page-wrapper">
+            <!-- ============================================================== -->
+            <!-- Bread crumb and right sidebar toggle -->
+            <!-- ============================================================== -->
+            <div class="page-breadcrumb">
+                <div class="row">
+                    <div class="col-5 align-self-center">
+                        <!-- <h4 class="page-title">Dashboard</h4> -->
+                        <div class="d-flex align-items-center">
+                        </div>
+                    </div>
+
+                    <div class="col-7 align-self-center">
+                        <div class="d-flex no-block justify-content-end align-items-center">
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item">
+                                    </li>
+                                </ol>
+                            </nav>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-
-        <!-- ============================================================== -->
-        <!-- Container fluid  -->
-        <!-- ============================================================== -->
-        <div class="main-wrapper">
 
             <!-- ============================================================== -->
-            <!-- Preloader - style you can find in spinners.css -->
+            <!-- Container fluid  -->
             <!-- ============================================================== -->
-            <div class="preloader">
-                <div class="lds-ripple">
-                    <div class="lds-pos"></div>
-                    <div class="lds-pos"></div>
+            <div class="main-wrapper">
+
+                <!-- ============================================================== -->
+                <!-- Preloader - style you can find in spinners.css -->
+                <!-- ============================================================== -->
+                <div class="preloader">
+                    <div class="lds-ripple">
+                        <div class="lds-pos"></div>
+                        <div class="lds-pos"></div>
+                    </div>
                 </div>
                 <!-- ============================================================== -->
                 <!-- Preloader - style you can find in spinners.css -->
@@ -405,42 +411,83 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="card-title">Manajemen Modul Anda</h4><br>
-                            <div class="table-responsive">
-                                <table id="multi_col_order" class="table table-striped table-bordered display" style="width:100%">
-                                    <thead>
-                                        <tr>
-                                            <th>No</th>
-                                            <th>Fitur</th>
-                                            <th>Status</th>
-                                            <th>Tanggal Aktif</th>
-                                            <th>Tanggal Berakhir</th>
-                                            <th>Akses</th>
-                                            <th>Tagihan</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Simpan Pinjam</td>
-                                            <td>Aktif</td>
-                                            <td>09 0ctober 2018</td>
-                                            <td>09 0ctober 2019</td>
-                                            <td>https://kasupegangsaan.arnawa.co.id</td>
-                                            <td>Rp. 0</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>Shopping</td>
-                                            <td>Aktif</td>
-                                            <td>09 0ctober 2018</td>
-                                            <td>Lifetime</td>
-                                            <td>-</td>
-                                            <td>Rp. 0</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                            <form class="form p-t-20" action="<?php echo base_url('KoperasiC/input_fitur')?>" method="post" onSubmit="return validate()">
+                                <div class="row">
+                                    <input type="hidden" class="form-control form-control-lg" placeholder="Nama Koperasi" name="id" id="id"  value="<?php echo $dataDiri['id']?>">
+                                    <div class="col-md-6">
+                                        <input type="checkbox" name="fitur[]" id="shopping" class="checkbox-input" value="shopping" />
+                                        <label for="shopping" class="checkbox-label">
+                                            <div class="checkbox-text">
+                                                <p class="checkbox-text--title">Shopping</p>
+                                                <p class="checkbox-text--description">Klik untuk <span class="un">Tidak</span> Memilih ini!</p>
+                                            </div>
+                                        </label>
+
+                                        <input type="checkbox" name="fitur[]" id="ppob" class="checkbox-input" value="ppob" />
+                                        <label for="ppob" class="checkbox-label">
+                                            <div class="checkbox-text">
+                                                <p class="checkbox-text--title">PPOB</p>
+                                                <p class="checkbox-text--description">Klik untuk <span class="un">Tidak</span> Memilih ini!</p>
+                                            </div>
+                                        </label>
+                                        <input type="checkbox" name="fitur[]" id="travel" class="checkbox-input" value="travel" />
+                                        <label for="travel" class="checkbox-label">
+                                            <div class="checkbox-text">
+                                                <p class="checkbox-text--title">Travel</p>
+                                                <p class="checkbox-text--description">Klik untuk <span class="un">Tidak</span> Memilih ini!</p>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    
+                                    <div class="col-md-6">
+                                        <input type="checkbox" name="fitur[]" id="forum" class="checkbox-input" value="forum" />
+                                        <label for="forum" class="checkbox-label">
+                                            <div class="checkbox-text">
+                                                <p class="checkbox-text--title">Forum</p>
+                                                <p class="checkbox-text--description">Klik untuk <span class="un">Tidak</span> Memilih ini!</p>
+                                            </div>
+                                        </label>
+
+                                        <input type="checkbox" name="fitur[]" id="event" class="checkbox-input" value="event" />
+                                        <label for="event" class="checkbox-label">
+                                            <div class="checkbox-text">
+                                                <p class="checkbox-text--title">Event</p>
+                                                <p class="checkbox-text--description">Klik untuk <span class="un">Tidak</span> Memilih ini!</p>
+                                            </div>
+                                        </label>
+
+                                        <input type="checkbox" name="fitur[]" id="pos" class="checkbox-input" value="pos" />
+                                        <label for="pos" class="checkbox-label">
+                                            <div class="checkbox-text">
+                                                <p class="checkbox-text--title">Point of Sales</p>
+                                                <p class="checkbox-text--description">Klik untuk <span class="un">Tidak</span> Memilih ini!</p>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-3"></div>
+                                    <div class="col-md-6">
+                                        <input type="checkbox" name="fitur[]" id="news" class="checkbox-input" value="news" />
+                                        <label for="news" class="checkbox-label">
+                                            <div class="checkbox-text">
+                                                <p class="checkbox-text--title">News</p>
+                                                <p class="checkbox-text--description">Klik untuk <span class="un">Tidak</span> Memilih ini!</p>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div class="col-md-3"></div>
+                                </div>
+                                
+                                <div class="row m-t-20">
+                                    <div class="col-md-4"></div>
+                                    <div class="col-md-4">
+                                        <input type="submit" class="btn btn-lg btn-default btn-block" name="submit" id="simpan" value="Simpan">
+                                    </div>
+                                    <div class="col-md-4"></div>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -499,6 +546,10 @@
     <!--This page plugins -->
     <script src="<?php echo base_url();?>assets/extra-libs/DataTables/datatables.min.js"></script>
     <script src="<?php echo base_url();?>assets/dist/js/pages/datatable/datatable-basic.init.js"></script>
+
+    <!--Tambahan JS-->
+    <script src="<?php echo base_url()?>assets/dist/js/app.init.js"></script>
+    <script src="<?php echo base_url()?>assets/dist/js/app-style-switcher.js"></script>
 
 
 </body>
