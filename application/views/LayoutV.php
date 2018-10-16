@@ -176,7 +176,7 @@
                         <!-- ============================================================== -->
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img src="<?php echo base_url();?>assets/images/users/1.jpg" alt="user" class="rounded-circle" width="31">
+                                <img src="<?php echo base_url();?>assets/images/users/1.jpg" alt="user" class="rounded-circle" width="40">
                             </a>
                             <div class="dropdown-menu dropdown-menu-right user-dd animated flipInY">
                                 <span class="with-arrow">
@@ -185,12 +185,12 @@
 
                                 <div class="d-flex no-block align-items-center p-15 bg-primary text-white m-b-10">
                                     <div class="">
-                                        <img src="<?php echo base_url();?>assets/images/users/1.jpg" alt="user" class="img-circle" width="60">
+                                        <img src="<?php echo base_url();?>assets/images/users/1.jpg" alt="user" class="img-circle" width="60px">
                                     </div>
 
                                     <div class="m-l-10">
-                                        <h4 class="m-b-0"></h4>
-                                        <p class=" m-b-0"></p>
+                                        <h6 class="m-b-0"><?php echo $_SESSION['nama_akun']?></h6>
+                                        <p class=" m-b-0"><?php echo $_SESSION['email_akun']?></p>
                                     </div>
                                 </div>
 
@@ -241,13 +241,13 @@
                         <!-- User Profile-->
                         <li>
                             <!-- User Profile-->
-                            <div class="user-profile dropdown m-t-20">
+                            <div class="user-profile dropdown ">
                                 <div class="user-pic">
                                     <img src="<?php echo base_url();?>assets/images/users/1.jpg" alt="users" class="rounded-circle img-fluid" />
                                 </div>
 
                                 <div class="user-content hide-menu m-t-10">
-                                    <h5 class="m-b-10 user-name font-medium"></h5>
+                                    <h5 class="m-b-10 user-name font-medium"><?php echo $_SESSION['nama_akun']?></h5>
 
                                     <a href="javascript:void(0)" class="btn btn-circle btn-sm m-r-5" id="Userdd" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <i class="ti-settings"></i>

@@ -30,8 +30,6 @@ if ( ! function_exists('in_access')){
 }
 
 
-
-
 if ( ! function_exists('redirect_back')){
     function redirect_back(){
         if(isset($_SERVER['HTTP_REFERER']))
