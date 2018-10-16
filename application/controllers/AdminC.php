@@ -21,7 +21,8 @@ class AdminC extends CI_Controller {
 // 		$id_register= $this->session->userdata('id');
 // 		$this->data['log_status'] = $this->LoginM->get_history_status($id_register)->result();
 		$this->data['LoginM'] = $this->LoginM;
-		$this->load->view('Admin_V',$this->data);
+		$this->data['isi'] = $this->load->view('Admin_V', $this->data, TRUE);
+		$this->load->view('LayoutV', $this->data);
 
 	}
 }
