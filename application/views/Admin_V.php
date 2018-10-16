@@ -50,9 +50,9 @@
     <br>
     <br>
     <div class="col-md-12 mt-30">
-         <?php
-    $data=$this->session->flashdata('sukses');
-    if($data!=""){ 
+       <?php
+       $data=$this->session->flashdata('sukses');
+       if($data!=""){ 
         ?>
         <div class="alert alert-success">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">×</span> </button>
@@ -73,220 +73,228 @@
     } 
     ?>
     <?php echo validation_errors(); ?>
+</div>
+
+
+
+<div class="col-md-12">
+    <div class="row">
+        <center>
+            <div class="logo m-t-20 col-md-12">
+                <span class="db"><img src="<?php echo base_url()?>assets/images/Arnawa_Apps Logo.png" alt="logo" style="width: 20%;" /></span><br><br>
+                <h2 class="font-medium m-b-10" style="color: #4798e8;">Data Pengajuan Fitur</h2>
+            </div>
+        </center>
     </div>
-   
-
-
-    <div class="col-md-12">
-        <div class="row">
-            <center>
-                <div class="logo m-t-20 col-md-12">
-                    <span class="db"><img src="<?php echo base_url()?>assets/images/Arnawa_Apps Logo.png" alt="logo" style="width: 20%;" /></span><br><br>
-                    <h2 class="font-medium m-b-10" style="color: #4798e8;">Data Pengajuan Fitur</h2>
-                </div>
-            </center>
-        </div>
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="table-responsive">
-                    <table id="mytable" class="table table-striped table-bordered">
-                        <thead>
-                            <tr style="text-align:center;">
-                                <th>No.</th>
-                                <th>Nama Usaha</th>
-                                <th>Jenis Usaha</th>
-                                <th>Alamat</th>
-                                <th>Nama</th>
-                                <th>Email dan Password</th>
-                                <th>Telepon</th>
-                                <th>Fitur</th>
-                                <th>Status</th>
-                                <th>Update Terakhir</th>
-                                <th style="width:25px;">Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="table-responsive">
+                <table id="mytable" class="table table-striped table-bordered">
+                    <thead>
+                        <tr style="text-align:center;">
+                            <th>No.</th>
+                            <th>Nama Usaha</th>
+                            <th>Jenis Usaha</th>
+                            <th>Alamat</th>
+                            <th>Nama</th>
+                            <th>Email dan Password</th>
+                            <th>Telepon</th>
+                            <th>Fitur</th>
+                            <th>Status</th>
+                            <th>Update Terakhir</th>
+                            <th style="width:25px;">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
                             // print_r($data_akun);
-                            $i=0;
-                            foreach ($data_akun as $data) {
-                                $i++;
-                                ?>
-                                <tr>
-                                    <td><?php echo $i;?></td>
-                                    <td><?php echo $data->nama_usaha?></td>
-                                    <td><?php echo $data->jenis_usaha?></td>
-                                    <td><?php echo $data->alamat_usaha."<br>".$data->nama_kelurahan.", <br>".$data->nama_kecamatan.", <br>".$data->nama_kabupaten_kota.", <br>".$data->nama_propinsi;?></td>
-                                    <?php 
-                                    if($data->jenis_usaha == "koperasi"){
-                                        ?>
-                                        <td><?php echo "Nama Akun :&nbsp;<b>".$data->nama_akun."</b><br>"."Nama Koperasi :&nbsp;<b>".$data->nama_usaha."</b>";?></td>
-                                        <?php
-                                    }else{
-                                        ?>
-                                        <td><?php echo "Nama Akun :&nbsp;<b>".$data->nama_akun."</b><br>"."Nama Usaha :&nbsp;<b>".$data->nama_usaha."</b>";?></td>
-                                        <?php
-                                    }
+                        $i=0;
+                        foreach ($data_akun as $data) {
+                        $row = $LoginM->get_fitur_by_akun($data->id_akun)->num_rows();
+                        echo $row;
+                            $i++;
+                            ?>
+                            <tr>
+                                <td><?php echo $i;?></td>
+                                <td><?php echo $data->nama_usaha?></td>
+                                <td><?php echo $data->jenis_usaha?></td>
+                                <td><?php echo $data->alamat_usaha."<br>".$data->nama_kelurahan.", <br>".$data->nama_kecamatan.", <br>".$data->nama_kabupaten_kota.", <br>".$data->nama_propinsi;?></td>
+                                <?php 
+                                if($data->jenis_usaha == "koperasi"){
                                     ?>
-                                    <td><?php echo "Email Akun :&nbsp;<b>".$data->email_akun."</b><br>"."Email Usaha  :&nbsp;<b>".$data->email_usaha."</b><br>Password : &nbsp<b>".$data->password."</b>";?></td>
-                                    <td><?php echo "No. HP Akun :&nbsp;<b>".$data->no_hp."</b><br>"."Telepon Usaha  :&nbsp;<b>".$data->tlp_usaha."</b>";?></td>
-                                    <td>
-                                        <?php 
-                                        echo "fitur";
-
-                                        ?>
-                                    </td>
-                                   <!--  <td>
+                                    <td><?php echo "Nama Akun :&nbsp;<b>".$data->nama_akun."</b><br>"."Nama Koperasi :&nbsp;<b>".$data->nama_usaha."</b>";?></td>
                                     <?php
-                                        if($data->status == "waiting"){
+                                }else{
+                                    ?>
+                                    <td><?php echo "Nama Akun :&nbsp;<b>".$data->nama_akun."</b><br>"."Nama Usaha :&nbsp;<b>".$data->nama_usaha."</b>";?></td>
+                                    <?php
+                                }
+                                ?>
+                                <td><?php echo "Email Akun :&nbsp;<b>".$data->email_akun."</b><br>"."Email Usaha  :&nbsp;<b>".$data->email_usaha."</b><br>Password : &nbsp<b>".$data->password."</b>";?></td>
+                                <td><?php echo "No. HP Akun :&nbsp;<b>".$data->no_hp."</b><br>"."Telepon Usaha  :&nbsp;<b>".$data->tlp_usaha."</b>";?></td>
+                                <td>
+                                    <?php 
+                                        $fitur = $LoginM->get_fitur_by_akun($data->id_akun)->result();
+                                        // print_r($fitur);
+                                        foreach ($fitur as $fit) {
+                                            echo $fit->nama_fitur."<br>";
+                                        }
+                                    ?>
+                                </td>
+                                <td>
+                                    <?php
+                                    foreach ($fitur as $fit) {
+                                        if($fit->status == "aktif"){
                                             ?>
-                                            <a href="" class="label label-warning" title="klik untuk melihat detail" data-toggle="modal" data-target="#myModal2-<?php echo $data->id?>">
-                                                 <?php echo $data->status;?>
+                                            <a href="" class="label label-warning" title="klik untuk melihat detail" data-toggle="modal" data-target="#myModal2-<?php echo $data->id_akun?>">
+                                                <?php echo $fit->status;?>
                                             </a>
                                             <?php
                                         }else{
-                                             ?>
-                                            <a href="" class="label label-info" title="klik untuk melihat detail" data-toggle="modal" data-target="#myModal2-<?php echo $data->id?>">
-                                               <?php echo $data->status;?>
+                                           ?>
+                                            <a href="" class="label label-info" title="klik untuk melihat detail" data-toggle="modal" data-target="#myModal2-<?php echo $data->id_akun?>">
+                                             <?php echo $fit->status;?>
                                             </a>
-                                            <?php
+                                         <?php
                                         }
+                                    }
                                     ?>
-                                    </td> -->
-                                    <td><?php echo $data->updated_at?></td>
-                                   <!--  <td>
-                                        <?php 
-                                            if($data->status == "waiting"){
-                                                ?>
-                                                    <a href="<?php echo base_url('KoperasiC/update_verified/').$data->id?>" title="Verified" class="btn btn-info btn-sm"><span class="ti-check"></span></a>
-                                    
-                                                <?php
-                                            }else{
-                                                ?>
-                                                    <a href="<?php echo base_url('KoperasiC/update_waiting/').$data->id?>" title="waiting" class="btn btn-light btn-sm"><span class="ti-reload" ></span></a>
-                                    
-                                                <?php
-                                            }
+                                </td>
+                                <td><?php echo $data->updated_at?></td>
+                                <td>
+                                    <?php 
+                                    if($data->status_email == "waiting"){
                                         ?>
-                                    </td> -->
-                                </tr>
-                                
-                                <?php  
-                                // $history = $LoginM->get_history_status($data->id_detail_fitur)->result();
+                                        <a href="<?php echo base_url('KoperasiC/update_verified/').$data->id_akun?>" title="Verified" class="btn btn-info btn-sm"><span class="ti-check"></span></a>
+
+                                        <?php
+                                    }else{
+                                        ?>
+                                        <a href="<?php echo base_url('KoperasiC/update_waiting/').$data->id_akun?>" title="waiting" class="btn btn-light btn-sm"><span class="ti-reload" ></span></a>
+
+                                        <?php
+                                    }
                                     ?>
-                                        <div class="modal" id="myModal2-<?php echo $data->id?>">
-                                            <div class="modal-dialog modal-md">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h4 class="modal-title">Detail Status</h4>
-                                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                    </div>
+                                </td>
+                            </tr>
+
+                            <?php  
+                            $history = $LoginM->get_history_status($data->id_akun)->result();
+                                // echo $data->id_akun;
+                            ?>
+                            <div class="modal" id="myModal2-<?php echo $data->id_akun?>">
+                                <div class="modal-dialog modal-md">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">Detail Status</h4>
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        </div>
                                         
-                                                    <!-- Modal body -->
-                                                    <div class="modal-body">
-                                                        <div class="row text-center">
-                                                            <hr>
-                                                            <!--<div class="col-md-12">-->
-                                                                <div class="col-md-4">Tanggal Perubahan</div>
-                                                                <div class="col-md-4">Satus lama</div>
-                                                                <div class="col-md-4">Status baru</div>
+                                        <!-- Modal body -->
+                                        <div class="modal-body">
+                                            <div class="row text-center">
+                                                <hr>
+                                                <!--<div class="col-md-12">-->
+                                                    <div class="col-md-4">Tanggal Perubahan</div>
+                                                    <div class="col-md-4">Satus lama</div>
+                                                    <div class="col-md-4">Status baru</div>
+                                                    <!--</div>-->
+                                                </div>
+                                                <?php 
+                                                foreach ($history as $h){
+                                                    ?>
+                                                    <div class="row text-center">
+
+                                                        <hr size="30">
+                                                        <!--<div class="col-md-12">-->
+                                                            <div class="col-md-4"><?php echo $h->tanggal_berubah?></div>
+                                                            <div class="col-md-4"><?php echo $h->status_lama;?></div>
+                                                            <div class="col-md-4"><?php echo $h->status_baru?></div>
                                                             <!--</div>-->
                                                         </div>
-                                                            <?php 
-                                                                foreach ($history as $h){
-                                                                    ?>
-                                                                        <div class="row text-center">
-                                                                            
-                                                                            <hr size="30">
-                                                                        <!--<div class="col-md-12">-->
-                                                                            <div class="col-md-4"><?php echo $h->tanggal_berubah?></div>
-                                                                            <div class="col-md-4"><?php echo $h->status_lama;?></div>
-                                                                            <div class="col-md-4"><?php echo $h->status_baru?></div>
-                                                                        <!--</div>-->
-                                                                        </div>
-                                                                    <?php
-                                                                }
-                                                            ?>
-                                                        
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                                                    </div>
+                                                        <?php
+                                                    }
+                                                    ?>
+
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
                                     <?php
+                                    ?>
+
+
+                                    <?php
+                                }
                                 ?>
-                               
-                                
-                                <?php
-                            }
-                            ?>
-                        </tbody>
-                    </table>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
+            <div class="row">
+                <center>
+                    <div class="logo m-t-20 col-md-12">
+                        <h5 class="font-medium m-b-10" style="color: #4798e8;">--<a href="<?php echo base_url('LoginC/log_out')?>">Logout</a>--</h5>
+                    </div>
+                </center>
+            </div>
         </div>
-        <div class="row">
-            <center>
-                <div class="logo m-t-20 col-md-12">
-                    <h5 class="font-medium m-b-10" style="color: #4798e8;">--<a href="<?php echo base_url('LoginC/log_out')?>">Logout</a>--</h5>
-                </div>
-            </center>
-        </div>
-    </div>
-   
 
-    <!-- ============================================================== -->
-    <!-- All Jquery -->
-    <!-- ============================================================== -->
-    <script src="<?php echo base_url()?>assets/libs/jquery/dist/jquery.min.js"></script>
-    <!-- Bootstrap tether Core JavaScript -->
-    <script src="<?php echo base_url()?>assets/libs/popper.js/dist/umd/popper.min.js"></script>
-    <script src="<?php echo base_url()?>assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
-    <!-- apps -->
-    <script src="<?php echo base_url()?>assets/dist/js/app.min.js"></script>
-    <script src="<?php echo base_url()?>assets/dist/js/app.init.horizontal-fullwidth.js"></script>
-    <script src="<?php echo base_url()?>assets/dist/js/app-style-switcher.horizontal.js"></script>
-    <!-- slimscrollbar scrollbar JavaScript -->
-    <script src="<?php echo base_url()?>assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
-    <script src="<?php echo base_url()?>assets/extra-libs/sparkline/sparkline.js"></script>
-    <!--Wave Effects -->
-    <script src="<?php echo base_url()?>assets/dist/js/waves.js"></script>
-    <!--Menu sidebar -->
-    <script src="<?php echo base_url()?>assets/dist/js/sidebarmenu.js"></script>
-    <!--Custom JavaScript -->
-    <script src="<?php echo base_url()?>assets/dist/js/custom.min.js"></script>
-    <!--This page JavaScript -->
-    <!--chartis chart-->
-    <script src="<?php echo base_url()?>assets/libs/chartist/dist/chartist.min.js"></script>
-    <script src="<?php echo base_url()?>assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
-    <!--c3 charts -->
-    <script src="<?php echo base_url()?>assets/extra-libs/c3/d3.min.js"></script>
-    <script src="<?php echo base_url()?>assets/extra-libs/c3/c3.min.js"></script>
-    <!--chartjs -->
-    <script src="<?php echo base_url()?>assets/libs/raphael/raphael.min.js"></script>
-    <script src="<?php echo base_url()?>assets/libs/morris.js/morris.min.js"></script>
 
-    <script src="<?php echo base_url()?>assets/libs/raty-js/lib/jquery.raty.js"></script>
+        <!-- ============================================================== -->
+        <!-- All Jquery -->
+        <!-- ============================================================== -->
+        <script src="<?php echo base_url()?>assets/libs/jquery/dist/jquery.min.js"></script>
+        <!-- Bootstrap tether Core JavaScript -->
+        <script src="<?php echo base_url()?>assets/libs/popper.js/dist/umd/popper.min.js"></script>
+        <script src="<?php echo base_url()?>assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+        <!-- apps -->
+        <script src="<?php echo base_url()?>assets/dist/js/app.min.js"></script>
+        <script src="<?php echo base_url()?>assets/dist/js/app.init.horizontal-fullwidth.js"></script>
+        <script src="<?php echo base_url()?>assets/dist/js/app-style-switcher.horizontal.js"></script>
+        <!-- slimscrollbar scrollbar JavaScript -->
+        <script src="<?php echo base_url()?>assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
+        <script src="<?php echo base_url()?>assets/extra-libs/sparkline/sparkline.js"></script>
+        <!--Wave Effects -->
+        <script src="<?php echo base_url()?>assets/dist/js/waves.js"></script>
+        <!--Menu sidebar -->
+        <script src="<?php echo base_url()?>assets/dist/js/sidebarmenu.js"></script>
+        <!--Custom JavaScript -->
+        <script src="<?php echo base_url()?>assets/dist/js/custom.min.js"></script>
+        <!--This page JavaScript -->
+        <!--chartis chart-->
+        <script src="<?php echo base_url()?>assets/libs/chartist/dist/chartist.min.js"></script>
+        <script src="<?php echo base_url()?>assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
+        <!--c3 charts -->
+        <script src="<?php echo base_url()?>assets/extra-libs/c3/d3.min.js"></script>
+        <script src="<?php echo base_url()?>assets/extra-libs/c3/c3.min.js"></script>
+        <!--chartjs -->
+        <script src="<?php echo base_url()?>assets/libs/raphael/raphael.min.js"></script>
+        <script src="<?php echo base_url()?>assets/libs/morris.js/morris.min.js"></script>
 
-    <script src="<?php echo base_url()?>assets/dist/js/pages/dashboards/dashboard1.js"></script>
-    <!-- This Page JS -->
-    <script src="<?php echo base_url()?>assets/libs/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.js"></script>
-    <script src="<?php echo base_url()?>assets/libs/nestable/jquery.nestable.js"></script>
-    <script src="<?php echo base_url()?>assets/extra-libs/DataTables/datatables.min.js"></script>
+        <script src="<?php echo base_url()?>assets/libs/raty-js/lib/jquery.raty.js"></script>
 
-    <script src="<?php echo base_url()?>assets/dist/js/pages/datatable/datatable-basic.init.js"></script>
-    <script src="<?php echo base_url()?>assets/libs/ckeditor/ckeditor.js"></script>
-    <script src="<?php echo base_url()?>assets/libs/ckeditor/samples/js/sample.js"></script>
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $('#mytable').DataTable();
-        });
-    </script>
-    <!-- ============================================================== -->
-    <!-- This page plugin js -->
-    <!-- ============================================================== -->
-</body>
+        <script src="<?php echo base_url()?>assets/dist/js/pages/dashboards/dashboard1.js"></script>
+        <!-- This Page JS -->
+        <script src="<?php echo base_url()?>assets/libs/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.js"></script>
+        <script src="<?php echo base_url()?>assets/libs/nestable/jquery.nestable.js"></script>
+        <script src="<?php echo base_url()?>assets/extra-libs/DataTables/datatables.min.js"></script>
 
-</html>
+        <script src="<?php echo base_url()?>assets/dist/js/pages/datatable/datatable-basic.init.js"></script>
+        <script src="<?php echo base_url()?>assets/libs/ckeditor/ckeditor.js"></script>
+        <script src="<?php echo base_url()?>assets/libs/ckeditor/samples/js/sample.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $('#mytable').DataTable();
+            });
+        </script>
+        <!-- ============================================================== -->
+        <!-- This page plugin js -->
+        <!-- ============================================================== -->
+    </body>
+
+    </html>

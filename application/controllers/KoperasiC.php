@@ -31,16 +31,6 @@ class KoperasiC extends CI_Controller {
 
 	}
 
-	public function admin(){
-		$this->data['data_akun'] = $this->LoginM->get_all_data2()->result();
-		$this->data['dataDiri'] = $this->session->userdata();
-// 		$id_register= $this->session->userdata('id');
-// 		$this->data['log_status'] = $this->LoginM->get_history_status($id_register)->result();
-		$this->data['LoginM'] = $this->LoginM;
-		$this->load->view('Admin_V',$this->data);
-
-	}
-
 	public function dashboard(){
 		$id  = $this->session->userdata('id_akun');
 		$this->data['data_akun'] = $this->LoginM->get_all_data($id)->result()[0];

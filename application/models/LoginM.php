@@ -104,10 +104,11 @@ class LoginM extends CI_Model{
 		return TRUE;
 	}
 
-	public function get_history_status($id_detail_fitur){
+	public function get_history_status($id_akun){
 		$this->db->select('*');
-		$this->db->from('log_status');
-		$this->db->where('id_detail_fitur', $id_detail_fitur);
+		$this->db->from('log_status L');
+		$this->db->join('detail_fitur D','D.id_detail_fitur = L.id_detail_fitur');
+		$this->db->where('D.id_akun', $id_akun);
 		$query = $this->db->get();
 		if($query){
 			return $query;
@@ -124,6 +125,19 @@ class LoginM extends CI_Model{
 	public function get_all_fitur(){
 		$query = $this->db->get('fitur');
 		return $query;
+	}
+
+	public function get_fitur_by_akun($id_akun){
+		$this->db->select('*');
+		$this->db->from('detail_fitur D');
+		$this->db->join('akun A', 'D.id_akun = A.id_akun');
+		$this->db->join('fitur F', 'D.id_fitur = F.id_fitur');
+		$query = $this->db->get();
+		if($query){
+			return $query;
+		}else{
+			echo "tidak ditemukan";
+		}
 	}
 
 	// reset_password
