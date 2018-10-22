@@ -81,51 +81,6 @@
                                             $history = $LoginM->get_history_status($data->id_akun)->result();
                                             // echo $data->id_akun;
                                         ?>
-                                            <div class="modal" id="myModal2-<?php echo $data->id_akun?>">
-                                                <div class="modal-dialog modal-md">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h4 class="modal-title">Detail Status</h4>
-                                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                        </div>
-
-                                                        <!-- Modal body -->
-                                                        <div class="modal-body">
-                                                            <div class="row text-center">
-                                                                <hr>
-                                                                <!--<div class="col-md-12">-->
-                                                                <div class="col-md-4">Tanggal Perubahan</div>
-                                                                <div class="col-md-4">Satus lama</div>
-                                                                <div class="col-md-4">Status baru</div>
-                                                                <!--</div>-->
-                                                            </div>
-                                                            <?php 
-                                                                foreach ($history as $h){
-                                                            ?>
-                                                            <div class="row text-center">
-                                                                <hr size="30">
-                                                                <!--<div class="col-md-12">-->
-                                                                <div class="col-md-4">
-                                                                    <?php echo $h->tanggal_berubah?>
-                                                                </div>
-                                                                <div class="col-md-4">
-                                                                    <?php echo $h->status_lama;?>
-                                                                </div>
-                                                                <div class="col-md-4">
-                                                                    <?php echo $h->status_baru?>
-                                                                </div>
-                                                                <!--</div>-->
-                                                            </div>
-                                                            <?php
-                                                                }
-                                                            ?>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
                                         <?php
                                             }
                                         ?>
@@ -150,57 +105,49 @@
 
                             <!-- Modal body -->
                             <div class="modal-body">
-                                <form action="#">
-                                    <div class="form-body">
+                                <div class="row">
+                                    <div class="col-md-12 ">
+                                        <div class="table-wrap">
+                                            <div class="table-responsive">
+                                                <table id="" class="table table-hover display  pb-30">
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="text-center">Fitur</th>
+                                                            <th class="text-center">Status</th>
+                                                            <th class="text-center">Update Terakhir</th>
+                                                            <th class="text-center">Aksi </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tfoot>
+                                                        <tr>
 
-                                        <div class="row">
-                                            <div class="col-md-12 ">
-                                                <div class="table-wrap">
-                                                    <div class="table-responsive">
-                                                        <table id="" class="table table-hover display  pb-30">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th class="text-center">Fitur</th>
-                                                                    <th class="text-center">Status</th>
-                                                                    <th class="text-center">Update Terakhir</th>
-                                                                    <th class="text-center">Aksi </th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tfoot>
-                                                                <tr>
-
-                                                                </tr>
-                                                            </tfoot>
-                                                            <tbody>
-                                                                <tr>
-                                                                    <td></td>
-                                                                    <td class="text-center">
-                                                                        <button class="btn  btn-info btn-outline btn-rounded" data-toggle="modal" data-target="#status" style="padding: 0px 10px; border-radius: 20px;">Detail</button>
-                                                                    </td>
-                                                                    <td></td>
-                                                                    <td></td>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-                                                </div>
+                                                        </tr>
+                                                    </tfoot>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td></td>
+                                                            <td class="text-center">
+                                                                <button class="btn  btn-info btn-outline btn-rounded" data-toggle="modal" data-target="#status" style="padding: 0px 10px; border-radius: 20px;">Detail</button>
+                                                            </td>
+                                                            <td></td>
+                                                            <td></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
                                             </div>
                                         </div>
-                                        <!-- /Row -->
-
-
-                                        <div class="panel-wrapper collapse in">
-                                            <div class="panel-body">
-                                                <div class="panel-group accordion-struct" id="accordion_2" role="tablist" aria-multiselectable="true">
-                                                    <div class="panel panel-default">
-                                                        <hr class="light-grey-hr" />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
                                     </div>
-                                </form>
+                                </div>
+                                <!-- /Row -->
+                                <div class="panel-wrapper collapse in">
+                                    <div class="panel-body">
+                                        <div class="panel-group accordion-struct" id="accordion_2" role="tablist" aria-multiselectable="true">
+                                            <div class="panel panel-default">
+                                                <hr class="light-grey-hr" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
