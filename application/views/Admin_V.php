@@ -69,7 +69,7 @@
                                                 <td><?php echo $data->nama_usaha?></td>
                                                 <td><?php echo $data->jenis_usaha?></td>
                                                 <td><?php echo $data->alamat_usaha?></td>
-                                                <td>1</td>
+                                                <td><?php echo $data->email_akun."<br>";?></td>
                                                 <td>1</td>
                                                 <td>1</td>
                                                 <td class="text-center">
@@ -150,7 +150,7 @@
 
                             <!-- Modal body -->
                             <div class="modal-body">
-                                <form action="#">
+                                <form>
                                     <div class="form-body">
 
                                         <div class="row">
@@ -175,7 +175,7 @@
                                                                 <tr>
                                                                     <td></td>
                                                                     <td class="text-center">
-                                                                        <button class="btn  btn-info btn-outline btn-rounded" data-toggle="modal" data-target="#status" style="padding: 0px 10px; border-radius: 20px;">Detail</button>
+                                                                        <a style="color: white;" class="btn  btn-info btn-outline btn-rounded" data-toggle="modal" data-target="#status" style="padding: 0px 10px; border-radius: 20px;">Detail</a>
                                                                     </td>
                                                                     <td></td>
                                                                     <td></td>

@@ -9,7 +9,7 @@ class KoperasiC extends CI_Controller {
 		$this->load->model(['Registrasi_m','LoginM']);
 		in_access(); //helper buat batasi akses login/session
 		user_access();
-	
+
 		$email_akun = $this->session->userdata('email_akun');
 		$password 	= $this->session->userdata('password');
 		$id_akun 	= $this->session->userdata('id_akun');
@@ -36,6 +36,7 @@ class KoperasiC extends CI_Controller {
 
 	public function dashboard(){
 		$id  = $this->session->userdata('id_akun');
+		$this->data['LoginM'] = $this->LoginM;
 		$this->data['data_akun'] = $this->LoginM->get_all_data($id)->result()[0];
 		$this->data['dataDiri'] = $this->session->userdata();
 		$this->data['active'] = 'active';
@@ -44,14 +45,15 @@ class KoperasiC extends CI_Controller {
 		$this->load->view('LayoutV', $this->data);
 	}
 
-	
 	// Permintaan modul
 	public function mintamodul(){
 		$id  = $this->session->userdata('id_akun');
+		$this->data['macam_fitur']	= $this->LoginM->get_all_fitur(); //semua fitur
+		$this->data['macam_fitur_akun']	= $this->LoginM->get_fitur_by_akun($id); //fitur by akun
 		$this->data['data_akun'] = $this->LoginM->get_all_data($id)->result()[0];
 		$this->data['dataDiri'] = $this->session->userdata();
 		$this->data['active'] = 'active';
-		$this->data['manajemen_fitur'] 		= $this->LoginM->get_detail_fitur_by_akun($id)->result();
+		// $this->data['manajemen_fitur'] 		= $this->LoginM->get_detail_fitur_by_akun($id)->result();
 		$this->data['isi'] = $this->load->view('PermintaanmodulV', $this->data, TRUE);
 		$this->load->view('LayoutV', $this->data);
 	}
@@ -116,7 +118,7 @@ class KoperasiC extends CI_Controller {
 		} 
 	}
 
-	public function input_fitur(){
+	public function input_fitur($kemana){
 		$this->form_validation->set_rules('fitur', 'Fitur');
 		$this->form_validation->set_rules('id_akun', 'ID Akun','required');  
 
@@ -136,15 +138,32 @@ class KoperasiC extends CI_Controller {
 				$this->LoginM->insert_fitur($data);
 			}
 			$this->session->set_flashdata('sukses','Data anda berhasil disimpan');
-			redirect('KoperasiC/dashboard');
+			if($kemana == ""){
+				redirect('KoperasiC/dashboard');
+			}else{
+				redirect_back();
+			}
 		}
 	}
 	
 	
 
-// 	admin
-	public function update_verified($id){
-		$data = array('status' => 'verified');
+
+
+	// user
+	// ===========fitur============
+	public function hapus_detail_fitur($id_detail_fitur){
+		if($this->LoginM->hapus_detail_fitur($id_detail_fitur)){
+			$this->session->set_flashdata('sukses','Data anda berhasil dihapus');
+			redirect_back();
+		}else{
+			$this->session->set_flashdata('error','Data anda tidak berhasil dihapus');
+			redirect_back();
+		}
+	}
+
+	public function update_menunggu($id){
+		$data = array('status' => 'menunggu');
 		if($this->LoginM->update($id, $data)){
 			$this->session->set_flashdata('sukses','Data anda berhasil diubah');
 			redirect_back();
@@ -153,18 +172,5 @@ class KoperasiC extends CI_Controller {
 			redirect_back();
 		}
 	}
-
-	public function update_waiting($id){
-		$data = array('status' => 'waiting');
-		if($this->LoginM->update($id, $data)){
-			$this->session->set_flashdata('sukses','Data anda berhasil diubah');
-			redirect_back();
-		}else{
-			$this->session->set_flashdata('error','Data anda tidak berhasil diubah');
-			redirect_back();
-		}
-	}
-
-
 
 }

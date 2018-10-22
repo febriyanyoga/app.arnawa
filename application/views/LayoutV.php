@@ -280,54 +280,101 @@
                             <!-- End User Profile-->
                         </li>
 
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link active" href="<?php echo base_url()?>KoperasiC/dashboard" aria-expanded="false">
-                                <i class="ti-dashboard"></i>
-                                <span class="hide-menu">Dashboards </span>
-                            </a>
-                        </li>
-
-                        <li class="nav-small-cap">
-                            <i class="mdi mdi-dots-horizontal"></i>
-                            <span class="hide-menu">Fitur</span>
-                        </li>
-
                         <?php
-                        // print_r($fitur);
-                        foreach ($fitur as $fit) {
-                        ?>
-                            <li class="sidebar-item">
-                                <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
-                                <i class="<?php echo $fit->icon;?>"></i>
-                                <span class="hide-menu"><?php echo $fit->nama_fitur?></span>
-                            </a>
-
-                                <ul aria-expanded="false" class="collapse  first-level">
-                                    <li class="sidebar-item">
-                                        <a href="#" class="sidebar-link">
-                                        <i class="mdi mdi-email"></i>
-                                        <span class="hide-menu"> Master Data </span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                        <?php
+                            if($this->session->userdata('jenis_akun') == "user"){
+                                ?>
+                                <li class="sidebar-item">
+                                    <a class="sidebar-link waves-effect waves-dark sidebar-link active" href="<?php echo base_url()?>KoperasiC/dashboard" aria-expanded="false">
+                                        <i class="ti-dashboard"></i>
+                                        <span class="hide-menu">Dashboards </span>
+                                    </a>
+                                </li>
+                                
+                                <?php
+                            }elseif($this->session->userdata('jenis_akun') == "admin"){
+                                 ?>
+                                <li class="sidebar-item">
+                                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?php echo base_url()?>AdminC/" aria-expanded="false">
+                                        <i class="ti-dashboard"></i>
+                                        <span class="hide-menu">Dashboards </span>
+                                    </a>
+                                </li>                                
+                                <?php
                             }
                         ?>
+                        <?php
+                            if($this->session->userdata('jenis_akun') == "user"){
+                                ?>
+                                <li class="sidebar-item">
+                                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?php echo base_url()?>KoperasiC/mintamodul" aria-expanded="false">
+                                        <i class="ti-layers"></i>
+                                        <span class="hide-menu">Permintaan Modul </span>
+                                    </a>
+                                </li>
+                                
+                                <?php
+                            }
+                        ?>
+                        <?php
+                        if($this->session->userdata('jenis_akun') == "user"){
+                            ?>
+                            <li class="nav-small-cap">
+                                <i class="mdi mdi-dots-horizontal"></i>
+                                <span class="hide-menu">Fitur</span>
+                            </li>
+                            <?php
+                        }
+                        ?>
+                        <?php
+                        foreach ($fitur as $fit) {
+                            if($fit->status != "menunggu"){
+                                ?>
+                                <li class="sidebar-item">
+                                    <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
+                                        <i class="<?php echo $fit->icon;?>"></i>
+                                        <span class="hide-menu"><?php echo $fit->nama_fitur?></span>
+                                    </a>
 
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?php echo base_url()?>KoperasiC/mintamodul" aria-expanded="false">
-                                <i class="ti-dashboard"></i>
-                                <span class="hide-menu">Permintaan Modul </span>
-                            </a>
-                        </li>
+                                    <ul aria-expanded="false" class="collapse  first-level">
+                                        <li class="sidebar-item">
+                                            <a href="#" class="sidebar-link">
+                                                <i class="mdi mdi-email"></i>
+                                                <span class="hide-menu"> Master Data </span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <?php
+                            }
+                        }
+                        ?>
 
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?php echo base_url()?>AdminC/" aria-expanded="false">
-                                <i class="ti-dashboard"></i>
-                                <span class="hide-menu">Manajemen Koperasi </span>
-                            </a>
-                        </li>
+                        <?php
+                            if($this->session->userdata('jenis_akun') == "admin"){
+                                ?>
+                                <li class="sidebar-item">
+                                    <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
+                                        <i class="ti-book"></i>
+                                        <span class="hide-menu">Manajemen Koperasi </span>
+                                    </a>
+                                    <ul aria-expanded="false" class="collapse  first-level">
+                                        <li class="sidebar-item">
+                                            <a href="<?php echo base_url()?>AdminC/manajemen_koperasi" class="sidebar-link">
+                                                <i class="mdi mdi-email"></i>
+                                                <span class="hide-menu"> Daftar Koperasi</span>
+                                            </a>
+                                        </li>
+                                        <li class="sidebar-item">
+                                            <a href="<?php echo base_url()?>AdminC/manajemen_koperasi" class="sidebar-link">
+                                                <i class="mdi mdi-email"></i>
+                                                <span class="hide-menu"> Pengajuan Fitur</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <?php
+                            }
+                        ?>
                     </ul>
                 </nav>
                 <!-- End Sidebar navigation -->
@@ -421,6 +468,12 @@
     <!--This page plugins -->
     <script src="<?php echo base_url();?>assets/extra-libs/DataTables/datatables.min.js"></script>
     <script src="<?php echo base_url();?>assets/dist/js/pages/datatable/datatable-basic.init.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#my_table').DataTable();
+        } 
+        );
+    </script>
 
 </body>
 
