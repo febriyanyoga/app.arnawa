@@ -20,17 +20,29 @@ class CobaC extends CI_Controller {
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
 
-	 public function __construct() {
+	public function __construct() {
 		parent::__construct();
 		$this->load->model(['Registrasi_m','LoginM']);
+		$email_akun = $this->session->userdata('email_akun');
+		$password 	= $this->session->userdata('password');
+		$id_akun 	= $this->session->userdata('id_akun');
+
+		$this->data['jenis_usaha'] 	= $this->LoginM->ceknum($email_akun, $password)->row()->jenis_usaha;
+		$this->data['dataDiri'] 	= $this->session->userdata();
+		$this->data['fitur'] 		= $this->LoginM->get_fitur_by_akun($id_akun)->result();
 		in_access(); //helper buat batasi akses login/session
 	}
 
 	public function mintamodul(){
 		$id  = $this->session->userdata('id_akun');
+		$this->data['macam_fitur']	= $this->LoginM->get_all_fitur(); //semua fitur
+		$this->data['macam_fitur_akun']	= $this->LoginM->get_fitur_by_akun($id); //fitur by akun
 		$this->data['data_akun'] = $this->LoginM->get_all_data($id)->result()[0];
 		$this->data['dataDiri'] = $this->session->userdata();
-		$this->load->view('PermintaanmodulV',$this->data);
+		$this->data['active'] = 'active';
+		$this->data['manajemen_fitur'] 		= $this->LoginM->get_detail_fitur_by_akun($id)->result();
+		$this->data['isi'] = $this->load->view('PermintaanmodulV', $this->data, TRUE);
+		$this->load->view('LayoutV', $this->data);
 
 	}
 }

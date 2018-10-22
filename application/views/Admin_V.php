@@ -42,7 +42,7 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="table-responsive">
-                                <table id="mytable" class="table table-striped table-bordered">
+                                <table id="multi_col_order" class="table table-striped table-bordered">
                                     <thead>
                                         <tr style="text-align:center;">
                                             <th>No.</th>
@@ -60,18 +60,18 @@
                                             // print_r($data_akun);
                                             $i=0;
                                             foreach ($data_akun as $data) {
-                                            $row = $LoginM->get_fitur_by_akun($data->id_akun)->num_rows();
-                                            echo $row;
+                                            // $row = $LoginM->get_fitur_by_akun($data->id_akun)->num_rows();
+                                            // echo $row;
                                             $i++;
                                         ?>
                                             <tr>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
+                                                <td><?php echo $i;?></td>
+                                                <td><?php echo $data->nama_usaha?></td>
+                                                <td><?php echo $data->jenis_usaha?></td>
+                                                <td><?php echo $data->alamat_usaha?></td>
+                                                <td><?php echo $data->email_akun."<br>";?></td>
+                                                <td>1</td>
+                                                <td>1</td>
                                                 <td class="text-center">
                                                     <button class="btn  btn-info btn-outline btn-rounded" data-toggle="modal" data-target="#fitur" style="padding: 5px 15px; border-radius: 20px;">Detail</button>
                                                 </td>
@@ -105,35 +105,42 @@
 
                             <!-- Modal body -->
                             <div class="modal-body">
-                                <div class="row">
-                                    <div class="col-md-12 ">
-                                        <div class="table-wrap">
-                                            <div class="table-responsive">
-                                                <table id="" class="table table-hover display  pb-30">
-                                                    <thead>
-                                                        <tr>
-                                                            <th class="text-center">Fitur</th>
-                                                            <th class="text-center">Status</th>
-                                                            <th class="text-center">Update Terakhir</th>
-                                                            <th class="text-center">Aksi </th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tfoot>
-                                                        <tr>
 
-                                                        </tr>
-                                                    </tfoot>
-                                                    <tbody>
-                                                        <tr>
-                                                            <td></td>
-                                                            <td class="text-center">
-                                                                <button class="btn  btn-info btn-outline btn-rounded" data-toggle="modal" data-target="#status" style="padding: 0px 10px; border-radius: 20px;">Detail</button>
-                                                            </td>
-                                                            <td></td>
-                                                            <td></td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
+                                <form>
+                                    <div class="form-body">
+
+                                        <div class="row">
+                                            <div class="col-md-12 ">
+                                                <div class="table-wrap">
+                                                    <div class="table-responsive">
+                                                        <table id="" class="table table-hover display  pb-30">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th class="text-center">Fitur</th>
+                                                                    <th class="text-center">Status</th>
+                                                                    <th class="text-center">Update Terakhir</th>
+                                                                    <th class="text-center">Aksi </th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tfoot>
+                                                                <tr>
+
+                                                                </tr>
+                                                            </tfoot>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td></td>
+                                                                    <td class="text-center">
+                                                                        <a style="color: white;" class="btn  btn-info btn-outline btn-rounded" data-toggle="modal" data-target="#status" style="padding: 0px 10px; border-radius: 20px;">Detail</a>
+                                                                    </td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+
                                             </div>
                                         </div>
                                     </div>

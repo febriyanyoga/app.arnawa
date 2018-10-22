@@ -170,132 +170,29 @@
         $(".preloader ").fadeOut();
     </script>
 
-    <script type="text/javascript">
-       function hanyaAngka(evt) {
-        var charCode = (evt.which) ? evt.which : event.keyCode
-        if (charCode > 31 && (charCode < 48 || charCode > 57))
-            return false;
-        return true;
-    }
-
-    $(function () {
-      $("#simpan").click(function () {
-         var password = $("#password").val();
-         var confirmPassword = $("#confirmpass").val();
-         var pass_length = password.length;
-         if (password != confirmPassword) {
-            alert("Kata sandi tidak sama.");
-                    // document.getElementById("demo").innerHTML = "Kata sandi tidak sama.";
-                    return false;
-                }else{
-                	if(pass_length < 6){
-                		alert("Panjang Kata sandi minimal 6 karakter");
-                		return false;
-                	}else{
-                		if(pass_length > 50){
-                			alert("Panjang Kata sandi maksimal 50 karakter");
-                			return false;
-                		}else{
-                			return true;
-                		}
-                	}
-                }
-            });
-  });
-</script>
-
-
-<script language="javascript">
-    function validate()
-    {
-        var chks = document.getElementsByName('fitur[]');
-        var hasChecked = false;
-        for (var i = 0; i < chks.length; i++)
+    <script language="javascript">
+        function validate()
         {
-           if (chks[i].checked)
-           {
-               hasChecked = true;
-               break;
+            var chks = document.getElementsByName('fitur[]');
+            var hasChecked = false;
+            for (var i = 0; i < chks.length; i++)
+            {
+               if (chks[i].checked)
+               {
+                   hasChecked = true;
+                   break;
+               }
            }
+
+           if (hasChecked == false)
+           {
+               alert("Silahkan pilih minimal satu fitur.");
+               return false;
+           }
+
+           return true;
        }
-
-       if (hasChecked == false)
-       {
-           alert("Silahkan pilih minimal satu fitur.");
-           return false;
-       }
-
-       return true;
-   }
-   $(document).ready(function(){
-        // City change
-        $('#propinsi').change(function(){
-            var propinsi = $(this).val(); //ambil value dr kode_unit
-            // window.alert(unit);
-
-            // AJAX request
-            $.ajax({
-                url:'<?=base_url()?>KoperasiC/get_kabupaten_kota',
-                method: 'post',
-                data: {id_propinsi: propinsi}, // data post ke controller 
-                dataType: 'json',
-                success: function(response){
-                    // Remove options
-                    $('#kota').find('option').not(':first').remove();
-
-                    // Add options
-                    $.each(response,function(daftar,data){
-                        $('#kota').append('<option value="'+data['id_kabupaten_kota']+'">'+data['nama_kabupaten_kota']+'</option>');
-                    });
-                }
-            });
-        });
-
-        $('#kota').change(function(){
-            var kota = $(this).val(); //ambil value dr kode_unit
-            // window.alert(unit);
-
-            // AJAX request
-            $.ajax({
-                url:'<?=base_url()?>KoperasiC/get_kecamatan',
-                method: 'post',
-                data: {id_kabupaten_kota: kota}, // data post ke controller 
-                dataType: 'json',
-                success: function(response){
-                    // Remove options
-                    $('#kecamatan').find('option').not(':first').remove();
-
-                    // Add options
-                    $.each(response,function(daftar,data){
-                        $('#kecamatan').append('<option value="'+data['id_kecamatan']+'">'+data['nama_kecamatan']+'</option>');
-                    });
-                }
-            });
-        });
-
-        $('#kecamatan').change(function(){
-            var kecamatan = $(this).val(); //ambil value dr kode_unit
-            // window.alert(unit);
-
-            // AJAX request
-            $.ajax({
-                url:'<?=base_url()?>KoperasiC/get_kelurahan',
-                method: 'post',
-                data: {id_kecamatan : kecamatan}, // data post ke controller 
-                dataType: 'json',
-                success: function(response){
-                    // Remove options
-                    $('#kelurahan').find('option').not(':first').remove();
-
-                    // Add options
-                    $.each(response,function(daftar,data){
-                        $('#kelurahan').append('<option value="'+data['id_kelurahan']+'">'+data['nama_kelurahan']+'</option>');
-                    });
-                }
-            });
-        });
-    });
-</script>
+   </script>
 
 
 </body>
