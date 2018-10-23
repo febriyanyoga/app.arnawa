@@ -162,7 +162,7 @@
                         // print_r($fitur);
                             $i=0;
                             foreach ($fitur as $fit) {
-                                if($fit->status == "menunggu"){
+                                if($fit->status == "menunggu" || $fit->status == "proses"){
                                     $i++;
                                     ?>
                                     <tr>
@@ -173,9 +173,21 @@
                                         $new_tgl_pengajuan  = date('d-m-Y', strtotime($tgl_pengajuan));
                                         ?>
                                         <td><?php echo $new_tgl_pengajuan;?></td>
-                                        <td class="text-center"> <span style="color: white;" class="label label-sm label-primary" title="dalam proses"><?php echo $fit->status;?></span></td>
                                         <td class="text-center">
-                                            <a href="<?php echo base_url('KoperasiC/hapus_detail_fitur/').$fit->id_detail_fitur?>"  onClick="return confirm('Anda yakin akan membatalkan pengajuan fitur <?php echo $fit->nama_fitur?>?')" style="color: white;" class="btn btn-danger btn-sm"><i class="ti-trash"></i></a>
+                                            <?php
+                                            if($fit->status == "menunggu"){
+                                                ?>
+                                                <span style="color: white;" class="label label-sm label-primary" title="menunggu persetujuan"><?php echo $fit->status;?></span>
+                                                <?php
+                                            }else{
+                                                ?>
+                                                <span style="color: white;" class="label label-sm label-info" title="dalam proses persetujuan"><?php echo $fit->status;?></span>
+                                                <?php
+                                            }
+                                            ?>
+                                        </td>
+                                        <td class="text-center">
+                                            <a href="<?php echo base_url('KoperasiC/hapus_detail_fitur/').$fit->id_detail_fitur?>"  onClick="return confirm('Anda yakin akan membatalkan pengajuan fitur <?php echo $fit->nama_fitur?>?')" style="color: white;" class="btn btn-danger btn-sm" title="hapus pengajuan fitur"><i class="ti-trash"></i></a>
                                         </td>
                                     </tr>
                                     <?php

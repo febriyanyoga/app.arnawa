@@ -488,6 +488,7 @@
     <script type="text/javascript">
         $(document).ready(function() {
             $('#my_table').DataTable();
+            $('#tabel_fitur').DataTable();
         } 
         );
     </script>
