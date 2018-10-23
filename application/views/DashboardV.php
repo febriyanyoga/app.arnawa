@@ -104,15 +104,15 @@
                                         <?php
                                         if($tagihan->status_tagihan == "Paid"){
                                             ?>
-                                            <span class="label btn-success label-sm" title="paid"><? echo $tagihan->status_tagihan;?></span>
+                                            <span class="label btn-success label-sm" title="paid"><?php echo $tagihan->status_tagihan;?></span>
                                             <?php
                                         }elseif ($tagihan->status_tagihan == "Suspend") {
                                             ?>
-                                            <span class="label btn-default label-sm" title="suspend"><? echo $tagihan->status_tagihan;?></span>
+                                            <span class="label btn-default label-sm" title="suspend"><?php echo $tagihan->status_tagihan;?></span>
                                             <?php
                                         }elseif ($tagihan->status_tagihan == "Pending") {
                                             ?>
-                                            <span class="label btn-warning label-sm" title="pending"><? echo $tagihan->status_tagihan;?></span>
+                                            <span class="label btn-warning label-sm" title="pending"><?php echo $tagihan->status_tagihan;?></span>
                                             <?php
                                         }
                                         ?>

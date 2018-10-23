@@ -37,6 +37,11 @@
     <link href="<?php echo base_url();?>assets/libs/morris.js/morris.css" rel="stylesheet">
     <!-- Custom CSS -->
     <link href="<?php echo base_url();?>assets/dist/css/style.min.css" rel="stylesheet">
+
+    <!-- Tambahan CSS untuk Tampilan Tab -->
+    <link rel="stylesheet" type="text/css" href="../../assets/extra-libs/prism/prism.css">
+
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -312,6 +317,13 @@
                                     </a>
                                 </li>
                                 
+                                <li class="sidebar-item">
+                                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?php echo base_url()?>CobaC/tagihan" aria-expanded="false">
+                                        <i class="ti-money"></i>
+                                        <span class="hide-menu">Tagihan </span>
+                                    </a>
+                                </li>
+                                
                                 <?php
                             }
                         ?>
@@ -465,6 +477,11 @@
 
     <script src="<?php echo base_url();?>assets/dist/js/pages/dashboards/dashboard1.js"></script>
 
+    
+    <!-- Tambahan JS untuk Tampilan Tab -->
+    <script src="../../assets/extra-libs/prism/prism.js"></script>
+
+
     <!--This page plugins -->
     <script src="<?php echo base_url();?>assets/extra-libs/DataTables/datatables.min.js"></script>
     <script src="<?php echo base_url();?>assets/dist/js/pages/datatable/datatable-basic.init.js"></script>
@@ -472,6 +489,9 @@
         $(document).ready(function() {
             $('#my_table').DataTable();
             $('#tabel_fitur').DataTable();
+            $('#tabel_paid').DataTable();
+            $('#tabel_suspend').DataTable();
+            $('#tabel_pending').DataTable();
         } 
         );
     </script>
