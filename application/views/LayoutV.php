@@ -489,6 +489,9 @@
         $(document).ready(function() {
             $('#my_table').DataTable();
             $('#tabel_fitur').DataTable();
+            $('#tabel_paid').DataTable();
+            $('#tabel_suspend').DataTable();
+            $('#tabel_pending').DataTable();
         } 
         );
     </script>
