@@ -120,7 +120,7 @@
                                     <td class="text-center">
                                         <a style="color: white;" class="btn btn-info btn-sm" data-toggle="modal" data-target="#lihat-<?php echo $macam_fitur->id_detail_fitur?>" title="lihat riwayat tagihan"><i class="fa fa-eye"></i></a>
                                         <?php
-                                        if($macam_fitur->status == "aktif"){
+                                        if($macam_fitur->status == "non-aktif"){
                                             ?>
                                             <a href="<?php echo base_url('KoperasiC/update_menunggu/'.$macam_fitur->id_detail_fitur)?>" class="btn btn-danger btn-sm"  title="aktifkan kembali/ajukan ulang"><i class="ti-reload"></i></a>
                                             <?php
@@ -223,7 +223,7 @@
                     <div class="modal-body">
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table id="history-<?php echo $macam_fitur->id_detail_fitur?>" class="table table-striped table-bordered display" style="width:100%">
+                                <table id="tabel_history" class="table table-striped table-bordered display" style="width:100%">
                                     <thead>
                                         <tr class="text-center">
                                             <th>No.</th>

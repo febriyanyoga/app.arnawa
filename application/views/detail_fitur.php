@@ -151,8 +151,14 @@
                                                     }
                                                     if($macam_fitur->status == 'aktif'){
                                                         ?>
+                                                        <!-- <a href="<?php echo base_url('AdminC/update_non_aktif/'.$macam_fitur->id_detail_fitur)?>" style="color: white;" class="btn btn-danger btn-sm"  title="non-aktifkan"><i class="ti-close"></i></a> -->
+                                                        <a href="<?php echo base_url('AdminC/update_suspend/'.$macam_fitur->id_detail_fitur)?>" style="color: white;" class="btn btn-warning btn-sm"  title="suspend"><i class="ti-na"></i></a>
+                                                        <?php
+                                                    }
+                                                    if($macam_fitur->status == 'suspend'){
+                                                        ?>
+                                                        <a href="<?php echo base_url('AdminC/update_aktif/'.$macam_fitur->id_detail_fitur)?>" style="color: white;" class="btn btn-info btn-sm" title="aktifkan"><i class="ti-check"></i></a>
                                                         <a href="<?php echo base_url('AdminC/update_non_aktif/'.$macam_fitur->id_detail_fitur)?>" style="color: white;" class="btn btn-danger btn-sm"  title="non-aktifkan"><i class="ti-close"></i></a>
-                                                        
                                                         <?php
                                                     }
                                                     ?>
@@ -247,7 +253,7 @@
                                     </thead>
                                     <tbody>
                                         <?php
-                                        foreach ($fitur as $fit) {
+                                        foreach ($fitur2 as $fit) {
                                             if($fit->status == "menunggu" || $fit->status == "proses"){
                                                 $i++;
                                                 ?>

@@ -248,4 +248,9 @@ class LoginM extends CI_Model{
 		$this->db->order_by('id_tagihan','DESC');
 		return $this->db->get('tagihan');
 	}
+
+	public function insert_tagihan($data){
+		$this->db->insert('tagihan', $data);
+		return TRUE;
+	}
 }
