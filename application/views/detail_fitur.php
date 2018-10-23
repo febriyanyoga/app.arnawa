@@ -5,7 +5,7 @@
                 <div class="page-breadcrumb">
                     <div class="row">
                         <div class="col-5 align-self-center">
-                            <h4 class="page-title">Dashboard</h4>
+                            <h4 class="page-title">Detail Fitur</h4>
                             <div class="d-flex align-items-center">
 
                             </div>
@@ -17,13 +17,14 @@
                                         <li class="breadcrumb-item">
                                             <a href="<?php echo base_url('AdminC/manajemen_koperasi')?>">Daftar Koperasi</a>
                                         </li>
-                                        <li class="breadcrumb-item active" aria-current="page">Detail Koperasi</li>
+                                        <li class="breadcrumb-item active" aria-current="page">Detail Fitur</li>
                                     </ol>
                                 </nav>
                             </div>
                         </div>
                     </div>
                 </div>
+                <br>
                 <div class="col-md-12 mt-30">
                     <?php
                     $data=$this->session->flashdata('sukses');
@@ -155,7 +156,6 @@
                                                         <?php
                                                     }
                                                     ?>
-                                                    <a style="color: white;" class="btn btn-success btn-sm" data-toggle="modal" data-target="#aktif-<?php echo $macam_fitur->id_detail_fitur?>" title="Aktifkan"><i class="ti-check"></i></a>
                                                 </td>
                                             </tr>
 
@@ -209,65 +209,143 @@
                                             </div>
                                             <!-- end modal history status -->
 
-                                            <!-- start modal aktif -->
-                                            <div class="modal fade" id="aktif-<?php echo $macam_fitur->id_detail_fitur?>" tabindex="-1" role="dialog" aria-labelledby="aktif">
-                                                <div class="modal-dialog" role="document">
-                                                    <form action="<?php echo base_url('KoperasiC/post_aktif')?>" method="post">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h4 class="modal-title" id="exampleModalLabel1">Aktifkan <?php echo $macam_fitur->nama_fitur?></h4>
-                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                <div class="form-group">
-                                                                    <label for="recipient-name" class="control-label">Status:</label>
-                                                                    <select class="form-control" name="status" id="status" required>
-                                                                        <option selected value="aktif">Aktif</option>
-                                                                    </select>
-                                                                    <input type="hidden" class="form-control"  name="id_detail_fitur" value="">
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="recipient-name" class="control-label">Link aplikasi:</label>
-                                                                    <input type="text" class="form-control"  name="link_app" id="link_app" required>
-                                                                </div>
-                                                                <br>
-                                                                <hr>
-                                                                <div class="form-group">
-                                                                    <h5> Masukkan Tagihan</h5>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="recipient-name" class="control-label">Tanggal aktif:</label>
-                                                                    <input type="date" class="form-control"  name="start_date" id="start_date" required="">
-                                                                </div>
-                                                                 <div class="form-group">
-                                                                    <label for="recipient-name" class="control-label">Tanggal berakhir:</label>
-                                                                    <input type="date" class="form-control"  name="end_date" id="end_date" required="">
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="recipient-name" class="control-label">Harga:</label>
-                                                                    <input type="number" class="form-control"  name="harga" id="harga" value="" required="">
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="recipient-name" class="control-label">Status tagihan:</label>
-                                                                    <select class="form-control" name="status_tagihan" id="status_tagihan">
-                                                                        <option value="Paid">Paid</option>
-                                                                        <option value="Paid">Paid</option>
-                                                                        <option value="Paid">Paid</option>
-                                                                        <option value="Paid">Paid</option>
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <input type="submit" class="btn btn-danger" data-dismiss="modal" value="Batal">
-                                                                <input type="submit" class="btn btn-default" name="submit" value="Simpan">
-                                                            </div>
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                            <!-- end modal aktif -->
+                                            
 
                                             <?php
+                                        }
+                                        ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <br>
+                <br>
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-5 align-self-center">
+                            <h4 class="page-title">Pengajuan Fitur</h4>
+                            <div class="d-flex align-items-center">
+
+                            </div>
+                        </div>
+                        <br>
+                        <br>
+                        <div class="col-lg-12">
+                            <div class="table-responsive">
+                                <table id="tabel_fitur" class="table table-striped table-bordered display" style="width:100%">
+                                    <thead class="text-center">
+                                        <tr>
+                                            <th>No.</th>
+                                            <th>Nama Fitur</th>
+                                            <th>Tanggal Pengajuan</th>
+                                            <th>Status</th>
+                                            <th>Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        foreach ($fitur as $fit) {
+                                            if($fit->status == "menunggu" || $fit->status == "proses"){
+                                                $i++;
+                                                ?>
+                                                <tr>
+                                                    <td class="text-center"><?php echo $i;?></td>
+                                                    <td><?php echo $fit->nama_fitur?></td>
+                                                    <?php
+                                                    $tgl_pengajuan      = $fit->created_at_f;
+                                                    $new_tgl_pengajuan  = date('d-m-Y', strtotime($tgl_pengajuan));
+                                                    ?>
+                                                    <td><?php echo $new_tgl_pengajuan;?></td>
+                                                    
+                                                    <td class="text-center">
+                                                        <?php
+                                                        if($fit->status == "menunggu"){
+                                                            ?>
+                                                            <span style="color: white;" class="label label-sm label-primary" title="menunggu persetujuan"><?php echo $fit->status;?></span>
+                                                            <?php
+                                                        }else{
+                                                            ?>
+                                                            <span style="color: white;" class="label label-sm label-info" title="dalam proses persetujuan"><?php echo $fit->status;?></span>
+                                                            <?php
+                                                        }
+                                                        ?>
+                                                    </td>
+                                                    
+                                                    <td class="text-center">
+                                                        <?php
+                                                        if($fit->status == "menunggu"){
+                                                            ?>
+                                                            <a href="<?php echo base_url('AdminC/update_proses/').$fit->id_detail_fitur?>" style="color: white;" class="btn btn-info btn-sm"  title="proses fitur"><i class="ti-import"></i></a>
+                                                            <?php
+                                                        }elseif($fit->status == "proses"){
+                                                            ?>
+                                                            <a style="color: white;" class="btn btn-success btn-sm" data-toggle="modal" data-target="#aktif-<?php echo $fit->id_detail_fitur?>" title="Aktifkan"><i class="ti-check"></i></a>
+                                                            <?php
+                                                        }
+                                                        ?>
+                                                    </td>
+                                                </tr>
+
+
+                                                <!-- start modal aktif -->
+                                                <div class="modal fade" id="aktif-<?php echo $fit->id_detail_fitur?>" tabindex="-1" role="dialog" aria-labelledby="aktif">
+                                                    <div class="modal-dialog" role="document">
+                                                        <form action="<?php echo base_url('AdminC/post_aktif')?>" method="post">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h4 class="modal-title" id="exampleModalLabel1">Aktifkan Fitur <?php echo $fit->nama_fitur?></h4>
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <div class="form-group">
+                                                                        <label for="recipient-name" class="control-label">Status:</label>
+                                                                        <select class="form-control" name="status" id="status" required>
+                                                                            <option selected value="aktif">Aktif</option>
+                                                                        </select>
+                                                                        <input type="hidden" class="form-control"  name="id_detail_fitur" value="<?php echo $fit->id_detail_fitur?>">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label for="recipient-name" class="control-label">Link aplikasi:</label>
+                                                                        <input type="text" class="form-control"  name="link_app" id="link_app" required>
+                                                                    </div>
+                                                                    <br>
+                                                                    <hr>
+                                                                    <div class="form-group">
+                                                                        <h5> Masukkan Tagihan</h5>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label for="recipient-name" class="control-label">Tanggal aktif:</label>
+                                                                        <input type="date" class="form-control"  name="start_date" id="start_date" required="">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label for="recipient-name" class="control-label">Tanggal berakhir:</label>
+                                                                        <input type="date" class="form-control"  name="end_date" id="end_date" required="">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label for="recipient-name" class="control-label">Harga:</label>
+                                                                        <input type="number" class="form-control"  name="harga" id="harga" value="" required="">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label for="recipient-name" class="control-label">Status tagihan:</label>
+                                                                        <select class="form-control" name="status_tagihan" id="status_tagihan">
+                                                                            <option selected="" value="Paid">Paid</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <input type="submit" class="btn btn-danger" data-dismiss="modal" value="Batal">
+                                                                    <input type="submit" class="btn btn-default" name="submit" value="Aktifkan">
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                                <!-- end modal aktif -->
+                                                <?php
+                                            }
                                         }
                                         ?>
                                     </tbody>

@@ -40,7 +40,7 @@ class AdminC extends CI_Controller {
 	public function detail_fitur($id_akun){
 		$this->data['LoginM'] = $this->LoginM;
 		$this->data['manajemen_fitur'] 		= $this->LoginM->get_detail_fitur_by_akun($id_akun)->result();
-		// $this->data['fitur'] 		= $this->LoginM->get_fitur_by_akun($id_akun)->result();
+		$this->data['fitur'] 		= $this->LoginM->get_fitur_by_akun($id_akun)->result();
 		$this->data['isi'] = $this->load->view('detail_fitur', $this->data, TRUE);
 		$this->load->view('LayoutV', $this->data);
 	}
@@ -65,6 +65,56 @@ class AdminC extends CI_Controller {
 		}else{
 			$this->session->set_flashdata('error','Data anda tidak berhasil diubah');
 			redirect_back();
+		}
+	}
+
+	public function update_proses($id){
+		$data = array('status' => 'proses');
+		if($this->LoginM->update($id, $data)){
+			$this->session->set_flashdata('sukses','Data anda berhasil diubah');
+			redirect_back();
+		}else{
+			$this->session->set_flashdata('error','Data anda tidak berhasil diubah');
+			redirect_back();
+		}
+	}
+
+	function post_aktif(){
+		$this->form_validation->set_rules('status', 'Status', 'required');
+		$this->form_validation->set_rules('link_app', 'Link Aplikasi', 'required');
+		$this->form_validation->set_rules('id_detail_fitur', 'id detail fitur', 'required');
+		$this->form_validation->set_rules('start_date', 'Tanggal mulai', 'required');
+		$this->form_validation->set_rules('end_date', 'Tanggal berakhir', 'required');
+		$this->form_validation->set_rules('harga', 'Harga', 'required');
+		$this->form_validation->set_rules('status_tagihan', 'Status Tagihan', 'required');
+		if($this->form_validation->run() == FALSE){
+			$this->session->set_flashdata('error','Data anda tidak berhasil ditambahkan, periksa kembali data yang anda masukkan');
+			redirect_back();
+		}else{
+			$data_detail_fitur = array(
+				'status' 	=> $this->input->post('status'), 
+				'link_app' 	=> $this->input->post('link_app'), 
+			);
+
+			$data_insert_tagihan = array(
+				'id_detail_fitur' 	=> $this->input->post('id_detail_fitur'), 
+				'start_date' 		=> $this->input->post('start_date'), 
+				'end_date' 			=> $this->input->post('end_date'), 
+				'harga' 			=> $this->input->post('harga'), 
+				'status_tagihan' 	=> $this->input->post('status_tagihan'), 
+			);
+
+			$id_detail_fitur = $this->input->post('id_detail_fitur');
+
+
+			if($this->LoginM->update_fitur($id_detail_fitur, $data_detail_fitur)){
+				if($this->LoginM->insert_tagihan($data_insert_tagihan)){
+					$this->session->set_flashdata('sukses','Data anda berhasil dimasukkan');
+					redirect_back();
+				}else{
+
+				}
+			}
 		}
 	}
 }
