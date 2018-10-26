@@ -49,6 +49,12 @@
                         </div>
                         <?php 
                     } 
+                    $today=date("Y-m-d"); 
+                    $tgl_agenda = strtotime('2018-10-24'); 
+                    $tgl_today = strtotime($today); 
+                    if ($tgl_today > $tgl_agenda){ 
+                        echo "kadaluwarsa";
+                    }
                     ?>
                     <?php echo validation_errors(); ?>
                 </div>
@@ -67,6 +73,7 @@
                                             <th>Tanggal Berakhir</th>
                                             <th>Akses</th>
                                             <th>Tagihan</th>
+                                            <th>Status Call</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
@@ -105,9 +112,11 @@
                                                     ?>
                                                 </td>
                                                 <?php
-                                                $tgl_start      = $macam_fitur->start_date;;
+                                                $tagihan = $LoginM->get_tagihan_by_fitur_group($macam_fitur->id_detail_fitur)->row();
+
+                                                $tgl_start      = $tagihan->start_date;
                                                 $new_tgl_start  = date('d-m-Y', strtotime($tgl_start));
-                                                $tgl_end        = $macam_fitur->end_date;;
+                                                $tgl_end        = $tagihan->end_date;
                                                 $new_tgl_end    = date('d-m-Y', strtotime($tgl_end));
                                                 ?>
                                                 <td style="width:50px;"><?php echo $new_tgl_start;?></td>
@@ -127,17 +136,63 @@
                                                 </td>
                                                 <td class="text-center">
                                                     <?php
-                                                    if($macam_fitur->status_tagihan == "Paid"){
+                                                    if($tagihan->status_tagihan == "Paid"){
                                                         ?>
-                                                        <span class="label btn-success label-sm" title="paid"><? echo $macam_fitur->status_tagihan;?></span>
+                                                        <span class="label btn-success label-sm" title="paid"><? echo $tagihan->status_tagihan;?></span>
                                                         <?php
-                                                    }elseif ($macam_fitur->status_tagihan == "Suspend") {
+                                                    }elseif ($tagihan->status_tagihan == "Suspend") {
                                                         ?>
-                                                        <span class="label btn-default label-sm" title="suspend"><? echo $macam_fitur->status_tagihan;?></span>
+                                                        <span class="label btn-default label-sm" title="suspend"><? echo $tagihan->status_tagihan;?></span>
                                                         <?php
-                                                    }elseif ($macam_fitur->status_tagihan == "Pending") {
+                                                    }elseif ($tagihan->status_tagihan == "Pending") {
                                                         ?>
-                                                        <span class="label btn-warning label-sm" title="pending"><? echo $macam_fitur->status_tagihan;?></span>
+                                                        <span class="label btn-warning label-sm" title="pending"><? echo $tagihan->status_tagihan;?></span>
+                                                        <?php
+                                                    }
+                                                    ?>
+                                                </td>
+                                                <td class="text-center">
+                                                    <?php
+                                                    $tagihan = $LoginM->get_tagihan_by_fitur_group($macam_fitur->id_detail_fitur)->row();
+                                                    $call = $this->LoginM->status_call($tagihan->id_tagihan)->result();
+                                                    if(sizeof($call)==0){
+                                                        echo $macam_fitur->status_call;
+                                                        echo "id tagihan".$tagihan->id_tagihan;
+                                                    }else{
+                                                        ?>
+                                                        <div>
+                                                            <?php
+                                                            $status_c = $call[0]->created_at_log;
+                                                            echo $status_c;
+                                                            ?>
+                                                        </div>
+                                                        <div>
+                                                            <?php
+                                                            if($macam_fitur->status_call == "aktif"){
+                                                                ?>
+                                                                <a href="<?php echo base_url('AdminC/update_tagihan/'.$macam_fitur->id_detail_fitur)?>" style="color: white;" class="label label-danger label-sm" title="Call 1"><i class="ti-headphone-alt"></i></a>
+                                                                <?php
+                                                            }elseif ($macam_fitur->status_call == "Call 1") {
+                                                                ?>
+                                                                <a style="color: white;" class="label label-default label-md" title="Call 1"><i class="ti-headphone-alt"></i></a>
+                                                                <a href="<?php echo base_url('AdminC/update_tagihan/'.$macam_fitur->id_detail_fitur)?>" style="color: white;" class="label label-danger label-sm" title="Call 2"><i class="ti-headphone-alt"></i></a>
+                                                                
+                                                                <?php
+                                                            }elseif ($macam_fitur->status_call == "Call 2") {
+                                                                ?>
+                                                                <a style="color: white;" class="label label-default label-md" title="Call 1"><i class="ti-headphone-alt"></i></a>
+                                                                <a style="color: white;" class="label label-default label-md" title="Call 2"><i class="ti-headphone-alt"></i></a>
+                                                                <a href="<?php echo base_url('AdminC/update_tagihan/'.$macam_fitur->id_detail_fitur)?>" style="color: white;" class="label label-danger label-sm" title="Call 3"><i class="ti-headphone-alt"></i></a>
+                                                                <?php
+                                                            }elseif ($macam_fitur->status_call == "Call 3") {
+                                                                ?>
+                                                                <a style="color: white;" class="label label-default label-md" title="Call 1"><i class="ti-headphone-alt"></i></a>
+                                                                <a style="color: white;" class="label label-default label-md" title="Call 2"><i class="ti-headphone-alt"></i></a>
+                                                                <a style="color: white;" class="label label-default label-md" title="Call 3"><i class="ti-headphone-alt"></i></a>
+                                                                <?php
+                                                            }
+                                                            ?>
+                                                        </div>
                                                         <?php
                                                     }
                                                     ?>
@@ -253,12 +308,13 @@
                                     </thead>
                                     <tbody>
                                         <?php
+                                        $j=0;
                                         foreach ($fitur2 as $fit) {
                                             if($fit->status == "menunggu" || $fit->status == "proses"){
-                                                $i++;
+                                                $j++;
                                                 ?>
                                                 <tr>
-                                                    <td class="text-center"><?php echo $i;?></td>
+                                                    <td class="text-center"><?php echo $j;?></td>
                                                     <td><?php echo $fit->nama_fitur?></td>
                                                     <?php
                                                     $tgl_pengajuan      = $fit->created_at_f;

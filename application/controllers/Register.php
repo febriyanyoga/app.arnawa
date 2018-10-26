@@ -6,12 +6,13 @@ class Register extends CI_Controller {
 
 	public function __construct() {
 		parent::__construct();
-		$this->load->model('Registrasi_m');
+		$this->load->model(['Registrasi_m','LoginM']);
 	}
 	
 	public function index()
 	{
-		$this->load->view('Register_akun_V');
+		$this->data['kadaluwarsa'] = $this->LoginM->get_tagihan_kadaluwarsa()->result();
+		$this->load->view('Register_akun_V', $this->data);
 	}
 
 	public function register() {

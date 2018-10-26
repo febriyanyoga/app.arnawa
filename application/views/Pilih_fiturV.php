@@ -78,7 +78,10 @@
                 foreach ($macam_fitur as $key) {
                     $i++;
                     if($i <= $kiri){
-                        if($key->nama_fitur != "Simpan Pinjam" && $jenis_usaha != "Koperasi"){
+                        if($key->nama_fitur == "Simpan Pinjam" && $jenis_usaha == "UMKM"){
+                            echo "";
+                        }else{
+
                             ?>
                             <input type="checkbox" name="fitur[]" id="<?php echo $key->id_fitur;?>" class="checkbox-input" value="<?php echo $key->id_fitur?>" />
                             <label for="<?php echo $key->id_fitur;?>" class="checkbox-label">
@@ -101,7 +104,7 @@
                     $i++;
                     if($i > $kanan){
                         ?>
-                        <input type="checkbox" name="fitur[]" id="<?php echo $key->id_fitur;?>" class="checkbox-input" value="<?php echo $key->id_fitur?>" />
+                        <input type="checkbox" name="fitur[]" id="<?php echo $key->id_fitur;?>" class="checkbox-input" value="<?php echo $key->id_fitur?>"/>
                         <label for="<?php echo $key->id_fitur;?>" class="checkbox-label">
                             <div class="checkbox-text">
                                 <p class="checkbox-text--title"><?php echo $key->nama_fitur;?></p>
@@ -177,22 +180,22 @@
             var hasChecked = false;
             for (var i = 0; i < chks.length; i++)
             {
-               if (chks[i].checked)
-               {
-                   hasChecked = true;
-                   break;
-               }
-           }
+             if (chks[i].checked)
+             {
+                 hasChecked = true;
+                 break;
+             }
+         }
 
-           if (hasChecked == false)
-           {
-               alert("Silahkan pilih minimal satu fitur.");
-               return false;
-           }
+         if (hasChecked == false)
+         {
+             alert("Silahkan pilih minimal satu fitur.");
+             return false;
+         }
 
-           return true;
-       }
-   </script>
+         return true;
+     }
+ </script>
 
 
 </body>

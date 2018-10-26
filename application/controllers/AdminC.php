@@ -79,11 +79,17 @@ class AdminC extends CI_Controller {
 		}
 	}
 
-	public function update_suspend($id){
+	public function update_suspend($id, $id_tagihan){
 		$data = array('status' => 'suspend');
+		// $dataTagihan = array('status_call' => 'Suspend', 'status_tagihan' => 'Suspend');
 		if($this->LoginM->update($id, $data)){
+			// if($this->LoginM->updateTagihan($id_tagihan, $dataTagihan)){
 			$this->session->set_flashdata('sukses','Data anda berhasil diubah');
 			redirect_back();
+			// }else{
+			// 	$this->session->set_flashdata('error','Data anda tidak berhasil diubah');
+			// 	redirect_back();
+			// }
 		}else{
 			$this->session->set_flashdata('error','Data anda tidak berhasil diubah');
 			redirect_back();

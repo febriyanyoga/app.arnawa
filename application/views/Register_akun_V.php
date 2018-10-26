@@ -54,7 +54,7 @@
         <!-- ============================================================== -->
         <!-- Login box.scss -->
         <!-- ============================================================== -->
-        <div class="auth-wrapper d-flex no-block justify-content-center align-items-center" style="background:url(<?php echo base_url()?>assets/images/big/auth-bg.jpg) no-repeat center center;">
+        <div class="auth-wrapper d-flex no-block justify-content-center align-items-center" style="background:url(<?php echo base_url()?>assets/images/big/auth-bg.jpg) no-repeat center center; background-size: cover;">
             <div class="auth-box" style="max-width: 450px;">
                 <div>
                     <div class="logo">
@@ -85,6 +85,10 @@
                                 </div>
                                 <?php 
                             } 
+                            // // print_r($kadaluwarsa);
+                            // foreach ($kadaluwarsa as $k) {
+                            //     echo $k->id_detail_fitur." ".$k->start_date." ".$k->end_date."<br>";
+                            // }
                             ?>
                             <?php echo validation_errors(); ?>
                             <form class="form-horizontal m-t-20" action="<?php echo site_url('Register/register')?>" method="post">

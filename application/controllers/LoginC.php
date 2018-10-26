@@ -13,7 +13,6 @@ class LoginC extends CI_Controller {
 
 	public function index(){
 		// $this->data['email'] = $this->LoginM->getByEmail("ffpjos@gmail.com")->num_rows();
-
 		$this->load->view('LoginV', $this->data);
 	}
 

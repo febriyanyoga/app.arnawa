@@ -42,7 +42,7 @@
         <!-- ============================================================== -->
         <!-- Login box.scss -->
         <!-- ============================================================== -->
-        <div class="auth-wrapper d-flex no-block justify-content-center align-items-center" style="background:url(<?php echo base_url()?>assets/images/big/auth-bg.jpg) no-repeat center center;">
+        <div class="auth-wrapper d-flex no-block justify-content-center align-items-center" style="background:url(<?php echo base_url()?>assets/images/big/auth-bg.jpg) no-repeat center center; background-size: cover;">
             <div class="auth-box" style="max-width: 650px;">
                 <div>
                     <div class="logo">
@@ -78,6 +78,8 @@
                     <form class="form p-t-20" action="<?php echo base_url('KoperasiC/input_data')?>" method="post" onSubmit="return validate()">
                         <div class="row">
                             <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-6">
                                 <div class="form-group">
                                     <div class="input-group mb-3">
                                         <input type="text" class="form-control form-control-lg" placeholder="Nama <?php echo $jenis_usaha;?>" name="nama_usaha" id="nama_usaha" required>
@@ -141,7 +143,8 @@
                                         </div>
                                     </div>
                                     <p style="color: red; margin-top: -17px; font-size: 9pt; margin-left: 10px;">*Harus diisi</p>
-                                </div>
+                                </div></div>
+                                    <div class="col-md-6">
                                 <div class="form-group">
                                     <div class="input-group mb-3">
                                         <select class="form-control form-control-lg" id="kota" name="kota" required>
@@ -210,6 +213,7 @@
                                         </div>
                                     </div>
                                     <p style="color: red; margin-top: -17px; font-size: 9pt; margin-left: 10px;">*Harus diisi</p>
+                                </div></div>
                                 </div>
                             </div>
                             <div class="col-md-12">

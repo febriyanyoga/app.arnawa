@@ -58,6 +58,19 @@ class KoperasiC extends CI_Controller {
 		$this->load->view('LayoutV', $this->data);
 	}
 
+	// tagihan
+	public function tagihan(){
+		$id  = $this->session->userdata('id_akun');
+		$this->data['data_akun'] = $this->LoginM->get_all_data($id)->result()[0];
+		$this->data['dataDiri'] = $this->session->userdata();
+		$this->data['tagihan'] = $this->LoginM->get_tagihan_by_akun_paid($id);
+		$this->data['tagihan_suspend'] = $this->LoginM->get_tagihan_by_akun_suspend($id);
+		$this->data['tagihan_pending'] = $this->LoginM->get_tagihan_by_akun_pending($id);
+		$this->data['active'] = 'active';
+		$this->data['isi'] = $this->load->view('TagihanV', $this->data, TRUE);
+		$this->load->view('LayoutV', $this->data);
+	}
+
 	 // alamat
 	public function get_kabupaten_kota(){
 		$postData = $this->input->post();
@@ -129,7 +142,7 @@ class KoperasiC extends CI_Controller {
 			$fitur = $this->input->post('fitur');
 			foreach ($fitur as $key) {
 				$id_akun 	= $this->input->post('id_akun');
-				$status 	= 'non-aktif';
+				$status 	= 'menunggu';
 				$data 		= array(
 					'id_akun' 	=> $id_akun, 
 					'id_fitur' 	=> $key, 

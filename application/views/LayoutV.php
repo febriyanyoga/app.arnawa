@@ -318,7 +318,7 @@
                                 </li>
                                 
                                 <li class="sidebar-item">
-                                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?php echo base_url()?>CobaC/tagihan" aria-expanded="false">
+                                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?php echo base_url()?>KoperasiC/tagihan" aria-expanded="false">
                                         <i class="ti-money"></i>
                                         <span class="hide-menu">Tagihan </span>
                                     </a>
@@ -369,19 +369,19 @@
                                         <i class="ti-book"></i>
                                         <span class="hide-menu">Manajemen Koperasi </span>
                                     </a>
-                                    <ul aria-expanded="false" class="collapse  first-level">
+                                    <ul aria-expanded="false" class="collapse  first-level in">
                                         <li class="sidebar-item">
                                             <a href="<?php echo base_url()?>AdminC/manajemen_koperasi" class="sidebar-link">
                                                 <i class="mdi mdi-email"></i>
                                                 <span class="hide-menu"> Daftar Koperasi</span>
                                             </a>
                                         </li>
-                                        <li class="sidebar-item">
+                                        <!-- <li class="sidebar-item">
                                             <a href="<?php echo base_url()?>AdminC/manajemen_koperasi" class="sidebar-link">
                                                 <i class="mdi mdi-email"></i>
                                                 <span class="hide-menu"> Pengajuan Fitur</span>
                                             </a>
-                                        </li>
+                                        </li> -->
                                     </ul>
                                 </li>
                                 <?php
