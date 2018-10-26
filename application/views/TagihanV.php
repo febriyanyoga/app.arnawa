@@ -380,6 +380,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title" id="exampleModalLabel1">Perpanjangan Fitur</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
                 <div class="modal-body">
                     <p>Silakan lakukan perpanjangan masa aktif fitur anda</p><br>
@@ -415,6 +416,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title" id="exampleModalLabel1">Konfirmasi Pembayaran</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
                 <div class="modal-body">
                     <form>
