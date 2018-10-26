@@ -39,7 +39,7 @@
                     <a class="nav-link" data-toggle="tab" href="#suspend" role="tab"><span class="hidden-sm-up"><i class="fas fa-ban"></i></span><span class="hidden-xs-down"> Suspend</span>&nbsp; 
                         <?php
                         if($tagihan_suspend->num_rows() != 0){
-                            echo '<span class="label label-danger label-rounded label-sm badge">'.$tagihan_suspend->num_rows().'</span>';
+                            echo '<span class="label label-default label-rounded label-sm badge">'.$tagihan_suspend->num_rows().'</span>';
                         }
                         ?>
                     </a> 
@@ -51,6 +51,11 @@
                             echo '<span class="label label-warning label-rounded label-sm badge">'.$tagihan_pending->num_rows().'</span>';
                         }
                         ?>
+                    </a> 
+                </li>
+                <li class="nav-item"> 
+                    <a class="nav-link" data-toggle="tab" href="#unpaid" role="tab"><span class="hidden-sm-up"><i class="fas fa-minus-circle"></i></span><span class="hidden-xs-down"> Unpaid</span>&nbsp; 
+                     
                     </a> 
                 </li>
             </ul>
@@ -89,19 +94,44 @@
                                                 $tanggal        = new DateTime($tanggal); 
                                                 $sekarang       = new DateTime($tag->start_date);
                                                 $perbedaan      = $tanggal->diff($sekarang);
+                                                $now            = new DateTime();
+                                                $beda           = $tanggal->diff($now);
                                                 ?>
                                                 <td class="text-center">
-                                                    <?php 
-                                                    if($perbedaan->y != 0){
-                                                        echo $perbedaan->y." Tahun ";
-                                                    }
-                                                    if ($perbedaan->m != 0) {
-                                                        echo $perbedaan->m." Bulan ";
-                                                    }
-                                                    if ($perbedaan->d != 0) {
-                                                        echo $perbedaan->d." Hari";
-                                                    }
-                                                    ?>
+                                                    <div>
+                                                        <?php 
+                                                        if($perbedaan->y != 0){
+                                                            echo $perbedaan->y." Tahun ";
+                                                        }
+                                                        if ($perbedaan->m != 0) {
+                                                            echo $perbedaan->m." Bulan ";
+                                                        }
+                                                        if ($perbedaan->d != 0) {
+                                                            echo $perbedaan->d." Hari";
+                                                        }
+                                                        ?>
+                                                    </div>
+                                                    <div>
+                                                        <?php 
+                                                        if($now>$tanggal){
+                                                            echo "Masa aktif habis";
+                                                        }else{
+
+                                                            if($beda->y != 0){
+                                                                echo $beda->y." Tahun ";
+                                                            }
+                                                            if ($beda->m != 0) {
+                                                                echo $beda->m." Bulan ";
+                                                            }
+                                                            if ($beda->d != 0) {
+                                                                echo $beda->d." Hari";
+                                                            }
+                                                            if($beda->y != 0 || $beda->m != 0 || $beda->d != 0){
+                                                                echo " lagi";
+                                                            }
+                                                        }
+                                                        ?>
+                                                    </div>
                                                 </td>
                                                 <td class="text-center"><?php echo $new_tgl_end;?></td>
                                                 <td class="text-center"><a style="color: white;" class="btn btn-info btn-sm" data-toggle="modal" data-target="#perpanjang" title="Perpanjang"> Perpanjang</a></td>
@@ -141,30 +171,54 @@
                                             <td class="text-center"><?php echo $j;?></td>
                                             <td class="text-center"><?php echo $tagS->nama_fitur?></td>
                                             <?php
-                                            $tgl_end        = $tagS->end_date;
+                                            $tgl_end        = $tag->end_date;
                                             $new_tgl_end    = date('d-m-Y', strtotime($tgl_end));
-                                            $tanggal        = $tagS->end_date;
+
+                                            $tanggal        = $tag->end_date;
                                             $tanggal        = new DateTime($tanggal); 
-                                            $sekarang       = new DateTime($tagS->start_date);
+                                            $sekarang       = new DateTime($tag->start_date);
                                             $perbedaan      = $tanggal->diff($sekarang);
+                                            $now            = new DateTime();
+                                            $beda           = $tanggal->diff($now);
                                             ?>
                                             <td class="text-center">
-                                                <?php 
-                                                if($perbedaan->y != 0){
-                                                    echo $perbedaan->y." Tahun";
-                                                }elseif ($perbedaan->m != 0) {
-                                                    echo $perbedaan->m." Bulan";
-                                                }elseif ($perbedaan->d != 0) {
-                                                    echo $perbedaan->d." Hari";
-                                                }elseif ($perbedaan->h != 0) {
-                                                    echo $perbedaan->h." Jam";
-                                                }elseif ($perbedaan->i != 0) {
-                                                    echo $perbedaan->i. " Menit";
-                                                }
-                                                ?>
+                                                <div>
+                                                    <?php 
+                                                    if($perbedaan->y != 0){
+                                                        echo $perbedaan->y." Tahun ";
+                                                    }
+                                                    if ($perbedaan->m != 0) {
+                                                        echo $perbedaan->m." Bulan ";
+                                                    }
+                                                    if ($perbedaan->d != 0) {
+                                                        echo $perbedaan->d." Hari";
+                                                    }
+                                                    ?>
+                                                </div>
+                                                <div>
+                                                    <?php 
+                                                    if($now>$tanggal){
+                                                        echo "Masa aktif habis";
+                                                    }else{
+
+                                                        if($beda->y != 0){
+                                                            echo $beda->y." Tahun ";
+                                                        }
+                                                        if ($beda->m != 0) {
+                                                            echo $beda->m." Bulan ";
+                                                        }
+                                                        if ($beda->d != 0) {
+                                                            echo $beda->d." Hari";
+                                                        }
+                                                        if($beda->y != 0 || $beda->m != 0 || $beda->d != 0){
+                                                            echo " lagi";
+                                                        }
+                                                    }
+                                                    ?>
+                                                </div>
                                             </td>
                                             <td class="text-center"><?php echo $new_tgl_end;?></td>
-                                            <td class="text-center"><a style="color: white;" class="btn btn-info btn-sm" data-toggle="modal" data-target="#perpanjang" title="Perpanjang"> Perpanjang</a></td>
+                                            <td class="text-center"><a style="color: white;" class="btn btn-info btn-sm" data-toggle="modal" data-target="#perpanjang" title="Perpanjang"> Perpanjang</a> &nbsp; <a style="color: white;" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#nonaktifkan" title="nonaktifkan"> Tidak</a></td>
                                         </tr>
                                         <?php
                                     }
@@ -200,30 +254,68 @@
                                             <td class="text-center"><?php echo $j;?></td>
                                             <td class="text-center"><?php echo $tagP->nama_fitur?></td>
                                             <?php
-                                            $tgl_end        = $tagP->end_date;
+                                            $tgl_end        = $tag->end_date;
                                             $new_tgl_end    = date('d-m-Y', strtotime($tgl_end));
-                                            $tanggal        = $tagP->end_date;
+                                            $tgl_start      = $tag->start_date;
+                                            $new_tgl_start  = date('Y-m-d', strtotime($tgl_start));
+
+                                            $tanggal        = $tag->end_date;
                                             $tanggal        = new DateTime($tanggal); 
-                                            $sekarang       = new DateTime($tagP->start_date);
+                                            $sekarang       = new DateTime($tag->start_date);
                                             $perbedaan      = $tanggal->diff($sekarang);
+                                            $now            = new DateTime();
+                                            $beda           = $tanggal->diff($now);
                                             ?>
                                             <td class="text-center">
-                                                <?php 
-                                                if($perbedaan->y != 0){
-                                                    echo $perbedaan->y." Tahun";
-                                                }elseif ($perbedaan->m != 0) {
-                                                    echo $perbedaan->m." Bulan";
-                                                }elseif ($perbedaan->d != 0) {
-                                                    echo $perbedaan->d." Hari";
-                                                }elseif ($perbedaan->h != 0) {
-                                                    echo $perbedaan->h." Jam";
-                                                }elseif ($perbedaan->i != 0) {
-                                                    echo $perbedaan->i. " Menit";
-                                                }
-                                                ?>
+                                                <div>
+                                                    <?php 
+                                                    if($perbedaan->y != 0){
+                                                        echo $perbedaan->y." Tahun ";
+                                                    }
+                                                    if ($perbedaan->m != 0) {
+                                                        echo $perbedaan->m." Bulan ";
+                                                    }
+                                                    if ($perbedaan->d != 0) {
+                                                        echo $perbedaan->d." Hari";
+                                                    }
+                                                    ?>
+                                                </div>
                                             </td>
                                             <td class="text-center"><?php echo $tagP->jml_transfer;?></td>
-                                            <td class="text-center"><?php echo $new_tgl_end;?></td>
+                                            <?php
+                                            $tgl2           = date('Y-m-d', strtotime('+7 days', strtotime($new_tgl_start))); //operasi 
+                                            $jatuh_tempo    = new DateTime($tgl2);
+                                            $beda_tempo     = $jatuh_tempo->diff($now);
+
+                                            ?>
+                                            <td class="text-center">
+                                                <div>
+                                                    <?php echo date('d-m-Y', strtotime($tgl2));?>
+                                                </div>
+                                                <div>
+                                                    <div>
+                                                        <?php 
+                                                        if($now>$jatuh_tempo){
+                                                            echo "sudah jatuh tempo";
+                                                        }else{
+
+                                                            if($beda_tempo->y != 0){
+                                                                echo $beda_tempo->y." Tahun ";
+                                                            }
+                                                            if ($beda_tempo->m != 0) {
+                                                                echo $beda_tempo->m." Bulan ";
+                                                            }
+                                                            if ($beda_tempo->d != 0) {
+                                                                echo $beda_tempo->d." Hari";
+                                                            }
+                                                            if($beda_tempo->y != 0 || $beda_tempo->m != 0 || $beda_tempo->d != 0){
+                                                                echo " lagi";
+                                                            }
+                                                        }
+                                                        ?>
+                                                    </div>
+                                                </div>
+                                            </td>
                                             <td class="text-center"><a style="color: white;" class="btn btn-info btn-sm" data-toggle="modal" data-target="#konfirmasi" title="Konfirmasi"> Konfirmasi Pembayaran</a></td>
                                         </tr>
                                         <?php
@@ -243,6 +335,32 @@
                                 <p>Mandiri 34980765 a/n PT. Arnawa Teknologi Informasi </p>
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div class="tab-pane p-20" id="unpaid" role="tabpanel">
+                    <div class="p-20">
+                        <h4>Fitur Unpaid</h4>
+                        <p>Silahkan aktifkan ulang ftur anda</p><br>
+                        <div class="table-responsive">
+                            <table id="tabel_unpaid" class="table table-striped table-bordered display" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">No</th>
+                                        <th class="text-center">Fitur</th>
+                                        <th class="text-center">Masa Aktif</th>
+                                        <th class="text-center">Tagihan</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="text-center"></td>
+                                        <td class="text-center"></td>
+                                        <td class="text-center"></td>
+                                        <td class="text-center"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div><br><br><br>
                     </div>
                 </div>
             </div>
@@ -287,6 +405,8 @@
         </div>
     </div>
     <!-- end modal perpanjangan -->
+
+
 
 
     <!-- start modal konfirmasi pembayaran -->

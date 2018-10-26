@@ -290,7 +290,7 @@ class LoginM extends CI_Model{
 		$this->db->join('akun A', 'D.id_akun = A.id_akun');
 		$this->db->where('A.id_akun', $id_akun);
 		$this->db->where('T.status_tagihan = "Paid"');
-		$this->db->order_by('T.end_date','ASC');
+		$this->db->order_by('T.id_tagihan','ASC');
 		return $this->db->get();
 	}
 

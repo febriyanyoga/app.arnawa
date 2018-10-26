@@ -394,6 +394,7 @@
                                                                         <label for="recipient-name" class="control-label">Status tagihan:</label>
                                                                         <select class="form-control" name="status_tagihan" id="status_tagihan">
                                                                             <option selected="" value="Paid">Paid</option>
+                                                                            <option selected="" value="Pending">Pending</option>
                                                                         </select>
                                                                     </div>
                                                                 </div>

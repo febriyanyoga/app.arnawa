@@ -492,6 +492,7 @@
         $('#tabel_paid').DataTable();
         $('#tabel_suspend').DataTable();
         $('#tabel_pending').DataTable();
+        $('#tabel_unpaid').DataTable();
     } 
     );
 </script>
