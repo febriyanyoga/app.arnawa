@@ -67,14 +67,14 @@
                                     <thead>
                                         <tr class="text-center">
                                             <th>No</th>
-                                            <th>Fitur</th>
+                                            <th style="width: 40px;">Fitur</th>
                                             <th>Status</th>
                                             <th>Tanggal Aktif</th>
                                             <th>Tanggal Berakhir</th>
                                             <th>Akses</th>
                                             <th>Tagihan</th>
                                             <th>Status Call</th>
-                                            <th>Aksi</th>
+                                            <th style="width: 60px;">Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>

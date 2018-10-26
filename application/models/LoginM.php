@@ -251,6 +251,15 @@ class LoginM extends CI_Model{
 		return TRUE;
 	}
 
+	public function get_harga($id_detail_fitur){
+		$this->db->select('*');
+		$this->db->from('detail_fitur D');
+		$this->db->join('fitur F','D.id_fitur = F.id_fitur');
+		$this->db->join('harga_fitur H', 'F.id_harga_fitur = H.id_harga_fitur');
+		$this->db->where('D.id_detail_fitur', $id_detail_fitur);
+		return $this->db->get();
+	}
+
 	// tagihan
 	public function get_tagihan_by_id($id_detail_fitur){
 		$this->db->where('id_detail_fitur', $id_detail_fitur);

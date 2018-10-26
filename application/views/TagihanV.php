@@ -55,7 +55,7 @@
                 </li>
                 <li class="nav-item"> 
                     <a class="nav-link" data-toggle="tab" href="#unpaid" role="tab"><span class="hidden-sm-up"><i class="fas fa-minus-circle"></i></span><span class="hidden-xs-down"> Unpaid</span>&nbsp; 
-                     
+
                     </a> 
                 </li>
             </ul>
@@ -171,12 +171,15 @@
                                             <td class="text-center"><?php echo $j;?></td>
                                             <td class="text-center"><?php echo $tagS->nama_fitur?></td>
                                             <?php
-                                            $tgl_end        = $tag->end_date;
+                                            $tgl_start      = $tagS->start_date;
+                                            $new_tgl_start  = date('Y-m-d', strtotime($tgl_start));
+
+                                            $tgl_end        = $tagS->end_date;
                                             $new_tgl_end    = date('d-m-Y', strtotime($tgl_end));
 
-                                            $tanggal        = $tag->end_date;
+                                            $tanggal        = $tagS->end_date;
                                             $tanggal        = new DateTime($tanggal); 
-                                            $sekarang       = new DateTime($tag->start_date);
+                                            $sekarang       = new DateTime($tagS->start_date);
                                             $perbedaan      = $tanggal->diff($sekarang);
                                             $now            = new DateTime();
                                             $beda           = $tanggal->diff($now);
@@ -217,7 +220,40 @@
                                                     ?>
                                                 </div>
                                             </td>
-                                            <td class="text-center"><?php echo $new_tgl_end;?></td>
+                                            <?php
+                                            $tgl2           = date('Y-m-d', strtotime('+7 days', strtotime($new_tgl_start))); //operasi 
+                                            $jatuh_tempo    = new DateTime($tgl2);
+                                            $nonaktif       = $jatuh_tempo->diff($now);
+
+                                            ?>
+                                            <td class="text-center">
+                                                <div>
+                                                    <?php echo date('d-m-Y', strtotime($tgl2));?>
+                                                </div>
+                                                <div>
+                                                    <div>
+                                                        <?php 
+                                                        if($now>$jatuh_tempo){
+                                                            echo "sudah jatuh tempo";
+                                                        }else{
+
+                                                            if($nonaktif->y != 0){
+                                                                echo $beda_tempo->y." Tahun ";
+                                                            }
+                                                            if ($nonaktif->m != 0) {
+                                                                echo $nonaktif->m." Bulan ";
+                                                            }
+                                                            if ($nonaktif->d != 0) {
+                                                                echo $nonaktif->d." Hari";
+                                                            }
+                                                            if($nonaktif->y != 0 || $nonaktif->m != 0 || $nonaktif->d != 0){
+                                                                echo " lagi";
+                                                            }
+                                                        }
+                                                        ?>
+                                                    </div>
+                                                </div>
+                                            </td>
                                             <td class="text-center"><a style="color: white;" class="btn btn-info btn-sm" data-toggle="modal" data-target="#perpanjang" title="Perpanjang"> Perpanjang</a> &nbsp; <a style="color: white;" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#nonaktifkan" title="nonaktifkan"> Tidak</a></td>
                                         </tr>
                                         <?php
@@ -254,14 +290,14 @@
                                             <td class="text-center"><?php echo $j;?></td>
                                             <td class="text-center"><?php echo $tagP->nama_fitur?></td>
                                             <?php
-                                            $tgl_end        = $tag->end_date;
+                                            $tgl_end        = $tagP->end_date;
                                             $new_tgl_end    = date('d-m-Y', strtotime($tgl_end));
-                                            $tgl_start      = $tag->start_date;
+                                            $tgl_start      = $tagP->start_date;
                                             $new_tgl_start  = date('Y-m-d', strtotime($tgl_start));
 
-                                            $tanggal        = $tag->end_date;
+                                            $tanggal        = $tagP->end_date;
                                             $tanggal        = new DateTime($tanggal); 
-                                            $sekarang       = new DateTime($tag->start_date);
+                                            $sekarang       = new DateTime($tagP->start_date);
                                             $perbedaan      = $tanggal->diff($sekarang);
                                             $now            = new DateTime();
                                             $beda           = $tanggal->diff($now);
