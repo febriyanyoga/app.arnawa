@@ -107,6 +107,15 @@ class LoginM extends CI_Model{
 		}
 	}
 
+	public function updateTagihan($id_tagihan, $data){
+		$this->db->where('id_tagihan', $id_tagihan);
+		if($this->db->update('tagihan', $data)){
+			return TRUE;
+		}else{
+			return FALSE;
+		}
+	}
+
 	public function get_history_status($id_detail_fitur){
 		$this->db->select('*');
 		$this->db->from('log_status L');
@@ -247,5 +256,65 @@ class LoginM extends CI_Model{
 		$this->db->where('id_detail_fitur', $id_detail_fitur);
 		$this->db->order_by('id_tagihan','DESC');
 		return $this->db->get('tagihan');
+	}
+
+	public function insert_tagihan($data){
+		$this->db->insert('tagihan', $data);
+		return TRUE;
+	}
+
+	public function status_call($id_tagihan){
+		$this->db->where('id_tagihan', $id_tagihan);
+		$this->db->order_by('id_tagihan','DESC');
+		return $this->db->get('log_call');
+	}
+
+	public function get_tagihan_kadaluwarsa(){
+		// $this->db->distinct();
+		$this->db->select('*');
+		$this->db->from('tagihan T');
+		$this->db->join('detail_fitur D', 'T.id_detail_fitur = D.id_detail_fitur');
+		// $this->db->join('fitur F', 'D.id_fitur = F.id_fitur');
+		$this->db->join('akun A', 'D.id_akun = A.id_akun');
+		$this->db->order_by('T.id_tagihan', 'DESC');
+		// $this->db->where_in('id_tagihan', '(SELECT MAX(id_tagihan) FROM tagihan WHERE id_detail_fitur IN "SELECT id_detail_fitur FROM tagihan GROUP BY id_detail_fitur")');
+		$this->db->group_by('D.id_detail_fitur');
+		return $this->db->get();
+	}
+
+	public function get_tagihan_by_akun_paid($id_akun){
+		$this->db->select('*');
+		$this->db->from('tagihan T');
+		$this->db->join('detail_fitur D', 'T.id_detail_fitur = D.id_detail_fitur');
+		$this->db->join('fitur F', 'D.id_fitur = F.id_fitur');
+		$this->db->join('akun A', 'D.id_akun = A.id_akun');
+		$this->db->where('A.id_akun', $id_akun);
+		$this->db->where('T.status_tagihan = "Paid"');
+		$this->db->order_by('T.id_tagihan','ASC');
+		return $this->db->get();
+	}
+
+	public function get_tagihan_by_akun_suspend($id_akun){
+		$this->db->select('*');
+		$this->db->from('tagihan T');
+		$this->db->join('detail_fitur D', 'T.id_detail_fitur = D.id_detail_fitur');
+		$this->db->join('fitur F', 'D.id_fitur = F.id_fitur');
+		$this->db->join('akun A', 'D.id_akun = A.id_akun');
+		$this->db->where('A.id_akun', $id_akun);
+		$this->db->where('T.status_tagihan = "Suspend"');
+		$this->db->order_by('T.end_date','ASC');
+		return $this->db->get();
+	}
+
+	public function get_tagihan_by_akun_pending($id_akun){
+		$this->db->select('*');
+		$this->db->from('tagihan T');
+		$this->db->join('detail_fitur D', 'T.id_detail_fitur = D.id_detail_fitur');
+		$this->db->join('fitur F', 'D.id_fitur = F.id_fitur');
+		$this->db->join('akun A', 'D.id_akun = A.id_akun');
+		$this->db->where('A.id_akun', $id_akun);
+		$this->db->where('T.status_tagihan = "Pending"');
+		$this->db->order_by('T.end_date','ASC');
+		return $this->db->get();
 	}
 }

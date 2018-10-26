@@ -40,7 +40,7 @@ class AdminC extends CI_Controller {
 	public function detail_fitur($id_akun){
 		$this->data['LoginM'] = $this->LoginM;
 		$this->data['manajemen_fitur'] 		= $this->LoginM->get_detail_fitur_by_akun($id_akun)->result();
-		$this->data['fitur'] 		= $this->LoginM->get_fitur_by_akun($id_akun)->result();
+		$this->data['fitur2'] 		= $this->LoginM->get_fitur_by_akun($id_akun)->result();
 		$this->data['isi'] = $this->load->view('detail_fitur', $this->data, TRUE);
 		$this->load->view('LayoutV', $this->data);
 	}
@@ -79,6 +79,23 @@ class AdminC extends CI_Controller {
 		}
 	}
 
+	public function update_suspend($id, $id_tagihan){
+		$data = array('status' => 'suspend');
+		// $dataTagihan = array('status_call' => 'Suspend', 'status_tagihan' => 'Suspend');
+		if($this->LoginM->update($id, $data)){
+			// if($this->LoginM->updateTagihan($id_tagihan, $dataTagihan)){
+			$this->session->set_flashdata('sukses','Data anda berhasil diubah');
+			redirect_back();
+			// }else{
+			// 	$this->session->set_flashdata('error','Data anda tidak berhasil diubah');
+			// 	redirect_back();
+			// }
+		}else{
+			$this->session->set_flashdata('error','Data anda tidak berhasil diubah');
+			redirect_back();
+		}
+	}
+
 	function post_aktif(){
 		$this->form_validation->set_rules('status', 'Status', 'required');
 		$this->form_validation->set_rules('link_app', 'Link Aplikasi', 'required');
@@ -107,13 +124,17 @@ class AdminC extends CI_Controller {
 			$id_detail_fitur = $this->input->post('id_detail_fitur');
 
 
-			if($this->LoginM->update_fitur($id_detail_fitur, $data_detail_fitur)){
+			if($this->LoginM->update($id_detail_fitur, $data_detail_fitur)){
 				if($this->LoginM->insert_tagihan($data_insert_tagihan)){
-					$this->session->set_flashdata('sukses','Data anda berhasil dimasukkan');
+					$this->session->set_flashdata('sukses','Data anda berhasil ditambahkan');
 					redirect_back();
 				}else{
-
+					$this->session->set_flashdata('error','Data anda tidak berhasil ditambahkan');
+					redirect_back();
 				}
+			}else{
+				$this->session->set_flashdata('error','Data anda tidak berhasil ditambahkan');
+				redirect_back();
 			}
 		}
 	}

@@ -55,7 +55,10 @@
                             $i++;
                             if(!in_array($key->id_fitur, $data_fitur)){
                                 if($i <= $kiri){
-                                    if($key->nama_fitur != "Simpan Pinjam" && $jenis_usaha != "Koperasi"){
+                                    if($key->nama_fitur == "Simpan Pinjam" && $jenis_usaha == "UMKM"){
+                                        echo "";
+                                    }else{
+
                                         ?>
                                         <input type="checkbox" name="fitur[]" id="<?php echo $key->id_fitur;?>" class="checkbox-input" value="<?php echo $key->id_fitur?>" />
                                         <label for="<?php echo $key->id_fitur;?>" class="checkbox-label">

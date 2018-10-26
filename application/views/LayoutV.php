@@ -353,7 +353,7 @@
                                 </li>
                                 
                                 <li class="sidebar-item">
-                                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?php echo base_url()?>CobaC/tagihan" aria-expanded="false">
+                                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?php echo base_url()?>KoperasiC/tagihan" aria-expanded="false">
                                         <i class="ti-money"></i>
                                         <span class="hide-menu">Tagihan </span>
                                     </a>
@@ -404,19 +404,19 @@
                                         <i class="ti-book"></i>
                                         <span class="hide-menu">Manajemen Koperasi </span>
                                     </a>
-                                    <ul aria-expanded="false" class="collapse  first-level">
+                                    <ul aria-expanded="false" class="collapse  first-level in">
                                         <li class="sidebar-item">
                                             <a href="<?php echo base_url()?>AdminC/manajemen_koperasi" class="sidebar-link">
                                                 <i class="mdi mdi-email"></i>
                                                 <span class="hide-menu"> Daftar Koperasi</span>
                                             </a>
                                         </li>
-                                        <li class="sidebar-item">
+                                        <!-- <li class="sidebar-item">
                                             <a href="<?php echo base_url()?>AdminC/manajemen_koperasi" class="sidebar-link">
                                                 <i class="mdi mdi-email"></i>
                                                 <span class="hide-menu"> Pengajuan Fitur</span>
                                             </a>
-                                        </li>
+                                        </li> -->
                                     </ul>
                                 </li>
                                 <?php
@@ -481,56 +481,53 @@
     <!-- ============================================================== -->
     <!-- All Jquery -->
     <!-- ============================================================== -->
-
-    <script src="<?php echo base_url();?>assets/libs/jquery/dist/jquery.min.js"></script>
-    <!-- Bootstrap tether Core JavaScript -->
-    <script src="<?php echo base_url();?>assets/libs/popper.js/dist/umd/popper.min.js"></script>
-    <script src="<?php echo base_url();?>assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
-    <!-- apps -->
-    <script src="<?php echo base_url();?>assets/dist/js/app.min.js"></script>
-    <script src="<?php echo base_url();?>assets/dist/js/app.init.js"></script>
-    <script src="<?php echo base_url();?>assets/dist/js/app-style-switcher.js"></script>
-    <!-- slimscrollbar scrollbar JavaScript -->
-    <script src="<?php echo base_url();?>assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
-    <script src="<?php echo base_url();?>assets/extra-libs/sparkline/sparkline.js"></script>
-    <!--Wave Effects -->
-    <script src="<?php echo base_url();?>assets/dist/js/waves.js"></script>
-    <!--Menu sidebar -->
-    <script src="<?php echo base_url();?>assets/dist/js/sidebarmenu.js"></script>
-    <!--Custom JavaScript -->
-    <script src="<?php echo base_url();?>assets/dist/js/custom.min.js"></script>
-    <!--This page JavaScript -->
-    <!--chartis chart-->
-    <script src="<?php echo base_url();?>assets/libs/chartist/dist/chartist.min.js"></script>
-    <script src="<?php echo base_url();?>assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
-    <!--c3 charts -->
-    <script src="<?php echo base_url();?>assets/extra-libs/c3/d3.min.js"></script>
-    <script src="<?php echo base_url();?>assets/extra-libs/c3/c3.min.js"></script>
-    <!--chartjs -->
-    <script src="<?php echo base_url();?>assets/libs/raphael/raphael.min.js"></script>
-    <script src="<?php echo base_url();?>assets/libs/morris.js/morris.min.js"></script>
-
-    <script src="<?php echo base_url();?>assets/dist/js/pages/dashboards/dashboard1.js"></script>
-
-    
-    <!-- Tambahan JS untuk Tampilan Tab -->
-    <script src="<?php echo base_url();?>assets/extra-libs/prism/prism.js"></script>
-
-
-    <!--This page plugins -->
-    <script src="<?php echo base_url();?>assets/extra-libs/DataTables/datatables.min.js"></script>
-    <script src="<?php echo base_url();?>assets/dist/js/pages/datatable/datatable-basic.init.js"></script>
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $('#my_table').DataTable();
-            $('#tabel_fitur').DataTable();
-            $('#tabel_paid').DataTable();
-            $('#tabel_suspend').DataTable();
-            $('#tabel_pending').DataTable();
-        } 
-        );
-    </script>
-
 </body>
 
 </html>
+<script src="<?php echo base_url();?>assets/libs/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap tether Core JavaScript -->
+<script src="<?php echo base_url();?>assets/libs/popper.js/dist/umd/popper.min.js"></script>
+<script src="<?php echo base_url();?>assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- apps -->
+<script src="<?php echo base_url();?>assets/dist/js/app.min.js"></script>
+<script src="<?php echo base_url();?>assets/dist/js/app.init.js"></script>
+<script src="<?php echo base_url();?>assets/dist/js/app-style-switcher.js"></script>
+<!-- slimscrollbar scrollbar JavaScript -->
+<script src="<?php echo base_url();?>assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
+<script src="<?php echo base_url();?>assets/extra-libs/sparkline/sparkline.js"></script>
+<!--Wave Effects -->
+<script src="<?php echo base_url();?>assets/dist/js/waves.js"></script>
+<!--Menu sidebar -->
+<script src="<?php echo base_url();?>assets/dist/js/sidebarmenu.js"></script>
+<!--Custom JavaScript -->
+<script src="<?php echo base_url();?>assets/dist/js/custom.min.js"></script>
+<!--This page JavaScript -->
+<!--chartis chart-->
+<script src="<?php echo base_url();?>assets/libs/chartist/dist/chartist.min.js"></script>
+<script src="<?php echo base_url();?>assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
+<!--c3 charts -->
+<script src="<?php echo base_url();?>assets/extra-libs/c3/d3.min.js"></script>
+<script src="<?php echo base_url();?>assets/extra-libs/c3/c3.min.js"></script>
+<!--chartjs -->
+<script src="<?php echo base_url();?>assets/libs/raphael/raphael.min.js"></script>
+<script src="<?php echo base_url();?>assets/libs/morris.js/morris.min.js"></script>
+
+<script src="<?php echo base_url();?>assets/dist/js/pages/dashboards/dashboard1.js"></script>
+ <!-- Tambahan JS untuk Tampilan Tab -->
+<script src="<?php echo base_url();?>assets/extra-libs/prism/prism.js"></script>
+
+<!--This page plugins -->
+<script src="<?php echo base_url();?>assets/extra-libs/DataTables/datatables.min.js"></script>
+<script src="<?php echo base_url();?>assets/dist/js/pages/datatable/datatable-basic.init.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#my_table').DataTable();
+        $('#tabel_fitur').DataTable();
+        $('#tabel_history').DataTable();
+        $('#tabel_paid').DataTable();
+        $('#tabel_suspend').DataTable();
+        $('#tabel_pending').DataTable();
+        $('#tabel_unpaid').DataTable();
+    } 
+    );
+</script>
