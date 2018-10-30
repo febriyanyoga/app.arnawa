@@ -384,7 +384,7 @@
 
                                     <ul aria-expanded="false" class="collapse  first-level">
                                         <li class="sidebar-item">
-                                            <a href="#" class="sidebar-link">
+                                            <a href="<?php echo base_url()?>CobaC/Dataanggota" class="sidebar-link">
                                                 <i class="mdi mdi-email"></i>
                                                 <span class="hide-menu"> Master Data </span>
                                             </a>
