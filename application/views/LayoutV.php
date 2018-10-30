@@ -374,7 +374,7 @@
                         ?>
                         <?php
                         foreach ($fitur as $fit) {
-                            if($fit->status != "menunggu"){
+                            if($fit->status != "menunggu" && $fit->status != "non-aktif"){
                                 ?>
                                 <li class="sidebar-item">
                                     <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">

@@ -12,7 +12,32 @@ class LoginC extends CI_Controller {
 	}
 
 	public function index(){
-		// $this->data['email'] = $this->LoginM->getByEmail("ffpjos@gmail.com")->num_rows();
+		$kadaluwarsa = $this->LoginM->get_tagihan_kadaluwarsa()->result();
+		// start otomatis suspend
+		$now = date('Y-m-d H:i:s', now());
+		$data_array_kadaluwarsa = array();
+		foreach ($kadaluwarsa as $k) {
+			if($k->status_tagihan == "Paid"){ //yang statusnya paid
+				if($k->end_date < $now){ //yang tanggal end_date lebih kecil dari sekarang
+					$this->suspend($k->id_detail_fitur); //suspend fitur yang masa aktifnya habis
+				}
+			}elseif ($k->status_tagihan == "Suspend") { //yang status nya suspend
+                $tgl_start      = $k->start_date; //start date
+				$new_tgl_start  = date('Y-m-d', strtotime($tgl_start)); //format start date
+                $start7 		= date('Y-m-d H:i:s', strtotime('+7 days', strtotime($new_tgl_start))); //start date + 7 hari 
+                if($start7 < $now){
+					$this->unpaid($k->id_detail_fitur, $k->id_tagihan); //update unpaid yang start_date + 7 < hari ini (kadaluwarsa)
+				}
+			}elseif ($k->status_tagihan == "Pending") {
+				$tgl_start      = $k->start_date; //start date
+				$new_tgl_start  = date('Y-m-d', strtotime($tgl_start)); //format start date
+                $start7 		= date('Y-m-d H:i:s', strtotime('+3 days', strtotime($new_tgl_start))); //start date + 7 hari 
+                if($start7 < $now){
+					$this->unpaid($k->id_detail_fitur, $k->id_tagihan); //update unpaid yang start_date + 7 < hari ini (kadaluwarsa)
+				}
+			}
+		}
+        // end otomatis suspend
 		$this->load->view('LoginV', $this->data);
 	}
 
@@ -196,4 +221,55 @@ class LoginC extends CI_Controller {
 			return TRUE;
 		}
 	}
+
+	// start otomasi
+	public function suspend($id_detail_fitur){
+		$data 	= array('status' => 'suspend');
+		$now	= date('Y-m-d');
+		$end  	= date('Y-m-d', strtotime('+1 month', strtotime($now)));
+		$sekarang = date('Y-m-d');
+		$harga = $this->LoginM->get_harga($id_detail_fitur)->result()[0]->per_bulan;
+
+		$dataTagihan 	= array(
+			'id_detail_fitur' 	=> $id_detail_fitur,
+			'status_call' 		=> 'Suspend', 
+			'status_tagihan' 	=> 'Suspend',
+			'start_date'		=> $sekarang,
+			'end_date'			=> $end,
+			'harga'				=> $harga,
+		);
+
+		if($this->LoginM->update($id_detail_fitur, $data)){
+			if($this->LoginM->insert_tagihan($dataTagihan)){
+				$this->session->set_flashdata('sukses','Data anda berhasil diubah');
+				redirect_back();
+			}else{
+				$this->session->set_flashdata('error','Data anda tidak berhasil diubah');
+				redirect_back();
+			}
+		}else{
+			$this->session->set_flashdata('error','Data anda tidak berhasil diubah');
+			redirect_back();
+		}
+	}
+
+	public function unpaid($id_detail_fitur, $id_tagihan){
+		$data 			= array('status' => 'non-aktif');
+		$dataTagihan 	= array(
+			'status_tagihan' 	=> 'Unpaid',
+		);
+		if($this->LoginM->update($id_detail_fitur, $data)){
+			if($this->LoginM->updateTagihan($id_tagihan, $dataTagihan)){
+				$this->session->set_flashdata('sukses','Data anda berhasil diubah');
+				redirect_back();
+			}else{
+				$this->session->set_flashdata('error','Data anda tidak berhasil diubah');
+				redirect_back();
+			}
+		}else{
+			$this->session->set_flashdata('error','Data anda tidak berhasil diubah');
+			redirect_back();
+		}
+	}
+	// end otomasi
 }

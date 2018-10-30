@@ -279,16 +279,8 @@ class LoginM extends CI_Model{
 	}
 
 	public function get_tagihan_kadaluwarsa(){
-		// $this->db->distinct();
-		$this->db->select('*');
-		$this->db->from('tagihan T');
-		$this->db->join('detail_fitur D', 'T.id_detail_fitur = D.id_detail_fitur');
-		// $this->db->join('fitur F', 'D.id_fitur = F.id_fitur');
-		$this->db->join('akun A', 'D.id_akun = A.id_akun');
-		$this->db->order_by('T.id_tagihan', 'DESC');
-		// $this->db->where_in('id_tagihan', '(SELECT MAX(id_tagihan) FROM tagihan WHERE id_detail_fitur IN "SELECT id_detail_fitur FROM tagihan GROUP BY id_detail_fitur")');
-		$this->db->group_by('D.id_detail_fitur');
-		return $this->db->get();
+		$query = $this->db->query('SELECT * FROM tagihan T, detail_fitur D, fitur F WHERE T.id_detail_fitur = D.id_detail_fitur AND D.id_fitur = F.id_fitur AND T.id_tagihan IN(SELECT MAX(id_tagihan) AS id_tagihan FROM tagihan GROUP BY id_detail_fitur)');
+		return $query;
 	}
 
 	public function get_tagihan_by_akun_paid($id_akun){
@@ -326,4 +318,29 @@ class LoginM extends CI_Model{
 		$this->db->order_by('T.end_date','ASC');
 		return $this->db->get();
 	}
+
+	public function get_tagihan_by_akun_unpaid($id_akun){
+		$this->db->select('*');
+		$this->db->from('tagihan T');
+		$this->db->join('detail_fitur D', 'T.id_detail_fitur = D.id_detail_fitur');
+		$this->db->join('fitur F', 'D.id_fitur = F.id_fitur');
+		$this->db->join('akun A', 'D.id_akun = A.id_akun');
+		$this->db->where('A.id_akun', $id_akun);
+		$this->db->where('T.status_tagihan = "Unpaid"');
+		$this->db->order_by('T.end_date','ASC');
+		return $this->db->get();
+	}
+	// get harga by id fitur
+	public function get_harga_by_fitur($id_fitur){
+		$this->db->where('id_fitur', $id_fitur);
+		$this->db->order_by('id_harga_fitur','ASC');
+		return $this->db->get('harga_fitur');
+	}
+
+	public function get_harga_fitur_by_id($id_harga_fitur){
+		$this->db->where('id_harga_fitur', $id_harga_fitur);
+		return $this->db->get('harga_fitur');
+	}
+
+
 }

@@ -82,7 +82,6 @@ class AdminC extends CI_Controller {
 	public function update_suspend($id){
 		$data 	= array('status' => 'suspend');
 		$now	= date('Y-m-d');
-		// $now  	= date('Y-m-d', strtotime($now));
 		$end  	= date('Y-m-d', strtotime('+1 month', strtotime($now)));
 		$sekarang = date('Y-m-d');
 		$harga = $this->LoginM->get_harga($id)->result()[0]->per_bulan;

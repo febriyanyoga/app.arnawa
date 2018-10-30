@@ -55,7 +55,11 @@
                 </li>
                 <li class="nav-item"> 
                     <a class="nav-link" data-toggle="tab" href="#unpaid" role="tab"><span class="hidden-sm-up"><i class="fas fa-minus-circle"></i></span><span class="hidden-xs-down"> Unpaid</span>&nbsp; 
-
+                        <?php
+                        if($tagihan_unpaid->num_rows() != 0){
+                            echo '<span class="label label-danger label-rounded label-sm badge">'.$tagihan_unpaid->num_rows().'</span>';
+                        }
+                        ?>
                     </a> 
                 </li>
             </ul>
@@ -77,6 +81,13 @@
                                 </thead>
                                 <tbody>
                                     <?php
+                                    // array tagihan yang terakhir (butuh perpanjang)
+                                    $array_tag = array();
+                                    foreach ($tagihan_terakhir as $t) {
+                                        array_push($array_tag, $t->id_tagihan);
+                                    }
+                                    //end
+
                                     $i=0;
                                     foreach ($tagihan->result() as $tag) {
                                         if($tag->status_tagihan == 'Paid'){
@@ -134,8 +145,56 @@
                                                     </div>
                                                 </td>
                                                 <td class="text-center"><?php echo $new_tgl_end;?></td>
-                                                <td class="text-center"><a style="color: white;" class="btn btn-info btn-sm" data-toggle="modal" data-target="#perpanjang" title="Perpanjang"> Perpanjang</a></td>
+
+                                                <td class="text-center">
+                                                    <?php
+                                                    if(in_array($tag->id_tagihan, $array_tag)){ //jika id tagihan termasuk didalam array
+                                                        ?>
+                                                        <a style="color: white;" class="btn btn-info btn-sm btn" data-toggle="modal" data-target="#perpanjangPaid-<?php echo $tag->id_tagihan?>" title="Perpanjang"> Perpanjang</a>
+                                                        <?php
+                                                    }else{
+                                                        echo "-";
+                                                    }
+                                                    ?>
+                                                </td>
                                             </tr>
+
+                                            <!-- start modal perpanjangan -->
+                                            <div class="modal fade" id="perpanjangPaid-<?php echo $tag->id_tagihan?>" tabindex="-1" role="dialog" aria-labelledby="perpanjang">
+                                                <div class="modal-dialog modal-md" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h4 class="modal-title" id="exampleModalLabel1">Perpanjangan Fitur <?php echo $tag->nama_fitur?></h4>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                                        </div>
+                                                        <form action="<?php echo base_url('KoperasiC/post_perpanjang')?>" method="post">
+                                                            <div class="modal-body">
+                                                                <p>Silakan lakukan perpanjangan masa aktif fitur anda</p><br>
+                                                                <div class="form-group">
+                                                                    <label class="control-label">Pilih Waktu Perpanjangan</label>
+                                                                    <input type="hidden" name="end_date" value="<?php echo $tag->end_date?>">
+                                                                    <input type="hidden" name="id_detail_fitur" value="<?php echo $tag->id_detail_fitur?>">
+                                                                    <select class="form-control" name="id_harga_fitur" id="id_harga_fitur" required>
+                                                                        <?php
+
+                                                                        $select_fitur = $LoginM->get_harga_by_fitur($tag->id_fitur)->result();
+                                                                        foreach ($select_fitur as $sP) {
+                                                                            ?>
+                                                                            <option value="<?php echo $sP->id_harga_fitur?>"><?php echo $sP->jenis." - "."Rp".number_format($sP->harga_fitur, 0,',','.').",-";?></option>
+                                                                            <?php
+                                                                        }
+                                                                        ?>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <input type="submit" class="btn btn-info" value="Simpan">
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- end modal perpanjangan -->
                                             <?php
                                         }
                                     }
@@ -254,8 +313,42 @@
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td class="text-center"><a style="color: white;" class="btn btn-info btn-sm" data-toggle="modal" data-target="#perpanjang" title="Perpanjang"> Perpanjang</a> &nbsp; <a style="color: white;" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#nonaktifkan" title="nonaktifkan"> Tidak</a></td>
+                                            <td class="text-center"><a style="color: white;" class="btn btn-info btn-sm" data-toggle="modal" data-target="#perpanjang-<?php echo $tagS->id_tagihan?>" title="Perpanjang"> Perpanjang</a> &nbsp; <a style="color: white;" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#nonaktifkan" title="nonaktifkan"> Tidak</a></td>
                                         </tr>
+
+
+                                        <!-- start modal perpanjangan -->
+                                        <div class="modal fade" id="perpanjang-<?php echo $tagS->id_tagihan?>" tabindex="-1" role="dialog" aria-labelledby="perpanjang">
+                                            <div class="modal-dialog modal-md" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title" id="exampleModalLabel1">Perpanjangan Fitur <?php echo $tagS->nama_fitur?></h4>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <p>Silakan lakukan perpanjangan masa aktif fitur anda</p><br>
+                                                        <div class="form-group">
+                                                            <label class="control-label">Pilih Waktu Perpanjangan</label>
+                                                            <select class="form-control" name="" id="" required>
+                                                                <?php
+
+                                                                $select_fitur = $LoginM->get_harga_by_fitur($tagS->id_fitur)->result();
+                                                                foreach ($select_fitur as $s) {
+                                                                    ?>
+                                                                    <option value="<?php echo $s->harga_fitur?>"><?php echo $s->jenis." - "."Rp".number_format($s->harga_fitur, 0,',','.').",-";?></option>
+                                                                    <?php
+                                                                }
+                                                                ?>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <input type="submit" class="btn btn-info" value="Simpan">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- end modal perpanjangan -->
                                         <?php
                                     }
                                     ?>
@@ -317,7 +410,7 @@
                                                     ?>
                                                 </div>
                                             </td>
-                                            <td class="text-center"><?php echo $tagP->jml_transfer;?></td>
+                                            <td>Rp<?php echo number_format($tagP->harga, 0,',','.');?>,-</td>
                                             <?php
                                             $tgl2           = date('Y-m-d', strtotime('+7 days', strtotime($new_tgl_start))); //operasi 
                                             $jatuh_tempo    = new DateTime($tgl2);
@@ -388,12 +481,47 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td class="text-center"></td>
-                                        <td class="text-center"></td>
-                                        <td class="text-center"></td>
-                                        <td class="text-center"></td>
-                                    </tr>
+                                    <?php
+                                    $k=0;
+                                    foreach ($tagihan_unpaid->result() as $tagU) {
+                                        $k++;
+                                        ?>
+                                        <tr>
+                                            <td class="text-center"><?php echo $k?></td>
+                                            <td class=><?php echo $tagU->nama_fitur?></td>
+                                            <?php
+                                            $tgl_end        = $tagU->end_date;
+                                            $new_tgl_end    = date('d-m-Y', strtotime($tgl_end));
+                                            $tgl_start      = $tagU->start_date;
+                                            $new_tgl_start  = date('Y-m-d', strtotime($tgl_start));
+
+                                            $tanggal        = $tagU->end_date;
+                                            $tanggal        = new DateTime($tanggal); 
+                                            $sekarang       = new DateTime($tagU->start_date);
+                                            $perbedaan      = $tanggal->diff($sekarang);
+                                            $now            = new DateTime();
+                                            $beda           = $tanggal->diff($now);
+                                            ?>
+                                            <td class="text-center">
+                                                <div>
+                                                    <?php 
+                                                    if($perbedaan->y != 0){
+                                                        echo $perbedaan->y." Tahun ";
+                                                    }
+                                                    if ($perbedaan->m != 0) {
+                                                        echo $perbedaan->m." Bulan ";
+                                                    }
+                                                    if ($perbedaan->d != 0) {
+                                                        echo $perbedaan->d." Hari";
+                                                    }
+                                                    ?>
+                                                </div>
+                                            </td>
+                                            <td>Rp<?php echo number_format($tagU->harga, 0,',','.');?>,-</td>
+                                        </tr>
+                                        <?php
+                                    }
+                                    ?>
                                 </tbody>
                             </table>
                         </div><br><br><br>
@@ -407,43 +535,6 @@
             </div>
         </div>
     </div>
-
-
-
-    <!-- start modal perpanjangan -->
-    <div class="modal fade" id="perpanjang" tabindex="-1" role="dialog" aria-labelledby="perpanjang">
-        <div class="modal-dialog modal-md" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title" id="exampleModalLabel1">Perpanjangan Fitur</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                </div>
-                <div class="modal-body">
-                    <p>Silakan lakukan perpanjangan masa aktif fitur anda</p><br>
-                    <div class="form-group">
-                        <label class="control-label">Pilih Waktu Perpanjangan</label>
-                        <select class="form-control" name="" id="" required>
-                            <option selected value="1bulan">1 Bulan</option>
-                            <option selected value="3bulan">3 Bulan</option>
-                            <option selected value="6bulan">6 Bulan</option>
-                            <option selected value="12bulan">12 Bulan</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label">Jumlah Tagihan</label>
-                        <input type="text" class="form-control"  name="" id="" >
-                    </div>
-
-                </div>
-                <div class="modal-footer">
-                    <input type="submit" class="btn btn-info"  value="Simpan">
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- end modal perpanjangan -->
-
-
 
 
     <!-- start modal konfirmasi pembayaran -->
@@ -516,3 +607,29 @@
     </div>
     <!-- end modal konfirmasi pembayaran -->
 
+    <script language="javascript">
+        $(document).ready(function(){
+        // City change
+        $('#propinsi').change(function(){
+            var propinsi = $(this).val(); //ambil value dr kode_unit
+            // window.alert(unit);
+
+            // AJAX request
+            $.ajax({
+                url:'<?=base_url()?>KoperasiC/get_kabupaten_kota',
+                method: 'post',
+                data: {id_propinsi: propinsi}, // data post ke controller 
+                dataType: 'json',
+                success: function(response){
+                    // Remove options
+                    $('#kota').find('option').not(':first').remove();
+
+                    // Add options
+                    $.each(response,function(daftar,data){
+                        $('#kota').append('<option value="'+data['id_kabupaten_kota']+'">'+data['nama_kabupaten_kota']+'</option>');
+                    });
+                }
+            });
+        });
+    });
+</script>
