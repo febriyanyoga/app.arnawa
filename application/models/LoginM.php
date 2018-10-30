@@ -342,5 +342,38 @@ class LoginM extends CI_Model{
 		return $this->db->get('harga_fitur');
 	}
 
+	// upload bukti transfer konfirmasi pembayaran
+	function upload_image(){
+        $config['upload_path'] = './assets/images/bukti_trf/'; //path folder
+        $config['allowed_types'] = 'gif|jpg|png|jpeg|bmp'; //type yang dapat diakses bisa anda sesuaikan
+        $config['encrypt_name'] = TRUE; //Enkripsi nama yang terupload
 
+        $this->upload->initialize($config);
+        if(!empty($_FILES['file_transfer']['name'])){
+
+        	if ($this->upload->do_upload('file_transfer')){
+        		$gbr = $this->upload->data();
+                //Compress Image
+        		$config['image_library']='gd2';
+        		$config['source_image']='./assets/images/bukti_trf/'.$gbr['file_name'];
+        		$config['create_thumb']= FALSE;
+        		$config['maintain_ratio']= FALSE;
+        		$config['quality']= '50%';
+        		$config['width']= 600;
+        		$config['height']= 400;
+        		$config['new_image']= './assets/images/bukti_trf/'.$gbr['file_name'];
+        		$this->load->library('image_lib', $config);
+        		$this->image_lib->resize();
+
+        		$gambar=$gbr['file_name'];
+        		$judul=$this->input->post('xjudul');
+        		$this->m_upload->simpan_upload($judul,$gambar);
+        		echo "Image berhasil diupload";
+        	}
+
+        }else{
+        	echo "Image yang diupload kosong";
+        }
+
+    }
 }

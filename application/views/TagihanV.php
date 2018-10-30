@@ -313,7 +313,10 @@
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td class="text-center"><a style="color: white;" class="btn btn-info btn-sm" data-toggle="modal" data-target="#perpanjang-<?php echo $tagS->id_tagihan?>" title="Perpanjang"> Perpanjang</a> &nbsp; <a style="color: white;" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#nonaktifkan" title="nonaktifkan"> Tidak</a></td>
+                                            <td class="text-center">
+                                                <a style="color: white;" class="btn btn-info btn-sm" data-toggle="modal" data-target="#perpanjang-<?php echo $tagS->id_tagihan?>" title="Perpanjang"> Perpanjang</a> &nbsp; 
+                                                <a href="<?php echo base_url('KoperasiC/update_unpaid/'.$tagS->id_tagihan.'/'.$tagS->id_detail_fitur)?>" class="btn btn-danger btn-sm" title="tidak perpanjang" onClick="return confirm('Anda yakin tidak akan memperpanjang fitur <?php echo $tagS->nama_fitur?>?')"> Tidak</a>
+                                            </td>
                                         </tr>
 
 
@@ -325,26 +328,31 @@
                                                         <h4 class="modal-title" id="exampleModalLabel1">Perpanjangan Fitur <?php echo $tagS->nama_fitur?></h4>
                                                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                                                     </div>
-                                                    <div class="modal-body">
-                                                        <p>Silakan lakukan perpanjangan masa aktif fitur anda</p><br>
-                                                        <div class="form-group">
-                                                            <label class="control-label">Pilih Waktu Perpanjangan</label>
-                                                            <select class="form-control" name="" id="" required>
-                                                                <?php
-
-                                                                $select_fitur = $LoginM->get_harga_by_fitur($tagS->id_fitur)->result();
-                                                                foreach ($select_fitur as $s) {
-                                                                    ?>
-                                                                    <option value="<?php echo $s->harga_fitur?>"><?php echo $s->jenis." - "."Rp".number_format($s->harga_fitur, 0,',','.').",-";?></option>
+                                                    <form action="<?php echo base_url('KoperasiC/post_update_perpanjang')?>" method="post">
+                                                        <div class="modal-body">
+                                                            <p>Silakan lakukan perpanjangan masa aktif fitur anda</p><br>
+                                                            <div class="form-group">
+                                                                <label class="control-label">Pilih Waktu Perpanjangan</label>
+                                                                <input type="hidden" name="start_date" value="<?php echo $tagS->start_date?>">
+                                                                <input type="hidden" name="id_detail_fitur" value="<?php echo $tagS->id_detail_fitur?>">
+                                                                <input type="hidden" name="id_tagihan" value="<?php echo $tagS->id_tagihan?>">
+                                                                <select class="form-control" name="id_harga_fitur" id="id_harga_fitur" required>
                                                                     <?php
-                                                                }
-                                                                ?>
-                                                            </select>
+
+                                                                    $select_fitur = $LoginM->get_harga_by_fitur($tagS->id_fitur)->result();
+                                                                    foreach ($select_fitur as $sP) {
+                                                                        ?>
+                                                                        <option value="<?php echo $sP->id_harga_fitur?>"><?php echo $sP->jenis." - "."Rp".number_format($sP->harga_fitur, 0,',','.').",-";?></option>
+                                                                        <?php
+                                                                    }
+                                                                    ?>
+                                                                </select>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <input type="submit" class="btn btn-info" value="Simpan">
-                                                    </div>
+                                                        <div class="modal-footer">
+                                                            <input type="submit" class="btn btn-info" value="Simpan">
+                                                        </div>
+                                                    </form>
                                                 </div>
                                             </div>
                                         </div>
@@ -370,6 +378,7 @@
                                         <th class="text-center">Masa Aktif</th>
                                         <th class="text-center">Tagihan</th>
                                         <th class="text-center">Jatuh Tempo</th>
+                                        <th class="text-center">Status Konfirmasi</th>
                                         <th class="text-center">Aksi</th>
                                     </tr>
                                 </thead>
@@ -445,8 +454,103 @@
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td class="text-center"><a style="color: white;" class="btn btn-info btn-sm" data-toggle="modal" data-target="#konfirmasi" title="Konfirmasi"> Konfirmasi Pembayaran</a></td>
+                                            <td class="text-center">
+                                                <?php
+                                                if($tagP->konfirmasi_pembayaran == "Terkonfirmasi"){
+                                                    echo $tagP->konfirmasi_pembayaran;
+                                                    echo '<br><small>sedang menunggu verifikasi</small>';
+
+                                                }else{
+                                                    echo $tagP->konfirmasi_pembayaran;
+                                                }
+                                                ?>
+                                            </td>
+                                            <td class="text-center">
+                                                <?php
+                                                if($tagP->jml_transfer != 0){
+                                                    ?>
+                                                    <a style="color: white;" class="btn btn-info btn-sm" data-toggle="modal" data-target="#konfirmasi-<?php echo $tagP->id_tagihan;?>" title="Konfirmasi Ulang"><span class="ti-reload"></span></a>
+                                                    <?php                                                    
+                                                }elseif ($tagP->jml_transfer == 0) {
+                                                    ?>
+                                                    <a style="color: white;" class="btn btn-info btn-sm" data-toggle="modal" data-target="#konfirmasi-<?php echo $tagP->id_tagihan;?>" title="Konfirmasi"> Konfirmasi Pembayaran</a>
+                                                    <?php
+                                                }
+                                                ?>
+                                            </td>
                                         </tr>
+
+                                        <!-- start modal konfirmasi pembayaran -->
+                                        <div class="modal fade" id="konfirmasi-<?php echo $tagP->id_tagihan;?>" tabindex="-1" role="dialog" aria-labelledby="konfirmasi">
+                                            <div class="modal-dialog modal-lg" role="document">
+                                                <form action="<?php echo base_url('KoperasiC/konfirmasi_pembayaran')?>" method="post" enctype="multipart/form-data">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h4 class="modal-title" id="exampleModalLabel1">Konfirmasi Pembayaran Fitur <?php echo $tagP->nama_fitur;?></h4>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <p>Pastikan anda telah melakukan transfer sebelum mengisi form</p><br>
+                                                            <div class="form-group">
+                                                                <input type="hidden" name="id_tagihan" value="<?php echo $tagP->id_tagihan?>">
+                                                                <label class="control-label">Bank Tujuan</label>
+                                                                <select class="form-control" name="bank_tujuan" id="bank_tujuan" required>
+                                                                    <option selected value="BCA">BCA 01234567 a/n PT. Arnawa Teknologi Informasi</option>
+                                                                    <option selected value="BNI">BNI 09876543 a/n PT. Arnawa Teknologi Informasi</option>
+                                                                    <option selected value="BRI">BRI 56789012 a/n PT. Arnawa Teknologi Informasi</option>
+                                                                    <option selected value="MANDIRI">Mandiri 34980765 a/n PT. Arnawa Teknologi Informasi</option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="col-lg-12">
+                                                                <div class="row">
+                                                                    <div class="col-lg-6">
+                                                                        <div class="form-group">
+                                                                            <label class="control-label">Bank Pengirim</label>
+                                                                            <select class="form-control" name="nama_bank_pengirim" id="nama_bank_pengirim" required>
+                                                                                <option selected value="BCA">BCA</option>
+                                                                                <option selected value="BNI">BNI</option>
+                                                                                <option selected value="BRI">BRI</option>
+                                                                                <option selected value="MANDIRI">Mandiri</option>
+                                                                            </select>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label class="control-label">No. Rekening</label>
+                                                                            <input type="number" class="form-control"  name="no_rekening_pengirim" id="no_rekening_pengirim" required>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label class="control-label">Nama Pengirim</label>
+                                                                            <input type="text" class="form-control"  name="nama_pengirim" id="nama_pengirim" required>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label class="control-label">Tanggal Transfer</label>
+                                                                            <input type="date" class="form-control"  name="tgl_transfer" id="tgl_transfer" required>
+                                                                        </div>
+                                                                    </div><div class="col-lg-6">
+                                                                        <div class="form-group">
+                                                                            <label class="control-label">Jumlah Transfer</label>
+                                                                            <input type="number" class="form-control"  name="jml_transfer" id="jml_transfer" placeholder="hanya angka" required>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label class="control-label">Upload Bukti</label>
+                                                                            <input type="file" class="form-control"  name="file_transfer" id="file_transfer" required>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label class="control-label">Catatan</label>
+                                                                            <textarea class="form-control"  name="catatan" id="catatan" required></textarea>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <input type="submit" class="btn btn-success" name="submit" value="Simpan">
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        <!-- end modal konfirmasi pembayaran -->
+
                                         <?php
                                     }
                                     ?>
@@ -535,77 +639,6 @@
             </div>
         </div>
     </div>
-
-
-    <!-- start modal konfirmasi pembayaran -->
-    <div class="modal fade" id="konfirmasi" tabindex="-1" role="dialog" aria-labelledby="konfirmasi">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title" id="exampleModalLabel1">Konfirmasi Pembayaran</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <p>Pastikan anda telah melakukan transfer sebelum mengisi form</p><br>
-                        <div class="form-group">
-                            <label class="control-label">Bank Tujuan</label>
-                            <select class="form-control" name="" id="" required>
-                                <option selected value="BCA">BCA 01234567 a/n PT. Arnawa Teknologi Informasi</option>
-                                <option selected value="BNI">BNI 09876543 a/n PT. Arnawa Teknologi Informasi</option>
-                                <option selected value="BRI">BRI 56789012 a/n PT. Arnawa Teknologi Informasi</option>
-                                <option selected value="MANDIRI">Mandiri 34980765 a/n PT. Arnawa Teknologi Informasi</option>
-                            </select>
-                        </div>
-                        <div class="col-lg-12">
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label class="control-label">Bank Pengirim</label>
-                                        <select class="form-control" name="" id="" required>
-                                            <option selected value="BCA">BCA</option>
-                                            <option selected value="BNI">BNI</option>
-                                            <option selected value="BRI">BRI</option>
-                                            <option selected value="MANDIRI">Mandiri</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="control-label">No. Rekening</label>
-                                        <input type="text" class="form-control"  name="" id="" >
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="control-label">Nama Pengirim</label>
-                                        <input type="text" class="form-control"  name="" id="" >
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="control-label">Tanggal Transfer</label>
-                                        <input type="date" class="form-control"  name="" id="" >
-                                    </div>
-                                </div><div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label class="control-label">Jumlah Transfer</label>
-                                        <input type="text" class="form-control"  name="" id="" >
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="control-label">Upload Bukti</label>
-                                        <input type="file" class="form-control"  name="" id="" >
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="control-label">Catatan</label>
-                                        <textarea class="form-control"  name="" id="" ></textarea>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <input type="submit" class="btn btn-danger" data-dismiss="modal" value="Simpan">
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- end modal konfirmasi pembayaran -->
 
     <script language="javascript">
         $(document).ready(function(){

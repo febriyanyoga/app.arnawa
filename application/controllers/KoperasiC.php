@@ -88,7 +88,7 @@ class KoperasiC extends CI_Controller {
 			$old_end_date		= $this->input->post('end_date');
 			$id_detail_fitur	= $this->input->post('id_detail_fitur');
 
-            $detail = $this->LoginM->get_harga_fitur_by_id($id_harga_fitur)->result()[0];
+			$detail = $this->LoginM->get_harga_fitur_by_id($id_harga_fitur)->result()[0];
 			if($detail->jenis == '1 Bulan'){
 				$interval = 1;
 			}elseif ($detail->jenis == '3 Bulan') {
@@ -120,6 +120,179 @@ class KoperasiC extends CI_Controller {
             	$this->session->set_flashdata('sukses','Tagihan tidak berhasil diperpanjang');
             	redirect_back();
             }
+        }
+
+    }
+
+    public function post_update_perpanjang(){
+        $this->form_validation->set_rules('id_tagihan','ID Tagihan','required');
+        $this->form_validation->set_rules('id_harga_fitur','ID Harga Fitur','required');
+        $this->form_validation->set_rules('id_detail_fitur','ID Detail Fitur','required');
+        $this->form_validation->set_rules('start_date','Start Date','required');
+        if($this->form_validation->run() == FALSE){
+            $this->session->set_flashdata('error','Data anda tidak berhasil disimpan. Silahkan cek kembali data yang anda masukkan');
+            redirect_back();
+        }else{
+
+            $id_tagihan 		= $this->input->post('id_tagihan');
+            $id_harga_fitur 	= $this->input->post('id_harga_fitur');
+            $old_start_date		= $this->input->post('start_date');
+            $id_detail_fitur	= $this->input->post('id_detail_fitur');
+
+            $detail = $this->LoginM->get_harga_fitur_by_id($id_harga_fitur)->result()[0];
+            if($detail->jenis == '1 Bulan'){
+                $interval = 1;
+            }elseif ($detail->jenis == '3 Bulan') {
+                $interval = 3;
+            }elseif ($detail->jenis == '6 Bulan') {
+                $interval = 6;
+            }elseif ($detail->jenis == '12 Bulan') {
+                $interval = 12;
+            }
+
+			$new_old_start_date	= date('Y-m-d', strtotime($old_start_date)); //format start date
+            $end_date 			= date('Y-m-d', strtotime('+'.$interval.'months', strtotime($new_old_start_date))); //start date + 7 hari 
+
+
+            $data_insert_tagihan = array(
+            	'end_date'			=> $end_date,
+            	'harga'				=> $detail->harga_fitur,
+            	'id_detail_fitur'	=> $id_detail_fitur,
+            	'status_call' 		=> 'aktif', 
+            	'status_tagihan' 	=> 'Pending', 
+            );
+            if($this->LoginM->updateTagihan($id_tagihan, $data_insert_tagihan)){
+            	$this->session->set_flashdata('sukses','Tagihan berhasil diperpanjang. Silahkan klik tab Pending');
+            	redirect_back();
+            }else{
+            	$this->session->set_flashdata('sukses','Tagihan tidak berhasil diperpanjang');
+            	redirect_back();
+            }
+        }
+
+    }
+
+    public function update_unpaid($id_tagihan, $id_detail_fitur){
+    	$data = array('status' => 'non-aktif');
+    	$data_tagihan = array('status_tagihan' => 'Unpaid');
+    	if($this->LoginM->update($id_detail_fitur, $data)){
+    		if($this->LoginM->updateTagihan($id_tagihan, $data_tagihan)){
+    			$this->session->set_flashdata('sukses','Tagihan tidak diperpanjang');
+    			redirect_back();
+    		}else{
+    			$this->session->set_flashdata('error','Data anda tidak berhasil diubah');
+    			redirect_back();
+    		}
+    	}else{
+    		$this->session->set_flashdata('error','Data anda tidak berhasil diubah');
+    		redirect_back();
+    	}
+    }
+
+    public function konfirmasi_pembayaran(){
+        $this->form_validation->set_rules('id_tagihan','ID Tagihan','required');
+        $this->form_validation->set_rules('bank_tujuan','Bank Tujuan','required');
+        $this->form_validation->set_rules('nama_bank_pengirim','Nama Bank Pengirim','required');
+        $this->form_validation->set_rules('jml_transfer','Jumlah Transfer', 'required');
+        $this->form_validation->set_rules('nama_pengirim', 'Nama Pengirim','required');
+        // $this->form_validation->set_rules('file_transfer','File Transfer', 'required');
+        $this->form_validation->set_rules('no_rekening_pengirim', 'No Rekening Pengirim','required');
+        $this->form_validation->set_rules('tgl_transfer','Tanggal Transfer','required');
+        $this->form_validation->set_rules('catatan','Catatan');
+        if($this->form_validation->run() == FALSE){
+            $this->session->set_flashdata('error','Data Konfrimasi pembayaran tidak berhasil diunggah. Cek kembali data yang anda masukkan');
+            redirect_back();
+        }else{
+            $config['upload_path'] = './assets/images/bukti_trf/'; //path folder
+            $config['allowed_types'] = 'gif|jpg|png|jpeg|bmp'; //type yang dapat diakses bisa anda sesuaikan
+            $config['encrypt_name'] = TRUE; //Enkripsi nama yang terupload
+
+            $this->upload->initialize($config);
+            if(!empty($_FILES['file_transfer']['name'])){
+
+                if ($this->upload->do_upload('file_transfer')){
+                    $gbr = $this->upload->data();
+                    //Compress Image
+                    $config['image_library']='gd2';
+                    $config['source_image']='./assets/images/bukti_trf/'.$gbr['file_name'];
+                    $config['create_thumb']= FALSE;
+                    $config['maintain_ratio']= FALSE;
+                    $config['quality']= '50%';
+                    $config['width']= 600;
+                    $config['height']= 400;
+                    $config['new_image']= './assets/images/bukti_trf/'.$gbr['file_name'];
+                    $this->load->library('image_lib', $config);
+                    $this->image_lib->resize();
+                    $gambar=$gbr['file_name'];
+
+                    $bank_tujuan            = $this->input->post('bank_tujuan');
+                    $nama_bank_pengirim     = $this->input->post('nama_bank_pengirim');
+                    $jml_transfer           = $this->input->post('jml_transfer');
+                    $nama_pengirim          = $this->input->post('nama_pengirim');
+                    $file_transfer          = $this->input->post('file_transfer');
+                    $no_rekening_pengirim   = $this->input->post('no_rekening_pengirim');
+                    $tgl_transfer           = $this->input->post('tgl_transfer');
+                    $catatan                = $this->input->post('catatan');
+                    $id_tagihan             = $this->input->post('id_tagihan');
+
+                    $data_update_tagihan = array(
+                        'bank_tujuan'           => $bank_tujuan, 
+                        'nama_bank_pengirim'    => $nama_bank_pengirim, 
+                        'jml_transfer'          => $jml_transfer, 
+                        'nama_pengirim'         => $nama_pengirim, 
+                        'file_transfer'         => $gambar, 
+                        'no_rekening_pengirim'  => $no_rekening_pengirim, 
+                        'tgl_transfer'          => $tgl_transfer, 
+                        'catatan'               => $catatan, 
+                        'konfirmasi_pembayaran' => 'Terkonfirmasi'
+                    );
+
+                    if($this->LoginM->updateTagihan($id_tagihan, $data_update_tagihan)){
+                        $this->session->set_flashdata('sukses','Data Konfrimasi berhasil dikirim. Silahkan tunggu admin kami untuk verifikasi');
+                        redirect_back();
+                    }else{
+                        $this->session->set_flashdata('error','Data Konfrimasi tidak berhasil dikirim. Silahkan coba beberapa saat lagi');
+                        redirect_back();
+                    }
+                }
+            }else{
+                echo "Image yang diupload kosong";
+            }
+
+        }
+    }
+
+    // upload bukti transfer konfirmasi pembayaran
+    function upload_image(){
+        $config['upload_path'] = './assets/images/bukti_trf/'; //path folder
+        $config['allowed_types'] = 'gif|jpg|png|jpeg|bmp'; //type yang dapat diakses bisa anda sesuaikan
+        $config['encrypt_name'] = TRUE; //Enkripsi nama yang terupload
+
+        $this->upload->initialize($config);
+        if(!empty($_FILES['file_transfer']['name'])){
+
+            if ($this->upload->do_upload('file_transfer')){
+                $gbr = $this->upload->data();
+                //Compress Image
+                $config['image_library']='gd2';
+                $config['source_image']='./assets/images/bukti_trf/'.$gbr['file_name'];
+                $config['create_thumb']= FALSE;
+                $config['maintain_ratio']= FALSE;
+                $config['quality']= '50%';
+                $config['width']= 600;
+                $config['height']= 400;
+                $config['new_image']= './assets/images/bukti_trf/'.$gbr['file_name'];
+                $this->load->library('image_lib', $config);
+                $this->image_lib->resize();
+
+                $gambar=$gbr['file_name'];
+                $judul=$this->input->post('xjudul');
+                $this->m_upload->simpan_upload($judul,$gambar);
+                echo "Image berhasil diupload";
+            }
+
+        }else{
+            echo "Image yang diupload kosong";
         }
 
     }
