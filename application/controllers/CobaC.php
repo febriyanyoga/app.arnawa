@@ -58,4 +58,82 @@ class CobaC extends CI_Controller {
 		$this->load->view('LayoutV', $this->data);
 
 	}
+	
+	public function Dataanggota(){
+		$id  = $this->session->userdata('id_akun');
+		$this->data['macam_fitur']	= $this->LoginM->get_all_fitur(); //semua fitur
+		$this->data['macam_fitur_akun']	= $this->LoginM->get_fitur_by_akun($id); //fitur by akun
+		$this->data['data_akun'] = $this->LoginM->get_all_data($id)->result()[0];
+		$this->data['dataDiri'] = $this->session->userdata();
+		$this->data['active'] = 'active';
+		$this->data['manajemen_fitur'] 		= $this->LoginM->get_detail_fitur_by_akun($id)->result();
+		$this->data['isi'] = $this->load->view('DataanggotaV', $this->data, TRUE);
+		$this->load->view('LayoutV', $this->data);
+
+	}
+	
+	public function Datasimpanan(){
+		$id  = $this->session->userdata('id_akun');
+		$this->data['macam_fitur']	= $this->LoginM->get_all_fitur(); //semua fitur
+		$this->data['macam_fitur_akun']	= $this->LoginM->get_fitur_by_akun($id); //fitur by akun
+		$this->data['data_akun'] = $this->LoginM->get_all_data($id)->result()[0];
+		$this->data['dataDiri'] = $this->session->userdata();
+		$this->data['active'] = 'active';
+		$this->data['manajemen_fitur'] 		= $this->LoginM->get_detail_fitur_by_akun($id)->result();
+		$this->data['isi'] = $this->load->view('DatasimpananV', $this->data, TRUE);
+		$this->load->view('LayoutV', $this->data);
+
+	}
+	
+	public function Datapinjaman(){
+		$id  = $this->session->userdata('id_akun');
+		$this->data['macam_fitur']	= $this->LoginM->get_all_fitur(); //semua fitur
+		$this->data['macam_fitur_akun']	= $this->LoginM->get_fitur_by_akun($id); //fitur by akun
+		$this->data['data_akun'] = $this->LoginM->get_all_data($id)->result()[0];
+		$this->data['dataDiri'] = $this->session->userdata();
+		$this->data['active'] = 'active';
+		$this->data['manajemen_fitur'] 		= $this->LoginM->get_detail_fitur_by_akun($id)->result();
+		$this->data['isi'] = $this->load->view('DatapinjamanV', $this->data, TRUE);
+		$this->load->view('LayoutV', $this->data);
+
+	}
+	
+	public function Dataalokasi(){
+		$id  = $this->session->userdata('id_akun');
+		$this->data['macam_fitur']	= $this->LoginM->get_all_fitur(); //semua fitur
+		$this->data['macam_fitur_akun']	= $this->LoginM->get_fitur_by_akun($id); //fitur by akun
+		$this->data['data_akun'] = $this->LoginM->get_all_data($id)->result()[0];
+		$this->data['dataDiri'] = $this->session->userdata();
+		$this->data['active'] = 'active';
+		$this->data['manajemen_fitur'] 		= $this->LoginM->get_detail_fitur_by_akun($id)->result();
+		$this->data['isi'] = $this->load->view('DataalokasiV', $this->data, TRUE);
+		$this->load->view('LayoutV', $this->data);
+
+	}
+	
+	public function Dataneraca(){
+		$id  = $this->session->userdata('id_akun');
+		$this->data['macam_fitur']	= $this->LoginM->get_all_fitur(); //semua fitur
+		$this->data['macam_fitur_akun']	= $this->LoginM->get_fitur_by_akun($id); //fitur by akun
+		$this->data['data_akun'] = $this->LoginM->get_all_data($id)->result()[0];
+		$this->data['dataDiri'] = $this->session->userdata();
+		$this->data['active'] = 'active';
+		$this->data['manajemen_fitur'] 		= $this->LoginM->get_detail_fitur_by_akun($id)->result();
+		$this->data['isi'] = $this->load->view('DataneracaV', $this->data, TRUE);
+		$this->load->view('LayoutV', $this->data);
+
+	}
+	
+	public function Datalabarugi(){
+		$id  = $this->session->userdata('id_akun');
+		$this->data['macam_fitur']	= $this->LoginM->get_all_fitur(); //semua fitur
+		$this->data['macam_fitur_akun']	= $this->LoginM->get_fitur_by_akun($id); //fitur by akun
+		$this->data['data_akun'] = $this->LoginM->get_all_data($id)->result()[0];
+		$this->data['dataDiri'] = $this->session->userdata();
+		$this->data['active'] = 'active';
+		$this->data['manajemen_fitur'] 		= $this->LoginM->get_detail_fitur_by_akun($id)->result();
+		$this->data['isi'] = $this->load->view('DatalabarugiV', $this->data, TRUE);
+		$this->load->view('LayoutV', $this->data);
+
+	}
 }
