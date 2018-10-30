@@ -85,10 +85,6 @@
                                 </div>
                                 <?php 
                             } 
-                            // // print_r($kadaluwarsa);
-                            // foreach ($kadaluwarsa as $k) {
-                            //     echo $k->id_detail_fitur." ".$k->start_date." ".$k->end_date."<br>";
-                            // }
                             ?>
                             <?php echo validation_errors(); ?>
                             <form class="form-horizontal m-t-20" action="<?php echo site_url('Register/register')?>" method="post">
@@ -181,28 +177,28 @@
         $(function () {
             $("#btnSubmit").click(function () {
                 if($("#nama_akun").val() != "" && $("#no_hp").val() != "" && $("#email_akun").val() && $("#jenis_usaha").val() && $("#password").val() != "" && $("#confirm_password").val() != ""){
-                     var password = $("#password").val();
-                    var confirmPassword = $("#confirm_password").val();
-                    var pass_length = password.length;
-                    if (password != confirmPassword) {
-                        alert("Kata sandi tidak sama.");
+                   var password = $("#password").val();
+                   var confirmPassword = $("#confirm_password").val();
+                   var pass_length = password.length;
+                   if (password != confirmPassword) {
+                    alert("Kata sandi tidak sama.");
+                    return false;
+                }else{
+                    if(pass_length < 6){
+                        alert("Panjang Kata sandi minimal 6 karakter");
                         return false;
                     }else{
-                        if(pass_length < 6){
-                            alert("Panjang Kata sandi minimal 6 karakter");
+                        if(pass_length > 10){
+                            alert("Panjang Kata sandi maksimal 10 karakter");
                             return false;
                         }else{
-                            if(pass_length > 10){
-                                alert("Panjang Kata sandi maksimal 10 karakter");
-                                return false;
-                            }else{
-                                return true;
-                            }
+                            return true;
                         }
                     }
                 }
-               
-            });
+            }
+
+        });
         });
     </script>
 </body>

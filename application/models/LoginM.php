@@ -251,6 +251,15 @@ class LoginM extends CI_Model{
 		return TRUE;
 	}
 
+	public function get_harga($id_detail_fitur){
+		$this->db->select('*');
+		$this->db->from('detail_fitur D');
+		$this->db->join('fitur F','D.id_fitur = F.id_fitur');
+		$this->db->join('harga_fitur H', 'F.id_harga_fitur = H.id_harga_fitur');
+		$this->db->where('D.id_detail_fitur', $id_detail_fitur);
+		return $this->db->get();
+	}
+
 	// tagihan
 	public function get_tagihan_by_id($id_detail_fitur){
 		$this->db->where('id_detail_fitur', $id_detail_fitur);
@@ -270,16 +279,8 @@ class LoginM extends CI_Model{
 	}
 
 	public function get_tagihan_kadaluwarsa(){
-		// $this->db->distinct();
-		$this->db->select('*');
-		$this->db->from('tagihan T');
-		$this->db->join('detail_fitur D', 'T.id_detail_fitur = D.id_detail_fitur');
-		// $this->db->join('fitur F', 'D.id_fitur = F.id_fitur');
-		$this->db->join('akun A', 'D.id_akun = A.id_akun');
-		$this->db->order_by('T.id_tagihan', 'DESC');
-		// $this->db->where_in('id_tagihan', '(SELECT MAX(id_tagihan) FROM tagihan WHERE id_detail_fitur IN "SELECT id_detail_fitur FROM tagihan GROUP BY id_detail_fitur")');
-		$this->db->group_by('D.id_detail_fitur');
-		return $this->db->get();
+		$query = $this->db->query('SELECT * FROM tagihan T, detail_fitur D, fitur F WHERE T.id_detail_fitur = D.id_detail_fitur AND D.id_fitur = F.id_fitur AND T.id_tagihan IN(SELECT MAX(id_tagihan) AS id_tagihan FROM tagihan GROUP BY id_detail_fitur)');
+		return $query;
 	}
 
 	public function get_tagihan_by_akun_paid($id_akun){
@@ -317,4 +318,62 @@ class LoginM extends CI_Model{
 		$this->db->order_by('T.end_date','ASC');
 		return $this->db->get();
 	}
+
+	public function get_tagihan_by_akun_unpaid($id_akun){
+		$this->db->select('*');
+		$this->db->from('tagihan T');
+		$this->db->join('detail_fitur D', 'T.id_detail_fitur = D.id_detail_fitur');
+		$this->db->join('fitur F', 'D.id_fitur = F.id_fitur');
+		$this->db->join('akun A', 'D.id_akun = A.id_akun');
+		$this->db->where('A.id_akun', $id_akun);
+		$this->db->where('T.status_tagihan = "Unpaid"');
+		$this->db->order_by('T.end_date','ASC');
+		return $this->db->get();
+	}
+	// get harga by id fitur
+	public function get_harga_by_fitur($id_fitur){
+		$this->db->where('id_fitur', $id_fitur);
+		$this->db->order_by('id_harga_fitur','ASC');
+		return $this->db->get('harga_fitur');
+	}
+
+	public function get_harga_fitur_by_id($id_harga_fitur){
+		$this->db->where('id_harga_fitur', $id_harga_fitur);
+		return $this->db->get('harga_fitur');
+	}
+
+	// upload bukti transfer konfirmasi pembayaran
+	function upload_image(){
+        $config['upload_path'] = './assets/images/bukti_trf/'; //path folder
+        $config['allowed_types'] = 'gif|jpg|png|jpeg|bmp'; //type yang dapat diakses bisa anda sesuaikan
+        $config['encrypt_name'] = TRUE; //Enkripsi nama yang terupload
+
+        $this->upload->initialize($config);
+        if(!empty($_FILES['file_transfer']['name'])){
+
+        	if ($this->upload->do_upload('file_transfer')){
+        		$gbr = $this->upload->data();
+                //Compress Image
+        		$config['image_library']='gd2';
+        		$config['source_image']='./assets/images/bukti_trf/'.$gbr['file_name'];
+        		$config['create_thumb']= FALSE;
+        		$config['maintain_ratio']= FALSE;
+        		$config['quality']= '50%';
+        		$config['width']= 600;
+        		$config['height']= 400;
+        		$config['new_image']= './assets/images/bukti_trf/'.$gbr['file_name'];
+        		$this->load->library('image_lib', $config);
+        		$this->image_lib->resize();
+
+        		$gambar=$gbr['file_name'];
+        		$judul=$this->input->post('xjudul');
+        		$this->m_upload->simpan_upload($judul,$gambar);
+        		echo "Image berhasil diupload";
+        	}
+
+        }else{
+        	echo "Image yang diupload kosong";
+        }
+
+    }
 }

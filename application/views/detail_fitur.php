@@ -67,14 +67,14 @@
                                     <thead>
                                         <tr class="text-center">
                                             <th>No</th>
-                                            <th>Fitur</th>
+                                            <th style="width: 40px;">Fitur</th>
                                             <th>Status</th>
                                             <th>Tanggal Aktif</th>
                                             <th>Tanggal Berakhir</th>
                                             <th>Akses</th>
                                             <th>Tagihan</th>
                                             <th>Status Call</th>
-                                            <th>Aksi</th>
+                                            <th style="width: 60px;">Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -147,6 +147,10 @@
                                                     }elseif ($tagihan->status_tagihan == "Pending") {
                                                         ?>
                                                         <span class="label btn-warning label-sm" title="pending"><? echo $tagihan->status_tagihan;?></span>
+                                                        <?php
+                                                    }elseif ($tagihan->status_tagihan == "Unpaid") {
+                                                        ?>
+                                                        <span class="label btn-danger label-sm" title="pending"><? echo $tagihan->status_tagihan;?></span>
                                                         <?php
                                                     }
                                                     ?>

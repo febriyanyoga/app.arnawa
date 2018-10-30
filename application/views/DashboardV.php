@@ -114,6 +114,10 @@
                                             ?>
                                             <span class="label btn-warning label-sm" title="pending"><?php echo $tagihan->status_tagihan;?></span>
                                             <?php
+                                        }elseif ($tagihan->status_tagihan == "Unpaid") {
+                                            ?>
+                                            <span class="label btn-danger label-sm" title="pending"><?php echo $tagihan->status_tagihan;?></span>
+                                            <?php
                                         }
                                         ?>
                                     </td>
