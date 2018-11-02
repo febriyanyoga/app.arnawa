@@ -92,7 +92,7 @@ b, strong, .bold {
 }
 
 #memo .company-name {
-  background: #8BA09E url("../img/arrows.png") 560px center no-repeat;
+  background: white url("../img/arrows.png") 560px center no-repeat;
   background-size: 100px auto;
   padding: 10px 20px;
   position: relative;
@@ -121,8 +121,8 @@ b, strong, .bold {
   margin-left: 20px;
 }
 #memo .logo img {
-  width: 150px;
-  height: 100px;
+  width: 210px;
+  height: 80px;
 }
 #memo .company-info {
   margin-left: 20px;
@@ -213,7 +213,7 @@ table th, table td {
   margin: 20px 0 35px 0;
 }
 #items .first-cell, #items table th:first-child, #items table td:first-child {
-  width: 18px;
+  width: 65px;
   text-align: right;
 }
 #items table {
@@ -223,8 +223,7 @@ table th, table td {
 #items table th {
   padding: 12px 10px;
   text-align: right;
-  background: #E6E7E7;
-  border-bottom: 4px solid #487774;
+  border-bottom: 4px solid #1175bbbf;
 }
 #items table th:nth-child(2) {
   width: 30%;
@@ -252,22 +251,19 @@ table th, table td {
 }
 
 .currency {
-  border-bottom: 4px solid #487774;
   padding: 0 20px;
 }
 .currency span {
   font-size: 11px;
   font-style: italic;
-  color: #8b8b8b;
   display: inline-block;
   min-width: 20px;
 }
 
 #sums {
   float: right;
-  background: #8BA09E url("../img/left-arrow.png") -17px bottom no-repeat;
   background-size: auto 100px;
-  color: white;
+  color: #000000d1;
 }
 #sums table tr th, #sums table tr td {
   min-width: 100px;
