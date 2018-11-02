@@ -109,6 +109,26 @@ class AdminC extends CI_Controller {
 		}
 	}
 
+	public function update_paid($id_tagihan, $id_detail_fitur){
+		$data = array('status' => 'aktif');
+		$data_tagihan = array(
+			'status_tagihan' 		=> 'Paid',
+			'konfirmasi_pembayaran' => 'Telah Diverifikasi',
+		);
+		if($this->LoginM->update($id_detail_fitur, $data)){
+			if($this->LoginM->updateTagihan($id_tagihan, $data_tagihan)){
+				$this->session->set_flashdata('sukses','Tagihan Terverifikasi');
+				redirect_back();
+			}else{
+				$this->session->set_flashdata('error','Data anda tidak berhasil diubah');
+				redirect_back();
+			}
+		}else{
+			$this->session->set_flashdata('error','Data anda tidak berhasil diubah');
+			redirect_back();
+		}
+	}
+
 	function post_aktif(){
 		$this->form_validation->set_rules('status', 'Status', 'required');
 		$this->form_validation->set_rules('link_app', 'Link Aplikasi', 'required');
@@ -149,6 +169,38 @@ class AdminC extends CI_Controller {
 				$this->session->set_flashdata('error','Data anda tidak berhasil ditambahkan');
 				redirect_back();
 			}
+		}
+	}
+
+	// call
+	public function update_tagihan($id){
+		$data = array('status_call' => 'Call 1');
+		if($this->LoginM->updateTagihan($id, $data)){
+			$this->session->set_flashdata('sukses','Call 1');
+			redirect_back();
+		}else{
+			$this->session->set_flashdata('error','Data anda tidak berhasil diubah');
+			redirect_back();
+		}
+	}
+	public function update_tagihan2($id){
+		$data = array('status_call' => 'Call 2');
+		if($this->LoginM->updateTagihan($id, $data)){
+			$this->session->set_flashdata('sukses','Call 1');
+			redirect_back();
+		}else{
+			$this->session->set_flashdata('error','Data anda tidak berhasil diubah');
+			redirect_back();
+		}
+	}
+	public function update_tagihan3($id){
+		$data = array('status_call' => 'Call 3');
+		if($this->LoginM->updateTagihan($id, $data)){
+			$this->session->set_flashdata('sukses','Call 1');
+			redirect_back();
+		}else{
+			$this->session->set_flashdata('error','Data anda tidak berhasil diubah');
+			redirect_back();
 		}
 	}
 }

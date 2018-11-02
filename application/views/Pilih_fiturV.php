@@ -117,7 +117,7 @@
                 ?>
             </div>
         </div>
-        <div class="row m-t-20">
+        <div class="row m-t-20 m-b-20">
             <div class="col-md-4"></div>
             <div class="col-md-4">
                 <input type="submit" class="btn btn-lg btn-default btn-block" name="submit" id="simpan" value="Simpan">
@@ -125,25 +125,6 @@
             <div class="col-md-4"></div>
         </div>
     </form>
-
-    <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title" id="myModalLabel">SELAMAT !</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                </div>
-                <div class="modal-body">
-                    <p>Anda Berhasil Mendaftarkan Koperasi Anda.</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-info waves-effect" data-dismiss="modal">Close</button>
-                </div>
-            </div>
-            <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
-    </div>
     <!-- ============================================================== -->
     <!-- All Jquery -->
     <!-- ============================================================== -->

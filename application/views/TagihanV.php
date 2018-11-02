@@ -148,12 +148,15 @@
 
                                                 <td class="text-center">
                                                     <?php
-                                                    if(in_array($tag->id_tagihan, $array_tag)){ //jika id tagihan termasuk didalam array
+                                                    if(in_array($tag->id_tagihan, $array_tag)){ //jika id tagihan termasuk didalam array tagihan terakhir yang butuh perpanjangan
                                                         ?>
+                                                        <a style="color: white;" class="btn btn-success btn-sm btn" data-toggle="modal" data-target="#fileKonfirmasi-<?php echo $tag->id_tagihan?>" title="file konfirmasi"><i class="ti ti-image"></i></a>
                                                         <a style="color: white;" class="btn btn-info btn-sm btn" data-toggle="modal" data-target="#perpanjangPaid-<?php echo $tag->id_tagihan?>" title="Perpanjang"> Perpanjang</a>
                                                         <?php
                                                     }else{
-                                                        echo "-";
+                                                        ?>
+                                                        <a style="color: white;" class="btn btn-success btn-sm btn" data-toggle="modal" data-target="#fileKonfirmasi-<?php echo $tag->id_tagihan?>" title="file konfirmasi"><i class="ti ti-image"></i></a>
+                                                        <?php
                                                     }
                                                     ?>
                                                 </td>
@@ -195,6 +198,24 @@
                                                 </div>
                                             </div>
                                             <!-- end modal perpanjangan -->
+
+                                            <!-- start modal konfirmasi -->
+                                            <div class="modal fade" id="fileKonfirmasi-<?php echo $tag->id_tagihan?>" tabindex="-1" role="dialog" aria-labelledby="fileKonfirmasi">
+                                                <div class="modal-dialog modal-md" role="document">
+                                                    <div class="modal-content">
+                                                        <?php
+                                                        if($tag->file_transfer == ""){
+                                                            echo "<h5 class='text-center m-t-5'> File Konfirmasi Pembayaran tidak ditemukan</h5>";
+                                                        }else{
+                                                            ?>
+                                                            <img src="<?php echo base_url().'assets/images/bukti_trf/'.$tag->file_transfer;?>">
+                                                            <?php
+                                                        }
+                                                        ?>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- end modal konfirmasi -->
                                             <?php
                                         }
                                     }
@@ -495,10 +516,10 @@
                                                                 <input type="hidden" name="id_tagihan" value="<?php echo $tagP->id_tagihan?>">
                                                                 <label class="control-label">Bank Tujuan</label>
                                                                 <select class="form-control" name="bank_tujuan" id="bank_tujuan" required>
-                                                                    <option selected value="BCA">BCA 01234567 a/n PT. Arnawa Teknologi Informasi</option>
-                                                                    <option selected value="BNI">BNI 09876543 a/n PT. Arnawa Teknologi Informasi</option>
-                                                                    <option selected value="BRI">BRI 56789012 a/n PT. Arnawa Teknologi Informasi</option>
-                                                                    <option selected value="MANDIRI">Mandiri 34980765 a/n PT. Arnawa Teknologi Informasi</option>
+                                                                    <option selected value="BCA 01234567 a/n PT. Arnawa Teknologi Informasi">BCA 01234567 a/n PT. Arnawa Teknologi Informasi</option>
+                                                                    <option selected value="BNI 09876543 a/n PT. Arnawa Teknologi Informasi">BNI 09876543 a/n PT. Arnawa Teknologi Informasi</option>
+                                                                    <option selected value="BRI 56789012 a/n PT. Arnawa Teknologi Informasi">BRI 56789012 a/n PT. Arnawa Teknologi Informasi</option>
+                                                                    <option selected value="Mandiri 34980765 a/n PT. Arnawa Teknologi Informasi">Mandiri 34980765 a/n PT. Arnawa Teknologi Informasi</option>
                                                                 </select>
                                                             </div>
                                                             <div class="col-lg-12">
@@ -639,30 +660,3 @@
             </div>
         </div>
     </div>
-
-    <script language="javascript">
-        $(document).ready(function(){
-        // City change
-        $('#propinsi').change(function(){
-            var propinsi = $(this).val(); //ambil value dr kode_unit
-            // window.alert(unit);
-
-            // AJAX request
-            $.ajax({
-                url:'<?=base_url()?>KoperasiC/get_kabupaten_kota',
-                method: 'post',
-                data: {id_propinsi: propinsi}, // data post ke controller 
-                dataType: 'json',
-                success: function(response){
-                    // Remove options
-                    $('#kota').find('option').not(':first').remove();
-
-                    // Add options
-                    $.each(response,function(daftar,data){
-                        $('#kota').append('<option value="'+data['id_kabupaten_kota']+'">'+data['nama_kabupaten_kota']+'</option>');
-                    });
-                }
-            });
-        });
-    });
-</script>

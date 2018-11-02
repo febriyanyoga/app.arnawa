@@ -13,91 +13,101 @@ class KoperasiC extends CI_Controller {
 		$email_akun = $this->session->userdata('email_akun');
 		$password 	= $this->session->userdata('password');
 		$id_akun 	= $this->session->userdata('id_akun');
+        $this->data['manajemen_fitur']      = $this->LoginM->get_detail_fitur_by_akun($id_akun)->result();
+        $this->data['jenis_usaha'] 	= $this->LoginM->ceknum($email_akun, $password)->row()->jenis_usaha;
+        $this->data['dataDiri'] 	= $this->session->userdata();
+        $this->data['fitur'] 		= $this->LoginM->get_fitur_by_akun($id_akun)->result();
+        $this->data['activeD'] = '';
+        $this->data['activeM'] = '';
+        $this->data['activeT'] = '';
+        $this->data['activeF'] = '';
+        $this->data['activeS'] = '';
+        $this->data['in']       = '';
+    }
 
-		$this->data['jenis_usaha'] 	= $this->LoginM->ceknum($email_akun, $password)->row()->jenis_usaha;
-		$this->data['dataDiri'] 	= $this->session->userdata();
-		$this->data['fitur'] 		= $this->LoginM->get_fitur_by_akun($id_akun)->result();
+    public function index(){
+        $id_akun 	= $this->session->userdata('id_akun');
+        $this->data['data_akun'] 	= $this->LoginM->get_all_data($id_akun)->result()[0];
+        $this->data['provinsi'] 	= $this->LoginM->get_all_provinsi();
+        $this->load->view('Isi_data_usaha',$this->data);
+    }
+
+    public function pilih_fitur(){
+        $this->data['fitur']	= $this->LoginM->get_all_fitur();
+        $this->data['dataDiri'] = $this->session->userdata();
+        $this->load->view('Pilih_fiturV',$this->data);
+
+    }
+
+    public function dashboard(){
+        $id  = $this->session->userdata('id_akun');
+        $this->data['LoginM'] = $this->LoginM;
+        $this->data['data_akun'] = $this->LoginM->get_all_data($id)->result()[0];
+        $this->data['dataDiri'] = $this->session->userdata();
 
 
-	}
-	public function index(){
-		$id_akun 	= $this->session->userdata('id_akun');
-		$this->data['data_akun'] 	= $this->LoginM->get_all_data($id_akun)->result()[0];
-		$this->data['provinsi'] 	= $this->LoginM->get_all_provinsi();
-		$this->load->view('Isi_data_usaha',$this->data);
-	}
-
-	public function pilih_fitur(){
-		$this->data['fitur']	= $this->LoginM->get_all_fitur();
-		$this->data['dataDiri'] = $this->session->userdata();
-		$this->load->view('Pilih_fiturV',$this->data);
-
-	}
-
-	public function dashboard(){
-		$id  = $this->session->userdata('id_akun');
-		$this->data['LoginM'] = $this->LoginM;
-		$this->data['data_akun'] = $this->LoginM->get_all_data($id)->result()[0];
-		$this->data['dataDiri'] = $this->session->userdata();
-		$this->data['active'] = 'active';
-		$this->data['manajemen_fitur'] 		= $this->LoginM->get_detail_fitur_by_akun($id)->result();
-		$this->data['isi'] = $this->load->view('DashboardV', $this->data, TRUE);
-		$this->load->view('LayoutV', $this->data);
-	}
+        $this->data['activeD'] = 'active';
+        $this->data['select'] = '';
+        $this->data['manajemen_fitur'] 		= $this->LoginM->get_detail_fitur_by_akun($id)->result();
+        $this->data['isi'] = $this->load->view('DashboardV', $this->data, TRUE);
+        $this->load->view('LayoutV', $this->data);
+    }
 
 	// Permintaan modul
-	public function mintamodul(){
-		$id  = $this->session->userdata('id_akun');
+    public function mintamodul(){
+        $id  = $this->session->userdata('id_akun');
 		$this->data['macam_fitur']	= $this->LoginM->get_all_fitur(); //semua fitur
 		$this->data['macam_fitur_akun']	= $this->LoginM->get_fitur_by_akun($id); //fitur by akun
 		$this->data['data_akun'] = $this->LoginM->get_all_data($id)->result()[0];
-		$this->data['dataDiri'] = $this->session->userdata();
-		$this->data['active'] = 'active';
-		// $this->data['manajemen_fitur'] 		= $this->LoginM->get_detail_fitur_by_akun($id)->result();
-		$this->data['isi'] = $this->load->view('PermintaanmodulV', $this->data, TRUE);
-		$this->load->view('LayoutV', $this->data);
-	}
+		$this->data['dataDiri'] = $this->session->userdata();       
+        $this->data['activeM'] = 'active';
+
+        $this->data['select'] = '';
+        $this->data['isi'] = $this->load->view('PermintaanmodulV', $this->data, TRUE);
+        $this->load->view('LayoutV', $this->data);
+    }
 
 	// tagihan
-	public function tagihan(){
-		$id  = $this->session->userdata('id_akun');
-		$this->data['data_akun'] = $this->LoginM->get_all_data($id)->result()[0];
-		$this->data['dataDiri'] = $this->session->userdata();
-		$this->data['tagihan'] = $this->LoginM->get_tagihan_by_akun_paid($id);
-		$this->data['tagihan_suspend'] 	= $this->LoginM->get_tagihan_by_akun_suspend($id);
-		$this->data['tagihan_pending'] 	= $this->LoginM->get_tagihan_by_akun_pending($id);
-		$this->data['tagihan_unpaid']	= $this->LoginM->get_tagihan_by_akun_unpaid($id);
-		$this->data['tagihan_terakhir'] = $this->LoginM->get_tagihan_kadaluwarsa()->result();
+    public function tagihan(){
+        $id  = $this->session->userdata('id_akun');
+        $this->data['data_akun'] = $this->LoginM->get_all_data($id)->result()[0];
+        $this->data['dataDiri'] = $this->session->userdata();
+        $this->data['tagihan'] = $this->LoginM->get_tagihan_by_akun_paid($id);
+        $this->data['tagihan_suspend'] 	= $this->LoginM->get_tagihan_by_akun_suspend($id);
+        $this->data['tagihan_pending'] 	= $this->LoginM->get_tagihan_by_akun_pending($id);
+        $this->data['tagihan_unpaid']	= $this->LoginM->get_tagihan_by_akun_unpaid($id);
+        $this->data['tagihan_terakhir'] = $this->LoginM->get_tagihan_kadaluwarsa()->result();
 
-		$this->data['active'] = 'active';
-		$this->data['LoginM'] = $this->LoginM;
-		$this->data['isi'] = $this->load->view('TagihanV', $this->data, TRUE);
-		$this->load->view('LayoutV', $this->data);
-	}
+        $this->data['activeT'] = 'active';
+        $this->data['select'] = '';
+        $this->data['LoginM'] = $this->LoginM;
+        $this->data['isi'] = $this->load->view('TagihanV', $this->data, TRUE);
+        $this->load->view('LayoutV', $this->data);
+    }
 
-	public function post_perpanjang(){
-		$this->form_validation->set_rules('id_harga_fitur','ID Harga Fitur','required');
-		$this->form_validation->set_rules('id_detail_fitur','ID Detail Fitur','required');
-		$this->form_validation->set_rules('end_date','End Date','required');
-		if($this->form_validation->run() == FALSE){
-			$this->session->set_flashdata('error','Data anda tidak berhasil disimpan. Silahkan cek kembali data yang anda masukkan');
-			redirect_back();
-		}else{
+    public function post_perpanjang(){
+        $this->form_validation->set_rules('id_harga_fitur','ID Harga Fitur','required');
+        $this->form_validation->set_rules('id_detail_fitur','ID Detail Fitur','required');
+        $this->form_validation->set_rules('end_date','End Date','required');
+        if($this->form_validation->run() == FALSE){
+            $this->session->set_flashdata('error','Data anda tidak berhasil disimpan. Silahkan cek kembali data yang anda masukkan');
+            redirect_back();
+        }else{
 
-			$id_harga_fitur 	= $this->input->post('id_harga_fitur');
-			$old_end_date		= $this->input->post('end_date');
-			$id_detail_fitur	= $this->input->post('id_detail_fitur');
+            $id_harga_fitur 	= $this->input->post('id_harga_fitur');
+            $old_end_date		= $this->input->post('end_date');
+            $id_detail_fitur	= $this->input->post('id_detail_fitur');
 
-			$detail = $this->LoginM->get_harga_fitur_by_id($id_harga_fitur)->result()[0];
-			if($detail->jenis == '1 Bulan'){
-				$interval = 1;
-			}elseif ($detail->jenis == '3 Bulan') {
-				$interval = 3;
-			}elseif ($detail->jenis == '6 Bulan') {
-				$interval = 6;
-			}elseif ($detail->jenis == '12 Bulan') {
-				$interval = 12;
-			}
+            $detail = $this->LoginM->get_harga_fitur_by_id($id_harga_fitur)->result()[0];
+            if($detail->jenis == '1 Bulan'){
+                $interval = 1;
+            }elseif ($detail->jenis == '3 Bulan') {
+                $interval = 3;
+            }elseif ($detail->jenis == '6 Bulan') {
+                $interval = 6;
+            }elseif ($detail->jenis == '12 Bulan') {
+                $interval = 12;
+            }
 
 			$new_old_end_date  	= date('Y-m-d', strtotime($old_end_date)); //format start date
             $start_date 		= date('Y-m-d', strtotime('+1 days', strtotime($new_old_end_date))); //start date + 7 hari 
@@ -263,7 +273,7 @@ class KoperasiC extends CI_Controller {
     }
 
     // upload bukti transfer konfirmasi pembayaran
-    function upload_image(){
+    public function upload_image(){
         $config['upload_path'] = './assets/images/bukti_trf/'; //path folder
         $config['allowed_types'] = 'gif|jpg|png|jpeg|bmp'; //type yang dapat diakses bisa anda sesuaikan
         $config['encrypt_name'] = TRUE; //Enkripsi nama yang terupload
@@ -294,6 +304,34 @@ class KoperasiC extends CI_Controller {
         }else{
             echo "Image yang diupload kosong";
         }
+
+    }
+
+    public function save_download(){  //save as pdf
+        //load mPDF library
+        $this->load->library('m_pdf');
+        //load mPDF library
+
+
+        //now pass the data//
+        $this->data['title']="MY PDF TITLE 1.";
+        $this->data['description']="";
+        $this->data['description']=$this->official_copies;
+         //now pass the data //
+
+        
+        $html=$this->load->view('LoginV',$this->data, true); //load the pdf_output.php by passing our data and get all data in $html varriable.
+
+        //this the the PDF filename that user will get to download
+        $pdfFilePath ="mypdfName-".time()."-download.pdf";
+
+        
+        //actually, you can pass mPDF parameter on this load() function
+        $pdf = $this->m_pdf->load();
+        //generate the PDF!
+        $pdf->WriteHTML($html,2);
+        //offer it to user via browser download! (The PDF won't be saved on your server HDD)
+        $pdf->Output($pdfFilePath, "D");
 
     }
 
@@ -410,6 +448,24 @@ class KoperasiC extends CI_Controller {
     		$this->session->set_flashdata('error','Data anda tidak berhasil diubah');
     		redirect_back();
     	}
+    }
+
+    // master data
+    public function MasterData(){
+        $id  = $this->session->userdata('id_akun');
+        $this->data['macam_fitur']  = $this->LoginM->get_all_fitur(); //semua fitur
+        $this->data['macam_fitur_akun'] = $this->LoginM->get_fitur_by_akun($id); //fitur by akun
+        $this->data['data_akun'] = $this->LoginM->get_all_data($id)->result()[0];
+        $this->data['dataDiri'] = $this->session->userdata();
+
+        $this->data['activeF'] = 'active';
+        $this->data['activeS'] = 'active';
+        $this->data['in']     = 'in';
+
+        $this->data['select'] = 'selected';
+        $this->data['manajemen_fitur']      = $this->LoginM->get_detail_fitur_by_akun($id)->result();
+        $this->data['isi'] = $this->load->view('MasterDataV', $this->data, TRUE);
+        $this->load->view('LayoutV', $this->data);
     }
 
 }

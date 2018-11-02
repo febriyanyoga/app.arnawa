@@ -91,7 +91,7 @@
                                         <?php
                                         if($macam_fitur->link_app != ""){
                                             ?>
-                                            <a class="label btn-default label-sm" href="<?php echo $macam_fitur->link_app;?>" title="klik untuk menuju halaman">Link</a>
+                                            <a class="label btn-default label-sm" href="http://<?php echo $macam_fitur->link_app;?>" title="klik untuk menuju halaman">Link</a>
                                             <?php
                                         }else{
                                             ?>
@@ -185,7 +185,7 @@
                                                 <?php
                                             }else{
                                                 ?>
-                                                <span style="color: white;" class="label label-sm label-info" title="dalam proses persetujuan"><?php echo $fit->status;?></span>
+                                                <span style="color: white;" class="label label-sm label-info" title="dalam proses pengembangan"><?php echo $fit->status;?></span>
                                                 <?php
                                             }
                                             ?>
@@ -228,7 +228,7 @@
                     <div class="modal-body">
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table id="tabel_history" class="table table-striped table-bordered display" style="width:100%">
+                                <table id="tabel_history-<?php echo $macam_fitur->id_detail_fitur?>" class="table table-striped table-bordered display" style="width:100%">
                                     <thead>
                                         <tr class="text-center">
                                             <th>No.</th>

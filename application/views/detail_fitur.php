@@ -49,12 +49,6 @@
                         </div>
                         <?php 
                     } 
-                    $today=date("Y-m-d"); 
-                    $tgl_agenda = strtotime('2018-10-24'); 
-                    $tgl_today = strtotime($today); 
-                    if ($tgl_today > $tgl_agenda){ 
-                        echo "kadaluwarsa";
-                    }
                     ?>
                     <?php echo validation_errors(); ?>
                 </div>
@@ -125,7 +119,7 @@
                                                     <?php
                                                     if($macam_fitur->link_app != ""){
                                                         ?>
-                                                        <a class="label btn-default label-sm" href="<?php echo $macam_fitur->link_app;?>" title="klik untuk menuju halaman">Link</a>
+                                                        <a class="label btn-default label-sm" href="http://<?php echo $macam_fitur->link_app;?>" title="klik untuk menuju halaman">Link</a>
                                                         <?php
                                                     }else{
                                                         ?>
@@ -157,38 +151,43 @@
                                                 </td>
                                                 <td class="text-center">
                                                     <?php
-                                                    $tagihan = $LoginM->get_tagihan_by_fitur_group($macam_fitur->id_detail_fitur)->row();
+                                                    $tagihan = $LoginM->get_tagihan_by_fitur_group($tagihan->id_detail_fitur)->row();
                                                     $call = $this->LoginM->status_call($tagihan->id_tagihan)->result();
                                                     if(sizeof($call)==0){
-                                                        echo $macam_fitur->status_call;
-                                                        echo "id tagihan".$tagihan->id_tagihan;
+                                                        // print_r( $call);
+                                                        echo "Belum Call <br>";
+                                                        // echo $macam_fitur->status_call;
+                                                        ?>
+                                                        <a href="<?php echo base_url('AdminC/update_tagihan/'.$tagihan->id_tagihan)?>" style="color: white;" class="label label-danger label-sm" title="Call 1"><i class="ti-headphone-alt"></i></a>
+                                                        <?php
+                                                        // echo "id tagihan : ".$tagihan->id_tagihan;
                                                     }else{
                                                         ?>
                                                         <div>
                                                             <?php
                                                             $status_c = $call[0]->created_at_log;
-                                                            echo $status_c;
+                                                            echo date('d-m-Y H:i:s', strtotime($status_c));
                                                             ?>
                                                         </div>
                                                         <div>
                                                             <?php
-                                                            if($macam_fitur->status_call == "aktif"){
+                                                            if($tagihan->status_call == "aktif"){
                                                                 ?>
-                                                                <a href="<?php echo base_url('AdminC/update_tagihan/'.$macam_fitur->id_detail_fitur)?>" style="color: white;" class="label label-danger label-sm" title="Call 1"><i class="ti-headphone-alt"></i></a>
+                                                                <a href="<?php echo base_url('AdminC/update_tagihan/'.$tagihan->id_tagihan)?>" style="color: white;" class="label label-danger label-sm" title="Call 1"><i class="ti-headphone-alt"></i></a>
                                                                 <?php
-                                                            }elseif ($macam_fitur->status_call == "Call 1") {
+                                                            }elseif ($tagihan->status_call == "Call 1") {
                                                                 ?>
                                                                 <a style="color: white;" class="label label-default label-md" title="Call 1"><i class="ti-headphone-alt"></i></a>
-                                                                <a href="<?php echo base_url('AdminC/update_tagihan/'.$macam_fitur->id_detail_fitur)?>" style="color: white;" class="label label-danger label-sm" title="Call 2"><i class="ti-headphone-alt"></i></a>
+                                                                <a href="<?php echo base_url('AdminC/update_tagihan2/'.$tagihan->id_tagihan)?>" style="color: white;" class="label label-danger label-sm" title="Call 2"><i class="ti-headphone-alt"></i></a>
                                                                 
                                                                 <?php
-                                                            }elseif ($macam_fitur->status_call == "Call 2") {
+                                                            }elseif ($tagihan->status_call == "Call 2") {
                                                                 ?>
                                                                 <a style="color: white;" class="label label-default label-md" title="Call 1"><i class="ti-headphone-alt"></i></a>
                                                                 <a style="color: white;" class="label label-default label-md" title="Call 2"><i class="ti-headphone-alt"></i></a>
-                                                                <a href="<?php echo base_url('AdminC/update_tagihan/'.$macam_fitur->id_detail_fitur)?>" style="color: white;" class="label label-danger label-sm" title="Call 3"><i class="ti-headphone-alt"></i></a>
+                                                                <a href="<?php echo base_url('AdminC/update_tagihan3/'.$tagihan->id_tagihan)?>" style="color: white;" class="label label-danger label-sm" title="Call 3"><i class="ti-headphone-alt"></i></a>
                                                                 <?php
-                                                            }elseif ($macam_fitur->status_call == "Call 3") {
+                                                            }elseif ($tagihan->status_call == "Call 3") {
                                                                 ?>
                                                                 <a style="color: white;" class="label label-default label-md" title="Call 1"><i class="ti-headphone-alt"></i></a>
                                                                 <a style="color: white;" class="label label-default label-md" title="Call 2"><i class="ti-headphone-alt"></i></a>
@@ -203,26 +202,75 @@
                                                 </td>
                                                 <td class="text-center">
                                                     <?php
-                                                    if($macam_fitur->status == 'non-aktif'){
-                                                        ?>
-                                                        <a href="<?php echo base_url('AdminC/update_aktif/'.$macam_fitur->id_detail_fitur)?>" style="color: white;" class="btn btn-info btn-sm" title="aktifkan"><i class="ti-check"></i></a>
-                                                        <?php
-                                                    }
-                                                    if($macam_fitur->status == 'aktif'){
-                                                        ?>
-                                                        <!-- <a href="<?php echo base_url('AdminC/update_non_aktif/'.$macam_fitur->id_detail_fitur)?>" style="color: white;" class="btn btn-danger btn-sm"  title="non-aktifkan"><i class="ti-close"></i></a> -->
-                                                        <a href="<?php echo base_url('AdminC/update_suspend/'.$macam_fitur->id_detail_fitur)?>" style="color: white;" class="btn btn-warning btn-sm"  title="suspend"><i class="ti-na"></i></a>
-                                                        <?php
-                                                    }
                                                     if($macam_fitur->status == 'suspend'){
                                                         ?>
-                                                        <a href="<?php echo base_url('AdminC/update_aktif/'.$macam_fitur->id_detail_fitur)?>" style="color: white;" class="btn btn-info btn-sm" title="aktifkan"><i class="ti-check"></i></a>
-                                                        <a href="<?php echo base_url('AdminC/update_non_aktif/'.$macam_fitur->id_detail_fitur)?>" style="color: white;" class="btn btn-danger btn-sm"  title="non-aktifkan"><i class="ti-close"></i></a>
+
+                                                        <a style="color: white;" class="btn btn-info btn-sm" data-toggle="modal" data-target="#konfirmasi-<?php echo $tagihan->id_tagihan;?>" title="Konfirmasi"> Verifikasi Pembayaran</a>
                                                         <?php
+                                                    }else{
+                                                        echo "-";
                                                     }
                                                     ?>
                                                 </td>
                                             </tr>
+
+                                            <!-- start modal konfirmasi pembayaran -->
+                                            <div class="modal fade" id="konfirmasi-<?php echo $tagihan->id_tagihan;?>" tabindex="-1" role="dialog" aria-labelledby="konfirmasi">
+                                                <div class="modal-dialog modal-lg" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h4 class="modal-title" id="exampleModalLabel1">Verifikasi Pembayaran Fitur <?php echo $macam_fitur->nama_fitur;?></h4>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <div class="form-group">
+                                                                <label class="control-label">Bank Tujuan</label>
+                                                                <input class="form-control" type="text" name="" value="<?php echo $tagihan->bank_tujuan;?>" readonly>
+                                                            </div>
+                                                            <div class="col-lg-12">
+                                                                <div class="row">
+                                                                    <div class="col-lg-6">
+                                                                        <div class="form-group">
+                                                                            <label class="control-label">Bank Pengirim</label>
+                                                                            <input class="form-control" type="text" name="" readonly="" value="<?php echo $tagihan->nama_bank_pengirim?>">
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label class="control-label">No. Rekening</label>
+                                                                            <input type="number" class="form-control"  name="no_rekening_pengirim" id="no_rekening_pengirim" readonly="" value="<?php echo $tagihan->no_rekening_pengirim?>">
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label class="control-label">Nama Pengirim</label>
+                                                                            <input type="text" class="form-control"  name="nama_pengirim" id="nama_pengirim" required readonly="" value="<?php echo $tagihan->nama_pengirim?>">
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label class="control-label">Tanggal Transfer</label>
+                                                                            <input type="text" class="form-control"  name="tgl_transfer" id="tgl_transfer" required required="" value="<?php echo date('d-m-Y', strtotime($tagihan->tgl_transfer));?>" readonly>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label class="control-label">Catatan</label>
+                                                                            <textarea class="form-control"  name="catatan" id="catatan" required readonly=""> <?php echo $tagihan->catatan?></textarea>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-lg-6">
+                                                                        <div class="form-group">
+                                                                            <label class="control-label">Jumlah Transfer</label>
+                                                                            <input type="number" class="form-control"  name="jml_transfer" id="jml_transfer" placeholder="hanya angka" required readonly="" value="<?php echo $tagihan->jml_transfer?>">
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label class="control-label">Bukti Transfer</label>
+                                                                            <img style="max-width: 360px;" src="<?php echo base_url().'assets/images/bukti_trf/'.$tagihan->file_transfer?>">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <a href="<?php echo base_url('AdminC/update_paid/'.$tagihan->id_tagihan.'/'.$tagihan->id_detail_fitur)?>" style="color: white;" class="btn btn-success btn-sm" title="Verifikasi pembayaran" onClick="return confirm('Anda yakin akan memverifikasi pembayaran tagihan ini ?')"><i class="ti-check"></i> Verifikasi</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- end modal konfirmasi pembayaran -->
 
                                             <!-- start modal history status -->
                                             <?php  
@@ -273,9 +321,6 @@
                                                 </div>
                                             </div>
                                             <!-- end modal history status -->
-
-                                            
-
                                             <?php
                                         }
                                         ?>

@@ -228,7 +228,7 @@ class LoginC extends CI_Controller {
 		$now	= date('Y-m-d');
 		$end  	= date('Y-m-d', strtotime('+1 month', strtotime($now)));
 		$sekarang = date('Y-m-d');
-		$harga = $this->LoginM->get_harga($id_detail_fitur)->result()[0]->per_bulan;
+		$harga = $this->LoginM->get_harga($id_detail_fitur)->result()[0]->harga_fitur;
 
 		$dataTagihan 	= array(
 			'id_detail_fitur' 	=> $id_detail_fitur,
