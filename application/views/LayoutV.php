@@ -47,7 +47,7 @@
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+<![endif]-->
 </head>
 
 <body>
@@ -237,180 +237,180 @@
                                 <a class="dropdown-item" href="javascript:void(0)">
                                     <i class="ti-user m-r-5 m-l-5"></i> My Profile</a>
 
-                                <a class="dropdown-item" href="javascript:void(0)">
-                                    <i class="ti-wallet m-r-5 m-l-5"></i> My Balance</a>
-
-                                <a class="dropdown-item" href="javascript:void(0)">
-                                    <i class="ti-email m-r-5 m-l-5"></i> Inbox</a>
-
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="javascript:void(0)">
-                                    <i class="ti-settings m-r-5 m-l-5"></i> Account Setting</a>
-
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="<?php echo site_url('LoginC/log_out')?>">
-                                    <i class="fa fa-power-off m-r-5 m-l-5"></i> Logout</a>
-
-                                <div class="dropdown-divider"></div>
-
-                                <div class="p-l-30 p-10">
-                                    <a href="javascript:void(0)" class="btn btn-sm btn-success btn-rounded">View Profile</a>
-                                </div>
-                            </div>
-                        </li>
-                        <!-- ============================================================== -->
-                        <!-- User profile and search -->
-                        <!-- ============================================================== -->
-                    </ul>
-                </div>
-            </nav>
-        </header>
-        <!-- ============================================================== -->
-        <!-- End Topbar header -->
-        <!-- ============================================================== -->
-
-        <!-- ============================================================== -->
-        <!-- Left Sidebar - style you can find in sidebar.scss  -->
-        <!-- ============================================================== -->
-        <aside class="left-sidebar">
-            <!-- Sidebar scroll-->
-            <div class="scroll-sidebar">
-                <!-- Sidebar navigation-->
-                <nav class="sidebar-nav">
-                    <ul id="sidebarnav">
-                        <!-- User Profile-->
-                        <li>
-                            <!-- User Profile-->
-                            <div class="user-profile dropdown ">
-                                <div class="user-pic">
-                                    <img src="<?php echo base_url();?>assets/images/users/1.jpg" alt="users" class="rounded-circle img-fluid" />
-                                </div>
-
-                                <div class="user-content hide-menu m-t-10">
-                                    <h5 class="m-b-10 user-name font-medium"><?php echo $_SESSION['nama_akun']?></h5>
-
-                                    <a href="javascript:void(0)" class="btn btn-circle btn-sm m-r-5" id="Userdd" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <i class="ti-settings"></i>
-                                    </a>
-
-                                    <a href="<?php echo site_url('LoginC/log_out')?>" title="Logout" class="btn btn-circle btn-sm">
-                                        <i class="ti-power-off"></i>
-                                    </a>
-
-                                    <div class="dropdown-menu animated flipInY" aria-labelledby="Userdd">
-                                        <a class="dropdown-item" href="javascript:void(0)">
-                                            <i class="ti-user m-r-5 m-l-5"></i> My Profile</a>
-
-                                        <a class="dropdown-item" href="javascript:void(0)">
-                                            <i class="ti-wallet m-r-5 m-l-5"></i> My Balance</a>
+                                    <a class="dropdown-item" href="javascript:void(0)">
+                                        <i class="ti-wallet m-r-5 m-l-5"></i> My Balance</a>
 
                                         <a class="dropdown-item" href="javascript:void(0)">
                                             <i class="ti-email m-r-5 m-l-5"></i> Inbox</a>
 
-                                        <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="<?php echo site_url('LoginC/log_out')?>">
-                                            <i class="ti-settings m-r-5 m-l-5"></i> Account Setting</a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="javascript:void(0)">
+                                                <i class="ti-settings m-r-5 m-l-5"></i> Account Setting</a>
 
-                                        <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="javascript:void(0)">
-                                            <i class="fa fa-power-off m-r-5 m-l-5"></i> Logout</a>
+                                                <div class="dropdown-divider"></div>
+                                                <a class="dropdown-item" href="<?php echo site_url('LoginC/log_out')?>">
+                                                    <i class="fa fa-power-off m-r-5 m-l-5"></i> Logout</a>
+
+                                                    <div class="dropdown-divider"></div>
+
+                                                    <div class="p-l-30 p-10">
+                                                        <a href="javascript:void(0)" class="btn btn-sm btn-success btn-rounded">View Profile</a>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <!-- ============================================================== -->
+                                            <!-- User profile and search -->
+                                            <!-- ============================================================== -->
+                                        </ul>
                                     </div>
-                                </div>
-                            </div>
-                            <!-- End User Profile-->
-                        </li>
+                                </nav>
+                            </header>
+                            <!-- ============================================================== -->
+                            <!-- End Topbar header -->
+                            <!-- ============================================================== -->
 
-                        <?php
-                            if($this->session->userdata('jenis_akun') == "user"){
-                                ?>
-                                <li class="sidebar-item">
-                                    <a class="sidebar-link waves-effect waves-dark sidebar-link active" href="<?php echo base_url()?>KoperasiC/dashboard" aria-expanded="false">
-                                        <i class="ti-dashboard"></i>
-                                        <span class="hide-menu">Dashboards </span>
-                                    </a>
-                                </li>
-                                
-                                <?php
-                            }elseif($this->session->userdata('jenis_akun') == "admin"){
-                                 ?>
-                                <li class="sidebar-item">
-                                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?php echo base_url()?>AdminC/" aria-expanded="false">
-                                        <i class="ti-dashboard"></i>
-                                        <span class="hide-menu">Dashboards </span>
-                                    </a>
-                                </li>                                
-                                <?php
-                            }
-                        ?>
-                        <?php
-                            if($this->session->userdata('jenis_akun') == "user"){
-                                ?>
-                                <li class="sidebar-item">
-                                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?php echo base_url()?>KoperasiC/mintamodul" aria-expanded="false">
-                                        <i class="ti-layers"></i>
-                                        <span class="hide-menu">Permintaan Modul </span>
-                                    </a>
-                                </li>
-                                
-                                <li class="sidebar-item">
-                                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?php echo base_url()?>KoperasiC/tagihan" aria-expanded="false">
-                                        <i class="ti-money"></i>
-                                        <span class="hide-menu">Tagihan </span>
-                                    </a>
-                                </li>
-                                
-                                <?php
-                            }
-                        ?>
-                        <?php
-                        if($this->session->userdata('jenis_akun') == "user"){
-                            ?>
-                            <li class="nav-small-cap">
-                                <i class="mdi mdi-dots-horizontal"></i>
-                                <span class="hide-menu">Fitur</span>
-                            </li>
-                            <?php
-                        }
-                        ?>
-                        <?php
-                        foreach ($fitur as $fit) {
-                            if($fit->status != "menunggu" && $fit->status != "non-aktif"){
-                                ?>
-                                <li class="sidebar-item">
-                                    <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
-                                        <i class="<?php echo $fit->icon;?>"></i>
-                                        <span class="hide-menu"><?php echo $fit->nama_fitur?></span>
-                                    </a>
+                            <!-- ============================================================== -->
+                            <!-- Left Sidebar - style you can find in sidebar.scss  -->
+                            <!-- ============================================================== -->
+                            <aside class="left-sidebar">
+                                <!-- Sidebar scroll-->
+                                <div class="scroll-sidebar">
+                                    <!-- Sidebar navigation-->
+                                    <nav class="sidebar-nav">
+                                        <ul id="sidebarnav">
+                                            <!-- User Profile-->
+                                            <li>
+                                                <!-- User Profile-->
+                                                <div class="user-profile dropdown ">
+                                                    <div class="user-pic">
+                                                        <img src="<?php echo base_url();?>assets/images/users/1.jpg" alt="users" class="rounded-circle img-fluid" />
+                                                    </div>
 
-                                    <ul aria-expanded="false" class="collapse  first-level">
-                                        <li class="sidebar-item">
-                                            <a href="<?php echo base_url()?>CobaC/Dataanggota" class="sidebar-link">
-                                                <i class="mdi mdi-email"></i>
-                                                <span class="hide-menu"> Master Data </span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <?php
-                            }
-                        }
-                        ?>
+                                                    <div class="user-content hide-menu m-t-10">
+                                                        <h5 class="m-b-10 user-name font-medium"><?php echo $_SESSION['nama_akun']?></h5>
 
-                        <?php
-                            if($this->session->userdata('jenis_akun') == "admin"){
-                                ?>
-                                <li class="sidebar-item">
-                                    <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
-                                        <i class="ti-book"></i>
-                                        <span class="hide-menu">Manajemen Koperasi </span>
-                                    </a>
-                                    <ul aria-expanded="false" class="collapse  first-level in">
-                                        <li class="sidebar-item">
-                                            <a href="<?php echo base_url()?>AdminC/manajemen_koperasi" class="sidebar-link">
-                                                <i class="mdi mdi-email"></i>
-                                                <span class="hide-menu"> Daftar Koperasi</span>
-                                            </a>
-                                        </li>
+                                                        <a href="javascript:void(0)" class="btn btn-circle btn-sm m-r-5" id="Userdd" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                            <i class="ti-settings"></i>
+                                                        </a>
+
+                                                        <a href="<?php echo site_url('LoginC/log_out')?>" title="Logout" class="btn btn-circle btn-sm">
+                                                            <i class="ti-power-off"></i>
+                                                        </a>
+
+                                                        <div class="dropdown-menu animated flipInY" aria-labelledby="Userdd">
+                                                            <a class="dropdown-item" href="javascript:void(0)">
+                                                                <i class="ti-user m-r-5 m-l-5"></i> My Profile</a>
+
+                                                                <a class="dropdown-item" href="javascript:void(0)">
+                                                                    <i class="ti-wallet m-r-5 m-l-5"></i> My Balance</a>
+
+                                                                    <a class="dropdown-item" href="javascript:void(0)">
+                                                                        <i class="ti-email m-r-5 m-l-5"></i> Inbox</a>
+
+                                                                        <div class="dropdown-divider"></div>
+                                                                        <a class="dropdown-item" href="<?php echo site_url('LoginC/log_out')?>">
+                                                                            <i class="ti-settings m-r-5 m-l-5"></i> Account Setting</a>
+
+                                                                            <div class="dropdown-divider"></div>
+                                                                            <a class="dropdown-item" href="javascript:void(0)">
+                                                                                <i class="fa fa-power-off m-r-5 m-l-5"></i> Logout</a>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <!-- End User Profile-->
+                                                                </li>
+
+                                                                <?php
+                                                                if($this->session->userdata('jenis_akun') == "user"){
+                                                                    ?>
+                                                                    <li class="sidebar-item">
+                                                                        <a class="sidebar-link waves-effect waves-dark sidebar-link <?php echo $activeD?>" href="<?php echo base_url()?>KoperasiC/dashboard" aria-expanded="false">
+                                                                            <i class="ti-dashboard"></i>
+                                                                            <span class="hide-menu">Dashboards </span>
+                                                                        </a>
+                                                                    </li>
+
+                                                                    <?php
+                                                                }elseif($this->session->userdata('jenis_akun') == "admin"){
+                                                                   ?>
+                                                                   <li class="sidebar-item">
+                                                                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?php echo base_url()?>AdminC/" aria-expanded="false">
+                                                                        <i class="ti-dashboard"></i>
+                                                                        <span class="hide-menu">Dashboards </span>
+                                                                    </a>
+                                                                </li>                                
+                                                                <?php
+                                                            }
+                                                            ?>
+                                                            <?php
+                                                            if($this->session->userdata('jenis_akun') == "user"){
+                                                                ?>
+                                                                <li class="sidebar-item">
+                                                                    <a class="sidebar-link waves-effect waves-dark sidebar-link <?php echo $activeM?>" href="<?php echo base_url()?>KoperasiC/mintamodul" aria-expanded="false">
+                                                                        <i class="ti-layers"></i>
+                                                                        <span class="hide-menu">Permintaan Modul </span>
+                                                                    </a>
+                                                                </li>
+
+                                                                <li class="sidebar-item">
+                                                                    <a class="sidebar-link waves-effect waves-dark sidebar-link <?php echo $activeT?>" href="<?php echo base_url()?>KoperasiC/tagihan" aria-expanded="false">
+                                                                        <i class="ti-money"></i>
+                                                                        <span class="hide-menu">Tagihan </span>
+                                                                    </a>
+                                                                </li>
+
+                                                                <?php
+                                                            }
+                                                            ?>
+                                                            <?php
+                                                            if($this->session->userdata('jenis_akun') == "user"){
+                                                                ?>
+                                                                <li class="nav-small-cap">
+                                                                    <i class="mdi mdi-dots-horizontal"></i>
+                                                                    <span class="hide-menu">Fitur</span>
+                                                                </li>
+                                                                <?php
+                                                            }
+                                                            ?>
+                                                            <?php
+                                                            foreach ($fitur as $fit) {
+                                                                if($fit->status != "menunggu" && $fit->status != "non-aktif"){
+                                                                    ?>
+                                                                    <li class="sidebar-item <?php echo $select;?>">
+                                                                        <a class="sidebar-link has-arrow waves-effect waves-dark <?php echo $activeF;?>" href="javascript:void(0)" aria-expanded="false">
+                                                                            <i class="<?php echo $fit->icon;?>"></i>
+                                                                            <span class="hide-menu"><?php echo $fit->nama_fitur?></span>
+                                                                        </a>
+
+                                                                        <ul aria-expanded="false" class="collapse  first-level <?php echo $in;?>">
+                                                                            <li class="sidebar-item <?php echo $activeS;?>">
+                                                                                <a href="<?php echo base_url()?>KoperasiC/MasterData" class="sidebar-link <?php echo $activeS;?>">
+                                                                                    <i class="mdi mdi-email"></i>
+                                                                                    <span class="hide-menu"> Master Data </span>
+                                                                                </a>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </li>
+                                                                    <?php
+                                                                }
+                                                            }
+                                                            ?>
+
+                                                            <?php
+                                                            if($this->session->userdata('jenis_akun') == "admin"){
+                                                                ?>
+                                                                <li class="sidebar-item">
+                                                                    <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
+                                                                        <i class="ti-book"></i>
+                                                                        <span class="hide-menu">Manajemen Koperasi </span>
+                                                                    </a>
+                                                                    <ul aria-expanded="false" class="collapse  first-level in">
+                                                                        <li class="sidebar-item">
+                                                                            <a href="<?php echo base_url()?>AdminC/manajemen_koperasi" class="sidebar-link">
+                                                                                <i class="mdi mdi-email"></i>
+                                                                                <span class="hide-menu"> Daftar Koperasi</span>
+                                                                            </a>
+                                                                        </li>
                                         <!-- <li class="sidebar-item">
                                             <a href="<?php echo base_url()?>AdminC/manajemen_koperasi" class="sidebar-link">
                                                 <i class="mdi mdi-email"></i>
@@ -421,113 +421,120 @@
                                 </li>
                                 <?php
                             }
-                        ?>
-                    </ul>
-                </nav>
-                <!-- End Sidebar navigation -->
-            </div>
-            <!-- End Sidebar scroll-->
-        </aside>
-        <!-- ============================================================== -->
-        <!-- End Left Sidebar - style you can find in sidebar.scss  -->
-        <!-- ============================================================== -->
+                            ?>
+                        </ul>
+                    </nav>
+                    <!-- End Sidebar navigation -->
+                </div>
+                <!-- End Sidebar scroll-->
+            </aside>
+            <!-- ============================================================== -->
+            <!-- End Left Sidebar - style you can find in sidebar.scss  -->
+            <!-- ============================================================== -->
 
 
-        <!-- ============================================================== -->
-        <!-- Page wrapper  -->
-        <!-- ============================================================== -->
-        <div class="page-wrapper">
             <!-- ============================================================== -->
-            <!-- Bread crumb and right sidebar toggle -->
+            <!-- Page wrapper  -->
             <!-- ============================================================== -->
-            <div class="page-breadcrumb">
-                <div class="row">
-                    <div class="col-5 align-self-center">
-                        <!-- <h4 class="page-title">Dashboard</h4> -->
-                        <div class="d-flex align-items-center">
+            <div class="page-wrapper">
+                <!-- ============================================================== -->
+                <!-- Bread crumb and right sidebar toggle -->
+                <!-- ============================================================== -->
+                <div class="page-breadcrumb">
+                    <div class="row">
+                        <div class="col-5 align-self-center">
+                            <!-- <h4 class="page-title">Dashboard</h4> -->
+                            <div class="d-flex align-items-center">
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="col-7 align-self-center">
-                        <div class="d-flex no-block justify-content-end align-items-center">
-                            <nav aria-label="breadcrumb">
-                                <ol class="breadcrumb">
-                                    <li class="breadcrumb-item">
-                                    </li>
-                                </ol>
-                            </nav>
+                        <div class="col-7 align-self-center">
+                            <div class="d-flex no-block justify-content-end align-items-center">
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item">
+                                        </li>
+                                    </ol>
+                                </nav>
+                            </div>
                         </div>
                     </div>
                 </div>
+
+                <!-- ============================================================== -->
+                <!-- Container fluid  -->
+                <!-- ============================================================== -->
+                <section class="main-wrapper">
+
+                    <?php 
+                    echo $isi; 
+                    ?>
+
+                </section>
+                <!-- ============================================================== -->
+                <!-- End Wrapper -->
+                <!-- ============================================================== -->
             </div>
-
-            <!-- ============================================================== -->
-            <!-- Container fluid  -->
-            <!-- ============================================================== -->
-            <section class="main-wrapper">
-
-                <?php 
-                echo $isi; 
-                ?>
-
-            </section>
-            <!-- ============================================================== -->
-            <!-- End Wrapper -->
-            <!-- ============================================================== -->
         </div>
-    </div>
 
 
-    <!-- ============================================================== -->
-    <!-- All Jquery -->
-    <!-- ============================================================== -->
-</body>
+        <!-- ============================================================== -->
+        <!-- All Jquery -->
+        <!-- ============================================================== -->
+    </body>
 
-</html>
-<script src="<?php echo base_url();?>assets/libs/jquery/dist/jquery.min.js"></script>
-<!-- Bootstrap tether Core JavaScript -->
-<script src="<?php echo base_url();?>assets/libs/popper.js/dist/umd/popper.min.js"></script>
-<script src="<?php echo base_url();?>assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
-<!-- apps -->
-<script src="<?php echo base_url();?>assets/dist/js/app.min.js"></script>
-<script src="<?php echo base_url();?>assets/dist/js/app.init.js"></script>
-<script src="<?php echo base_url();?>assets/dist/js/app-style-switcher.js"></script>
-<!-- slimscrollbar scrollbar JavaScript -->
-<script src="<?php echo base_url();?>assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
-<script src="<?php echo base_url();?>assets/extra-libs/sparkline/sparkline.js"></script>
-<!--Wave Effects -->
-<script src="<?php echo base_url();?>assets/dist/js/waves.js"></script>
-<!--Menu sidebar -->
-<script src="<?php echo base_url();?>assets/dist/js/sidebarmenu.js"></script>
-<!--Custom JavaScript -->
-<script src="<?php echo base_url();?>assets/dist/js/custom.min.js"></script>
-<!--This page JavaScript -->
-<!--chartis chart-->
-<script src="<?php echo base_url();?>assets/libs/chartist/dist/chartist.min.js"></script>
-<script src="<?php echo base_url();?>assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
-<!--c3 charts -->
-<script src="<?php echo base_url();?>assets/extra-libs/c3/d3.min.js"></script>
-<script src="<?php echo base_url();?>assets/extra-libs/c3/c3.min.js"></script>
-<!--chartjs -->
-<script src="<?php echo base_url();?>assets/libs/raphael/raphael.min.js"></script>
-<script src="<?php echo base_url();?>assets/libs/morris.js/morris.min.js"></script>
+    </html>
+    <script src="<?php echo base_url();?>assets/libs/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap tether Core JavaScript -->
+    <script src="<?php echo base_url();?>assets/libs/popper.js/dist/umd/popper.min.js"></script>
+    <script src="<?php echo base_url();?>assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- apps -->
+    <script src="<?php echo base_url();?>assets/dist/js/app.min.js"></script>
+    <script src="<?php echo base_url();?>assets/dist/js/app.init.js"></script>
+    <script src="<?php echo base_url();?>assets/dist/js/app-style-switcher.js"></script>
+    <!-- slimscrollbar scrollbar JavaScript -->
+    <script src="<?php echo base_url();?>assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
+    <script src="<?php echo base_url();?>assets/extra-libs/sparkline/sparkline.js"></script>
+    <!--Wave Effects -->
+    <script src="<?php echo base_url();?>assets/dist/js/waves.js"></script>
+    <!--Menu sidebar -->
+    <script src="<?php echo base_url();?>assets/dist/js/sidebarmenu.js"></script>
+    <!--Custom JavaScript -->
+    <script src="<?php echo base_url();?>assets/dist/js/custom.min.js"></script>
+    <!--This page JavaScript -->
+    <!--chartis chart-->
+    <script src="<?php echo base_url();?>assets/libs/chartist/dist/chartist.min.js"></script>
+    <script src="<?php echo base_url();?>assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
+    <!--c3 charts -->
+    <script src="<?php echo base_url();?>assets/extra-libs/c3/d3.min.js"></script>
+    <script src="<?php echo base_url();?>assets/extra-libs/c3/c3.min.js"></script>
+    <!--chartjs -->
+    <script src="<?php echo base_url();?>assets/libs/raphael/raphael.min.js"></script>
+    <script src="<?php echo base_url();?>assets/libs/morris.js/morris.min.js"></script>
 
-<script src="<?php echo base_url();?>assets/dist/js/pages/dashboards/dashboard1.js"></script>
- <!-- Tambahan JS untuk Tampilan Tab -->
-<script src="<?php echo base_url();?>assets/extra-libs/prism/prism.js"></script>
+    <script src="<?php echo base_url();?>assets/dist/js/pages/dashboards/dashboard1.js"></script>
+    <!-- Tambahan JS untuk Tampilan Tab -->
+    <script src="<?php echo base_url();?>assets/extra-libs/prism/prism.js"></script>
 
-<!--This page plugins -->
-<script src="<?php echo base_url();?>assets/extra-libs/DataTables/datatables.min.js"></script>
-<script src="<?php echo base_url();?>assets/dist/js/pages/datatable/datatable-basic.init.js"></script>
-<script type="text/javascript">
-    $(document).ready(function() {
-        $('#my_table').DataTable();
-        $('#tabel_fitur').DataTable();
-        $('#tabel_history').DataTable();
-        $('#tabel_paid').DataTable();
-        $('#tabel_suspend').DataTable();
-        $('#tabel_pending').DataTable();
-        $('#tabel_unpaid').DataTable();
-    } 
-    );
-</script>
+    <!--This page plugins -->
+    <script src="<?php echo base_url();?>assets/extra-libs/DataTables/datatables.min.js"></script>
+    <script src="<?php echo base_url();?>assets/dist/js/pages/datatable/datatable-basic.init.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#my_table').DataTable();
+            $('#tabel_fitur').DataTable();
+            $('#tabel_history').DataTable();
+            $('#tabel_paid').DataTable();
+            $('#tabel_suspend').DataTable();
+            $('#tabel_pending').DataTable();
+            $('#tabel_unpaid').DataTable();
+            <?php
+            foreach ($manajemen_fitur as $macam_fitur) {
+                ?>
+                 $('#tabel_history-<?php echo $macam_fitur->id_detail_fitur?>').DataTable();
+                <?php
+            }
+            ?>
+        } 
+        );
+    </script>

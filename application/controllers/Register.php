@@ -97,36 +97,4 @@ class Register extends CI_Controller {
         //Send mail 
 		$this->email->send();
 	}
-
-	// start otomasi
-	public function suspend($id_detail_fitur){
-		$data 	= array('status' => 'suspend');
-		$now	= date('Y-m-d');
-		$end  	= date('Y-m-d', strtotime('+1 month', strtotime($now)));
-		$sekarang = date('Y-m-d');
-		$harga = $this->LoginM->get_harga($id_detail_fitur)->result()[0]->per_bulan;
-
-		$dataTagihan 	= array(
-			'id_detail_fitur' 	=> $id_detail_fitur,
-			'status_call' 		=> 'Suspend', 
-			'status_tagihan' 	=> 'Suspend',
-			'start_date'		=> $sekarang,
-			'end_date'			=> $end,
-			'harga'				=> $harga,
-		);
-
-		if($this->LoginM->update($id_detail_fitur, $data)){
-			if($this->LoginM->insert_tagihan($dataTagihan)){
-				$this->session->set_flashdata('sukses','Data anda berhasil diubah');
-				redirect_back();
-			}else{
-				$this->session->set_flashdata('error','Data anda tidak berhasil diubah');
-				redirect_back();
-			}
-		}else{
-			$this->session->set_flashdata('error','Data anda tidak berhasil diubah');
-			redirect_back();
-		}
-	}
-	// end otomasi
 }
