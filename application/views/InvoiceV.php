@@ -84,7 +84,7 @@
         
       </section>
       <hr style="border-top: 5px solid; margin-top: -30px; margin-bottom: 0px; color: #1175bbbf;">
-      <hr style="border-top: 224px solid;border-color:#e6e7e7;width: 355px;margin-right: 0px;margin-bottom: -215px; margin-top: 0px;align-content: left;" class="text-right">
+      <hr style="border-top: 224px solid;border-color:#fff;width: 355px;margin-right: 0px;margin-bottom: -215px; margin-top: 0px;align-content: left;" class="text-right">
       
       <section id="sums">
       
@@ -135,6 +135,5 @@
 
     </div>
 
-    <!-- <script src="http://cdn.invoicebus.com/generator/generator.min.js"></script> -->
   </body>
 </html>
