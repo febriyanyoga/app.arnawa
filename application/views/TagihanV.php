@@ -655,6 +655,8 @@
             </div>
             <div class="card-body p-t-0">
                 <pre class="language-html scrollable">
+                    
+                <a style="color: white;" class="btn btn-info btn-sm btn"  title="Invoice" href="<?php echo base_url()?>CobaC/invoice"> Invoice</a>
 
                 </pre>
             </div>

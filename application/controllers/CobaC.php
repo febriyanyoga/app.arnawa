@@ -136,4 +136,16 @@ class CobaC extends CI_Controller {
 		$this->load->view('LayoutV', $this->data);
 
 	}
+
+	public function invoice(){
+		$id  = $this->session->userdata('id_akun');
+		$this->data['macam_fitur']	= $this->LoginM->get_all_fitur(); //semua fitur
+		$this->data['macam_fitur_akun']	= $this->LoginM->get_fitur_by_akun($id); //fitur by akun
+		$this->data['data_akun'] = $this->LoginM->get_all_data($id)->result()[0];
+		$this->data['dataDiri'] = $this->session->userdata();
+		$this->data['active'] = 'active';
+		$this->data['manajemen_fitur'] 		= $this->LoginM->get_detail_fitur_by_akun($id)->result();
+		$this->load->view('InvoiceV', $this->data);
+
+	}
 }
