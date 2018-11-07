@@ -41,7 +41,7 @@ class AdminC extends CI_Controller {
 		$this->data['LoginM'] = $this->LoginM;
 		$this->data['manajemen_fitur'] 		= $this->LoginM->get_detail_fitur_by_akun($id_akun)->result();
 		$this->data['fitur2'] 		= $this->LoginM->get_fitur_by_akun($id_akun)->result();
-		$this->data['isi'] = $this->load->view('detail_fitur', $this->data, TRUE);
+		$this->data['isi'] = $this->load->view('Detail_fitur', $this->data, TRUE);
 		$this->load->view('LayoutV', $this->data);
 	}
 

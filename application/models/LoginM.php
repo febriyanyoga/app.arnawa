@@ -169,6 +169,11 @@ class LoginM extends CI_Model{
 		}
 	}
 
+	public function get_detail_fitur($id_fitur){
+		$this->db->where('id_fitur', $id_fitur);
+		return $this->db->get('fitur');
+	}
+
 	public function get_detail_fitur_by_akun($id_akun){
 		$this->db->select('*');
 		$this->db->from('detail_fitur D');
@@ -329,6 +334,17 @@ class LoginM extends CI_Model{
 		$this->db->where('A.id_akun', $id_akun);
 		$this->db->where('T.status_tagihan = "Unpaid"');
 		$this->db->order_by('T.end_date','ASC');
+		return $this->db->get();
+	}
+
+	public function get_tagihan($id_tagihan){
+		$this->db->select('*');
+		$this->db->from('tagihan T');
+		$this->db->join('detail_fitur D','T.id_detail_fitur = D.id_detail_fitur');
+		$this->db->join('fitur F', 'D.id_fitur = F.id_fitur');
+		$this->db->join('akun A', 'D.id_akun = A.id_akun');
+		// $this->db->join('harga_fitur H', 'F.id_fitur = H.id_fitur');
+		$this->db->where('T.id_tagihan', $id_tagihan);
 		return $this->db->get();
 	}
 	// get harga by id fitur

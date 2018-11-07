@@ -373,28 +373,58 @@
                                                             }
                                                             ?>
                                                             <?php
+                                                            $data_array_fitur = array();
                                                             foreach ($fitur as $fit) {
                                                                 if($fit->status != "menunggu" && $fit->status != "non-aktif"){
+                                                                    array_push($data_array_fitur, $fit->id_fitur);
                                                                     ?>
-                                                                    <li class="sidebar-item <?php echo $select;?>">
-                                                                        <a class="sidebar-link has-arrow waves-effect waves-dark <?php echo $activeF;?>" href="javascript:void(0)" aria-expanded="false">
-                                                                            <i class="<?php echo $fit->icon;?>"></i>
-                                                                            <span class="hide-menu"><?php echo $fit->nama_fitur?></span>
-                                                                        </a>
-
-                                                                        <ul aria-expanded="false" class="collapse  first-level <?php echo $in;?>">
-                                                                            <li class="sidebar-item <?php echo $activeS;?>">
-                                                                                <a href="<?php echo base_url()?>KoperasiC/MasterData" class="sidebar-link <?php echo $activeS;?>">
-                                                                                    <i class="mdi mdi-email"></i>
-                                                                                    <span class="hide-menu"> Master Data </span>
-                                                                                </a>
-                                                                            </li>
-                                                                        </ul>
-                                                                    </li>
                                                                     <?php
                                                                 }
                                                             }
+
+
+                                                            if(in_array('1', $data_array_fitur)){
+                                                                $simpan_pinjam = $LoginM->get_detail_fitur(1)->result()[0];
+                                                                ?>
+                                                                <li class="sidebar-item">
+                                                                    <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
+                                                                        <i class="<?php echo $simpan_pinjam->icon;?>"></i>
+                                                                        <span class="hide-menu"><?php echo $simpan_pinjam->nama_fitur?></span>
+                                                                    </a>
+                                                                    <ul aria-expanded="false" class="collapse  first-level">
+                                                                        <li class="sidebar-item">
+                                                                            <a href="<?php echo base_url()?>KoperasiC/simpan_pinjam" class="sidebar-link">
+                                                                                <i class="mdi mdi-email"></i>
+                                                                                <span class="hide-menu"> Master Data </span>
+                                                                            </a>
+                                                                        </li>
+                                                                    </ul>
+                                                                </li>
+                                                                <?php
+                                                            }
+
+                                                            
+                                                            if(in_array('2', $data_array_fitur)){
+                                                                $simpan_pinjam = $LoginM->get_detail_fitur(2)->result()[0];
+                                                                ?>
+                                                                <li class="sidebar-item">
+                                                                    <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
+                                                                        <i class="<?php echo $simpan_pinjam->icon;?>"></i>
+                                                                        <span class="hide-menu"><?php echo $simpan_pinjam->nama_fitur?></span>
+                                                                    </a>
+                                                                    <ul aria-expanded="false" class="collapse  first-level">
+                                                                        <li class="sidebar-item">
+                                                                            <a href="<?php echo base_url()?>KoperasiC/shopping" class="sidebar-link">
+                                                                                <i class="mdi mdi-email"></i>
+                                                                                <span class="hide-menu"> Master Data </span>
+                                                                            </a>
+                                                                        </li>
+                                                                    </ul>
+                                                                </li>
+                                                                <?php
+                                                            }
                                                             ?>
+
 
                                                             <?php
                                                             if($this->session->userdata('jenis_akun') == "admin"){
@@ -411,130 +441,135 @@
                                                                                 <span class="hide-menu"> Daftar Koperasi</span>
                                                                             </a>
                                                                         </li>
-                                        <!-- <li class="sidebar-item">
-                                            <a href="<?php echo base_url()?>AdminC/manajemen_koperasi" class="sidebar-link">
-                                                <i class="mdi mdi-email"></i>
-                                                <span class="hide-menu"> Pengajuan Fitur</span>
-                                            </a>
-                                        </li> -->
-                                    </ul>
-                                </li>
-                                <?php
-                            }
-                            ?>
-                        </ul>
-                    </nav>
-                    <!-- End Sidebar navigation -->
-                </div>
-                <!-- End Sidebar scroll-->
-            </aside>
-            <!-- ============================================================== -->
-            <!-- End Left Sidebar - style you can find in sidebar.scss  -->
-            <!-- ============================================================== -->
+                                                                    </ul>
+                                                                </li>
+                                                                <?php
+                                                            }
+                                                            ?>
+                                                        </ul>
+                                                    </nav>
+                                                    <!-- End Sidebar navigation -->
+                                                </div>
+                                                <!-- End Sidebar scroll-->
+                                            </aside>
+                                            <!-- ============================================================== -->
+                                            <!-- End Left Sidebar - style you can find in sidebar.scss  -->
+                                            <!-- ============================================================== -->
 
 
-            <!-- ============================================================== -->
-            <!-- Page wrapper  -->
-            <!-- ============================================================== -->
-            <div class="page-wrapper">
-                <!-- ============================================================== -->
-                <!-- Bread crumb and right sidebar toggle -->
-                <!-- ============================================================== -->
-                <div class="page-breadcrumb">
-                    <div class="row">
-                        <div class="col-5 align-self-center">
-                            <!-- <h4 class="page-title">Dashboard</h4> -->
-                            <div class="d-flex align-items-center">
-                            </div>
-                        </div>
+                                            <!-- ============================================================== -->
+                                            <!-- Page wrapper  -->
+                                            <!-- ============================================================== -->
+                                            <div class="page-wrapper">
+                                                <!-- ============================================================== -->
+                                                <!-- Bread crumb and right sidebar toggle -->
+                                                <!-- ============================================================== -->
+                                                <div class="page-breadcrumb">
+                                                    <div class="row">
+                                                        <div class="col-5 align-self-center">
+                                                            <!-- <h4 class="page-title">Dashboard</h4> -->
+                                                            <div class="d-flex align-items-center">
+                                                            </div>
+                                                        </div>
 
-                        <div class="col-7 align-self-center">
-                            <div class="d-flex no-block justify-content-end align-items-center">
-                                <nav aria-label="breadcrumb">
-                                    <ol class="breadcrumb">
-                                        <li class="breadcrumb-item">
-                                        </li>
-                                    </ol>
-                                </nav>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                                                        <div class="col-7 align-self-center">
+                                                            <div class="d-flex no-block justify-content-end align-items-center">
+                                                                <nav aria-label="breadcrumb">
+                                                                    <ol class="breadcrumb">
+                                                                        <li class="breadcrumb-item">
+                                                                        </li>
+                                                                    </ol>
+                                                                </nav>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
 
-                <!-- ============================================================== -->
-                <!-- Container fluid  -->
-                <!-- ============================================================== -->
-                <section class="main-wrapper">
+                                                <!-- ============================================================== -->
+                                                <!-- Container fluid  -->
+                                                <!-- ============================================================== -->
+                                                <section class="main-wrapper">
 
-                    <?php 
-                    echo $isi; 
-                    ?>
+                                                    <?php 
+                                                    echo $isi; 
+                                                    ?>
 
-                </section>
-                <!-- ============================================================== -->
-                <!-- End Wrapper -->
-                <!-- ============================================================== -->
-            </div>
-        </div>
+                                                </section>
+                                                <!-- ============================================================== -->
+                                                <!-- End Wrapper -->
+                                                <!-- ============================================================== -->
+                                            </div>
+                                        </div>
 
 
-        <!-- ============================================================== -->
-        <!-- All Jquery -->
-        <!-- ============================================================== -->
-    </body>
+                                        <!-- ============================================================== -->
+                                        <!-- All Jquery -->
+                                        <!-- ============================================================== -->
+                                        <script type="text/javascript">
+                                            var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+                                            (function(){
+                                                var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+                                                s1.async=true;
+                                                s1.src='https://embed.tawk.to/5be13c7545840924fe234faf/default';
+                                                s1.charset='UTF-8';
+                                                s1.setAttribute('crossorigin','*');
+                                                s0.parentNode.insertBefore(s1,s0);
+                                            })();
+                                        </script>
+                                    </body>
 
-    </html>
-    <script src="<?php echo base_url();?>assets/libs/jquery/dist/jquery.min.js"></script>
-    <!-- Bootstrap tether Core JavaScript -->
-    <script src="<?php echo base_url();?>assets/libs/popper.js/dist/umd/popper.min.js"></script>
-    <script src="<?php echo base_url();?>assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
-    <!-- apps -->
-    <script src="<?php echo base_url();?>assets/dist/js/app.min.js"></script>
-    <script src="<?php echo base_url();?>assets/dist/js/app.init.js"></script>
-    <script src="<?php echo base_url();?>assets/dist/js/app-style-switcher.js"></script>
-    <!-- slimscrollbar scrollbar JavaScript -->
-    <script src="<?php echo base_url();?>assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
-    <script src="<?php echo base_url();?>assets/extra-libs/sparkline/sparkline.js"></script>
-    <!--Wave Effects -->
-    <script src="<?php echo base_url();?>assets/dist/js/waves.js"></script>
-    <!--Menu sidebar -->
-    <script src="<?php echo base_url();?>assets/dist/js/sidebarmenu.js"></script>
-    <!--Custom JavaScript -->
-    <script src="<?php echo base_url();?>assets/dist/js/custom.min.js"></script>
-    <!--This page JavaScript -->
-    <!--chartis chart-->
-    <script src="<?php echo base_url();?>assets/libs/chartist/dist/chartist.min.js"></script>
-    <script src="<?php echo base_url();?>assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
-    <!--c3 charts -->
-    <script src="<?php echo base_url();?>assets/extra-libs/c3/d3.min.js"></script>
-    <script src="<?php echo base_url();?>assets/extra-libs/c3/c3.min.js"></script>
-    <!--chartjs -->
-    <script src="<?php echo base_url();?>assets/libs/raphael/raphael.min.js"></script>
-    <script src="<?php echo base_url();?>assets/libs/morris.js/morris.min.js"></script>
+                                    </html>
+                                    <script src="<?php echo base_url();?>assets/libs/jquery/dist/jquery.min.js"></script>
+                                    <!-- Bootstrap tether Core JavaScript -->
+                                    <script src="<?php echo base_url();?>assets/libs/popper.js/dist/umd/popper.min.js"></script>
+                                    <script src="<?php echo base_url();?>assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+                                    <!-- apps -->
+                                    <script src="<?php echo base_url();?>assets/dist/js/app.min.js"></script>
+                                    <script src="<?php echo base_url();?>assets/dist/js/app.init.js"></script>
+                                    <script src="<?php echo base_url();?>assets/dist/js/app-style-switcher.js"></script>
+                                    <!-- slimscrollbar scrollbar JavaScript -->
+                                    <script src="<?php echo base_url();?>assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
+                                    <script src="<?php echo base_url();?>assets/extra-libs/sparkline/sparkline.js"></script>
+                                    <!--Wave Effects -->
+                                    <script src="<?php echo base_url();?>assets/dist/js/waves.js"></script>
+                                    <!--Menu sidebar -->
+                                    <script src="<?php echo base_url();?>assets/dist/js/sidebarmenu.js"></script>
+                                    <!--Custom JavaScript -->
+                                    <script src="<?php echo base_url();?>assets/dist/js/custom.min.js"></script>
+                                    <!--This page JavaScript -->
+                                    <!--chartis chart-->
+                                    <script src="<?php echo base_url();?>assets/libs/chartist/dist/chartist.min.js"></script>
+                                    <script src="<?php echo base_url();?>assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
+                                    <!--c3 charts -->
+                                    <script src="<?php echo base_url();?>assets/extra-libs/c3/d3.min.js"></script>
+                                    <script src="<?php echo base_url();?>assets/extra-libs/c3/c3.min.js"></script>
+                                    <!--chartjs -->
+                                    <script src="<?php echo base_url();?>assets/libs/raphael/raphael.min.js"></script>
+                                    <script src="<?php echo base_url();?>assets/libs/morris.js/morris.min.js"></script>
 
-    <script src="<?php echo base_url();?>assets/dist/js/pages/dashboards/dashboard1.js"></script>
-    <!-- Tambahan JS untuk Tampilan Tab -->
-    <script src="<?php echo base_url();?>assets/extra-libs/prism/prism.js"></script>
+                                    <script src="<?php echo base_url();?>assets/dist/js/pages/dashboards/dashboard1.js"></script>
+                                    <!-- Tambahan JS untuk Tampilan Tab -->
+                                    <script src="<?php echo base_url();?>assets/extra-libs/prism/prism.js"></script>
 
-    <!--This page plugins -->
-    <script src="<?php echo base_url();?>assets/extra-libs/DataTables/datatables.min.js"></script>
-    <script src="<?php echo base_url();?>assets/dist/js/pages/datatable/datatable-basic.init.js"></script>
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $('#my_table').DataTable();
-            $('#tabel_fitur').DataTable();
-            $('#tabel_history').DataTable();
-            $('#tabel_paid').DataTable();
-            $('#tabel_suspend').DataTable();
-            $('#tabel_pending').DataTable();
-            $('#tabel_unpaid').DataTable();
-            <?php
-            foreach ($manajemen_fitur as $macam_fitur) {
-                ?>
-                 $('#tabel_history-<?php echo $macam_fitur->id_detail_fitur?>').DataTable();
-                <?php
-            }
-            ?>
-        } 
-        );
-    </script>
+                                    <!--This page plugins -->
+                                    <script src="<?php echo base_url();?>assets/extra-libs/DataTables/datatables.min.js"></script>
+                                    <script src="<?php echo base_url();?>assets/dist/js/pages/datatable/datatable-basic.init.js"></script>
+                                    <script type="text/javascript">
+                                        $(document).ready(function() {
+                                            $('#my_table').DataTable();
+                                            $('#tabel_fitur').DataTable();
+                                            $('#tabel_history').DataTable();
+                                            $('#tabel_paid').DataTable();
+                                            $('#tabel_suspend').DataTable();
+                                            $('#tabel_pending').DataTable();
+                                            $('#tabel_unpaid').DataTable();
+                                            <?php
+                                            foreach ($manajemen_fitur as $macam_fitur) {
+                                                ?>
+                                                $('#tabel_history-<?php echo $macam_fitur->id_detail_fitur?>').DataTable();
+                                                <?php
+                                            }
+                                            ?>
+                                        } 
+                                        );
+                                    </script>

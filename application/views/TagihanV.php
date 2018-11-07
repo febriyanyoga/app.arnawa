@@ -151,11 +151,13 @@
                                                     if(in_array($tag->id_tagihan, $array_tag)){ //jika id tagihan termasuk didalam array tagihan terakhir yang butuh perpanjangan
                                                         ?>
                                                         <a style="color: white;" class="btn btn-success btn-sm btn" data-toggle="modal" data-target="#fileKonfirmasi-<?php echo $tag->id_tagihan?>" title="file konfirmasi"><i class="ti ti-image"></i></a>
+                                                        <a class="btn btn-sm btn-warning" title="Cetak bukti pembayaran" href="<?php echo site_url('KoperasiC/invoice/').$tag->id_tagihan?>" target="_BLANK"><i class="ti ti-printer"></i></a>
                                                         <a style="color: white;" class="btn btn-info btn-sm btn" data-toggle="modal" data-target="#perpanjangPaid-<?php echo $tag->id_tagihan?>" title="Perpanjang"> Perpanjang</a>
                                                         <?php
                                                     }else{
                                                         ?>
                                                         <a style="color: white;" class="btn btn-success btn-sm btn" data-toggle="modal" data-target="#fileKonfirmasi-<?php echo $tag->id_tagihan?>" title="file konfirmasi"><i class="ti ti-image"></i></a>
+                                                        <a class="btn btn-sm btn-warning" title="Cetak bukti pembayaran" href="<?php echo site_url('KoperasiC/invoice/').$tag->id_tagihan?>" target="_BLANK"><i class="ti ti-printer"></i></a>
                                                         <?php
                                                     }
                                                     ?>
@@ -318,7 +320,7 @@
                                                         }else{
 
                                                             if($nonaktif->y != 0){
-                                                                echo $beda_tempo->y." Tahun ";
+                                                                echo $nonaktif->y." Tahun ";
                                                             }
                                                             if ($nonaktif->m != 0) {
                                                                 echo $nonaktif->m." Bulan ";
@@ -445,7 +447,6 @@
                                             $tgl2           = date('Y-m-d', strtotime('+7 days', strtotime($new_tgl_start))); //operasi 
                                             $jatuh_tempo    = new DateTime($tgl2);
                                             $beda_tempo     = $jatuh_tempo->diff($now);
-
                                             ?>
                                             <td class="text-center">
                                                 <div>
@@ -494,7 +495,8 @@
                                                     <?php                                                    
                                                 }elseif ($tagP->jml_transfer == 0) {
                                                     ?>
-                                                    <a style="color: white;" class="btn btn-info btn-sm" data-toggle="modal" data-target="#konfirmasi-<?php echo $tagP->id_tagihan;?>" title="Konfirmasi"> Konfirmasi Pembayaran</a>
+                                                    <a style="color: white;" class="btn btn-info btn-sm" data-toggle="modal" data-target="#konfirmasi-<?php echo $tagP->id_tagihan;?>" title="Konfirmasi"> Konfirmasi</a>
+                                                    <a class="btn btn-sm btn-warning" title="Cetak tagihan" href="<?php echo site_url('KoperasiC/cetak_tagihan/').$tagP->id_tagihan?>" target="_BLANK"><i class="ti ti-printer"></i></a>
                                                     <?php
                                                 }
                                                 ?>
@@ -655,9 +657,6 @@
             </div>
             <div class="card-body p-t-0">
                 <pre class="language-html scrollable">
-                    
-                <a style="color: white;" class="btn btn-info btn-sm btn"  title="Invoice" href="<?php echo base_url()?>CobaC/invoice"> Invoice</a>
-
                 </pre>
             </div>
         </div>

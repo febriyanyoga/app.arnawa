@@ -23,6 +23,7 @@ class KoperasiC extends CI_Controller {
         $this->data['activeF'] = '';
         $this->data['activeS'] = '';
         $this->data['in']       = '';
+        $this->data['LoginM'] = $this->LoginM;
     }
 
     public function index(){
@@ -306,32 +307,18 @@ class KoperasiC extends CI_Controller {
         }
 
     }
+    //cetak bukti bayar
+    public function invoice($id_tagihan){
+        $this->data['data_tagihan'] = $this->LoginM->get_tagihan($id_tagihan)->result()[0];
+        $this->data['title'] = "Cetak Bukti Pembayaran";
+        $this->load->view('BuktiBayarV', $this->data);
 
-    public function save_download(){  //save as pdf
-        //load mPDF library
-        $this->load->library('m_pdf');
-        //load mPDF library
+    }
 
-
-        //now pass the data//
-        $this->data['title']="MY PDF TITLE 1.";
-        $this->data['description']="";
-        $this->data['description']=$this->official_copies;
-         //now pass the data //
-
-        
-        $html=$this->load->view('LoginV',$this->data, true); //load the pdf_output.php by passing our data and get all data in $html varriable.
-
-        //this the the PDF filename that user will get to download
-        $pdfFilePath ="mypdfName-".time()."-download.pdf";
-
-        
-        //actually, you can pass mPDF parameter on this load() function
-        $pdf = $this->m_pdf->load();
-        //generate the PDF!
-        $pdf->WriteHTML($html,2);
-        //offer it to user via browser download! (The PDF won't be saved on your server HDD)
-        $pdf->Output($pdfFilePath, "D");
+    public function cetak_tagihan($id_tagihan){
+        $this->data['data_tagihan'] = $this->LoginM->get_tagihan($id_tagihan)->result()[0];
+        $this->data['title'] = "Cetak Tagihan Pembayaran";
+        $this->load->view('InvoiceV', $this->data);
 
     }
 
@@ -450,8 +437,8 @@ class KoperasiC extends CI_Controller {
     	}
     }
 
-    // master data
-    public function MasterData(){
+    // fitur
+    public function simpan_pinjam(){
         $id  = $this->session->userdata('id_akun');
         $this->data['macam_fitur']  = $this->LoginM->get_all_fitur(); //semua fitur
         $this->data['macam_fitur_akun'] = $this->LoginM->get_fitur_by_akun($id); //fitur by akun
@@ -464,7 +451,24 @@ class KoperasiC extends CI_Controller {
 
         $this->data['select'] = 'selected';
         $this->data['manajemen_fitur']      = $this->LoginM->get_detail_fitur_by_akun($id)->result();
-        $this->data['isi'] = $this->load->view('MasterDataV', $this->data, TRUE);
+        $this->data['isi'] = $this->load->view('Fitur/SimpanPinjamV', $this->data, TRUE);
+        $this->load->view('LayoutV', $this->data);
+    }
+
+    public function shopping(){
+        $id  = $this->session->userdata('id_akun');
+        $this->data['macam_fitur']  = $this->LoginM->get_all_fitur(); //semua fitur
+        $this->data['macam_fitur_akun'] = $this->LoginM->get_fitur_by_akun($id); //fitur by akun
+        $this->data['data_akun'] = $this->LoginM->get_all_data($id)->result()[0];
+        $this->data['dataDiri'] = $this->session->userdata();
+
+        $this->data['activeF'] = 'active';
+        $this->data['activeS'] = 'active';
+        $this->data['in']     = 'in';
+
+        $this->data['select'] = 'selected';
+        $this->data['manajemen_fitur']      = $this->LoginM->get_detail_fitur_by_akun($id)->result();
+        $this->data['isi'] = $this->load->view('Fitur/ShoppingV', $this->data, TRUE);
         $this->load->view('LayoutV', $this->data);
     }
 

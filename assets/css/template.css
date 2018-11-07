@@ -63,8 +63,10 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
  * Instead wrap everything in one main <div id="container"> element where you may change
  * something like the font or the background of the invoice
  */
-html, body {
-  /* MOVE ALONG, NOTHING TO CHANGE HERE! */
+/* MOVE ALONG, NOTHING TO CHANGE HERE! */
+body {
+   background-image: url("../assets/images/lunas.png");
+   /*background-color: #cccccc;*/
 }
 
 /** 
@@ -147,6 +149,7 @@ b, strong, .bold {
 #invoice-info {
   float: left;
   margin: 25px 0 0 20px;
+  font-size: 16px;
 }
 #invoice-info > div {
   float: left;
@@ -254,7 +257,7 @@ table th, table td {
   padding: 0 20px;
 }
 .currency span {
-  font-size: 11px;
+  font-size: 16px;
   font-style: italic;
   display: inline-block;
   min-width: 20px;
@@ -279,14 +282,14 @@ table th, table td {
   text-transform: uppercase;
 }
 #sums table tr.amount-total th, #sums table tr.amount-total td {
-  font-size: 16px;
+  font-size: 18pt;
   font-weight: bold;
 }
 #sums table tr:last-child th {
   text-transform: uppercase;
 }
 #sums table tr:last-child th, #sums table tr:last-child td {
-  font-size: 16px;
+  font-size: 16pt;
   font-weight: bold;
   padding-top: 20px !important;
   padding-bottom: 40px !important;
@@ -299,6 +302,7 @@ table th, table td {
   display: inline-block;
   min-width: 20px;
   font-weight: bold;
+  font-size: 18pt;
 }
 #terms > div {
   margin-top: 10px;
@@ -322,6 +326,10 @@ table th, table td {
 
 .ibcl_tax_value:before {
   color: white !important;
+}
+
+#atas{
+  padding-top: 20px;
 }
 
 /**

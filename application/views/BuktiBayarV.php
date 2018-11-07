@@ -82,7 +82,7 @@
             $t = date('Y-m-d', strtotime($data_tagihan->start_date));
             $jatuh_tempo = date('Y-m-d', strtotime('+7 days', strtotime($t))); //operasi 
             ?>
-            <th style="text-align: left; padding-left: 20px;"><b><?php echo date('d/m/Y', strtotime($jatuh_tempo));?></b></th>
+            <th style="text-align: left; padding-left: 20px;"><?php echo date('d/m/Y', strtotime($jatuh_tempo));?></th>
           </tr>
         </table>
         <table>
@@ -187,55 +187,40 @@
            <tr data-hide-on-quote="true" style="font-size: 16pt;">
             <th>Dibayar </th>
             <td style="text-align: left; width: 2px;">:</td>
-            <td><?php echo "Rp".number_format(0, 0,',','.').",-";?></td>
+            <td><?php echo "Rp".number_format($data_tagihan->harga, 0,',','.').",-";?></td>
           </tr>
           
           <tr data-hide-on-quote="true" style="font-size: 18pt;">
             <th>Sisa Tagihan </th>
             <td style="text-align: left; width: 2px;">:</td>
-            <td><?php echo "Rp".number_format($data_tagihan->harga, 0,',','.').",-";?></td>
+            <td><?php echo "Rp".number_format(0, 0,',','.').",-";?></td>
           </tr>
 
           
         </table>
+        <img style="max-width: 265px; margin-top: -282px; margin-left: 145px;"  src="<?php echo base_url()?>assets/images/lunas.png">
         
       </section>
       
-      <div style="position: absolute;">
+      <div class="clearfix"></div>
+      
+      <section id="terms">
 
+        <span>PT. Arnawa Teknologi Informasi</span>
+        <div style="font-size: 13pt;">Graha KAS. Lt. 3, Suite 1. <br>
+          Kompleks Perkantoran Kebayoran Baru Mall No. 88.<br>
+          Jl. Raya Kebayoran Baru.<br>
+          Jakarta Selatan 12120.<br>
+          DKI Jakarta, Indonesia.<br> <br>
+          Email&nbsp;:&nbsp;info@arnintech.co.id<br>
+          Website&nbsp;:&nbsp;www.arnintech.co.id<br>
+          Telp.&nbsp;:&nbsp;+62 21 2751 4023/22
+        </div>
 
-        <section id="terms">
+      </section>
 
-          <div class="card" style="border-radius: 10px; font-size: 12pt;">
-            <div class="card-body" style="background-color: #e6e7e7; border-radius: 10px;">
-              <h5>Cara Pembayaran&nbsp;:&nbsp;</h5><br>
-              <p>Pembayaran dapat dilakukan melalui salah satu <br>rekening a/n <b>PT. Arnawa Teknologi Informasi</b> berikut ini :</p>
-              <p><img style="max-height: 18px;" src="<?php echo base_url()?>assets/images/icon_bank/BCA.png">&nbsp;&nbsp;&nbsp;<b>0373-748-916</b> a/n PT. Arnawa Teknologi Informasi </p>
-              <p><img style="max-height: 18px;" src="<?php echo base_url()?>assets/images/icon_bank/BNI.png">&nbsp;&nbsp;&nbsp;<b>012-34-567</b> a/n PT. Arnawa Teknologi Informasi </p>
-              <p><img style="max-height: 18px;" src="<?php echo base_url()?>assets/images/icon_bank/BRI.png">&nbsp;&nbsp;&nbsp;<b>904-8576-9874</b> a/n PT. Arnawa Teknologi Informasi </p>
-              <p><img style="max-height: 18px;" src="<?php echo base_url()?>assets/images/icon_bank/MANDIRI.png">&nbsp;&nbsp;&nbsp;<b>435-353-45</b> a/n PT. Arnawa Teknologi Informasi </p><br>
-              <p>Setelah melakukan pembayaran tagihan<br>diharapkan segera melakukan <b>Konfirmasi Pembayaran.</b></p>
-            </div>
-          </div>
-
-        </section>
-
-        <section id="terms">
-          <span>PT. Arnawa Teknologi Informasi</span>
-          <div style="font-size: 13pt;">Graha KAS. Lt. 3, Suite 1. <br>
-            Kompleks Perkantoran Kebayoran Baru Mall No. 88.<br>
-            Jl. Raya Kebayoran Baru.<br>
-            Jakarta Selatan 12120.<br>
-            DKI Jakarta, Indonesia.<br> <br>
-            Email&nbsp;:&nbsp;info@arnintech.co.id<br>
-            Website&nbsp;:&nbsp;www.arnintech.co.id<br>
-            Telp.&nbsp;:&nbsp;+62 21 2751 4023/22
-          </div>
-        </section>
-
-      </div>
     </div>
-    <div class="footer" style="position: relative; margin-top: 70px; text-align: center;">
+    <div class="footer" style="margin-top: -70px; text-align: center;">
       <h4>~ Terima Kasih ~</h4>
     </div>
 
@@ -245,4 +230,3 @@
 
   </body>
   </html>
-
