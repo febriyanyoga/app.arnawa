@@ -358,4 +358,17 @@ class LoginM extends CI_Model{
 		$this->db->where('id_harga_fitur', $id_harga_fitur);
 		return $this->db->get('harga_fitur');
 	}
+
+
+	// fitur
+	public function insert_lampiran($data){
+		$this->db->insert('lampiran', $data);
+		return TRUE;
+	}
+
+	public function get_lampiran($id_detail_fitur, $jenis_lampiran){
+		$this->db->where('id_detail_fitur', $id_detail_fitur);
+		$this->db->where('jenis_file', $jenis_lampiran);
+		return $this->db->get('lampiran');
+	}
 }

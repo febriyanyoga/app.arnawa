@@ -384,12 +384,12 @@
 
 
                                                             if(in_array('1', $data_array_fitur)){
-                                                                $simpan_pinjam = $LoginM->get_detail_fitur(1)->result()[0];
+                                                                $nama_fit = $LoginM->get_detail_fitur(1)->result()[0];
                                                                 ?>
                                                                 <li class="sidebar-item">
                                                                     <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
-                                                                        <i class="<?php echo $simpan_pinjam->icon;?>"></i>
-                                                                        <span class="hide-menu"><?php echo $simpan_pinjam->nama_fitur?></span>
+                                                                        <i class="<?php echo $nama_fit->icon;?>"></i>
+                                                                        <span class="hide-menu"><?php echo $nama_fit->nama_fitur?></span>
                                                                     </a>
                                                                     <ul aria-expanded="false" class="collapse  first-level">
                                                                         <li class="sidebar-item">
@@ -405,12 +405,12 @@
 
                                                             
                                                             if(in_array('2', $data_array_fitur)){
-                                                                $simpan_pinjam = $LoginM->get_detail_fitur(2)->result()[0];
+                                                                $nama_fit = $LoginM->get_detail_fitur(2)->result()[0];
                                                                 ?>
                                                                 <li class="sidebar-item">
                                                                     <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
-                                                                        <i class="<?php echo $simpan_pinjam->icon;?>"></i>
-                                                                        <span class="hide-menu"><?php echo $simpan_pinjam->nama_fitur?></span>
+                                                                        <i class="<?php echo $nama_fit->icon;?>"></i>
+                                                                        <span class="hide-menu"><?php echo $nama_fit->nama_fitur?></span>
                                                                     </a>
                                                                     <ul aria-expanded="false" class="collapse  first-level">
                                                                         <li class="sidebar-item">
