@@ -563,6 +563,12 @@
                                             $('#tabel_suspend').DataTable();
                                             $('#tabel_pending').DataTable();
                                             $('#tabel_unpaid').DataTable();
+                                            $('#tabel_anggota').DataTable();
+                                            $('#tabel_simpanan').DataTable();
+                                            $('#tabel_pinjaman').DataTable();
+                                            $('#tabel_shu').DataTable();
+                                            $('#tabel_neraca').DataTable();
+                                            $('#tabel_labarugi').DataTable();
                                             <?php
                                             foreach ($manajemen_fitur as $macam_fitur) {
                                                 ?>
