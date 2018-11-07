@@ -414,7 +414,7 @@
                                                                     </a>
                                                                     <ul aria-expanded="false" class="collapse  first-level">
                                                                         <li class="sidebar-item">
-                                                                            <a href="<?php echo base_url()?>KoperasiC/shopping" class="sidebar-link">
+                                                                            <a href="<?php echo base_url()?>CobaC/maintenance" class="sidebar-link">
                                                                                 <i class="mdi mdi-email"></i>
                                                                                 <span class="hide-menu"> Master Data </span>
                                                                             </a>

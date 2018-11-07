@@ -26,6 +26,13 @@ class CobaC extends CI_Controller {
 		$email_akun = $this->session->userdata('email_akun');
 		$password 	= $this->session->userdata('password');
 		$id_akun 	= $this->session->userdata('id_akun');
+		$this->data['activeD'] = '';
+        $this->data['activeM'] = '';
+        $this->data['activeT'] = '';
+        $this->data['activeF'] = '';
+        $this->data['activeS'] = '';
+        $this->data['LoginM'] = $this->LoginM;
+        $this->data['in']       = '';
 
 		$this->data['jenis_usaha'] 	= $this->LoginM->ceknum($email_akun, $password)->row()->jenis_usaha;
 		$this->data['dataDiri'] 	= $this->session->userdata();
@@ -146,6 +153,19 @@ class CobaC extends CI_Controller {
 		$this->data['active'] = 'active';
 		$this->data['manajemen_fitur'] 		= $this->LoginM->get_detail_fitur_by_akun($id)->result();
 		$this->load->view('InvoiceV', $this->data);
+
+	}
+	
+	public function maintenance(){
+		$id  = $this->session->userdata('id_akun');
+		$this->data['macam_fitur']	= $this->LoginM->get_all_fitur(); //semua fitur
+		$this->data['macam_fitur_akun']	= $this->LoginM->get_fitur_by_akun($id); //fitur by akun
+		$this->data['data_akun'] = $this->LoginM->get_all_data($id)->result()[0];
+		$this->data['dataDiri'] = $this->session->userdata();
+		$this->data['active'] = 'active';
+		$this->data['manajemen_fitur'] 		= $this->LoginM->get_detail_fitur_by_akun($id)->result();
+		$this->data['isi'] = $this->load->view('MaintenanceV', $this->data, TRUE);
+		$this->load->view('LayoutV', $this->data);
 
 	}
 }
