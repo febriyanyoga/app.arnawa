@@ -202,9 +202,8 @@
                                                 </td>
                                                 <td class="text-center">
                                                     <?php
-                                                    if($macam_fitur->status == 'suspend'){
+                                                    if($tagihan->konfirmasi_pembayaran == 'Terkonfirmasi'){
                                                         ?>
-
                                                         <a style="color: white;" class="btn btn-info btn-sm" data-toggle="modal" data-target="#konfirmasi-<?php echo $tagihan->id_tagihan;?>" title="Konfirmasi"> Verifikasi Pembayaran</a>
                                                         <?php
                                                     }else{

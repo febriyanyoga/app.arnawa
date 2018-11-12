@@ -2,6 +2,33 @@
     <div class="card">
         <div class="card-body p-b-0">
             <h4 class="card-title">Master Data</h4><br>
+            <div class="mt-30">
+                <?php
+                $data=$this->session->flashdata('sukses');
+                if($data!=""){ 
+                    ?>
+                    <div class="alert alert-success">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">×</span> </button>
+                        <h3 class="text-success"><i class="fa fa-check-circle"></i> Sukses!</h3>
+                        <?=$data;?>
+                    </div>
+                    <?php 
+                } 
+                ?>
+                <?php 
+                $data2=$this->session->flashdata('error');
+                if($data2!=""){ 
+                    ?>
+                    <div class="alert alert-danger">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">×</span> </button>
+                        <h3 class="text-danger"><i class="fa fa-check-circle"></i> Gagal!</h3>
+                        <?=$data2;?>
+                    </div>
+                    <?php 
+                } 
+                ?>
+                <?php echo validation_errors(); ?>
+            </div>
             <ul class="nav nav-tabs customtab" role="tablist">
                 <li class="nav-item"> 
                     <a class="nav-link active" data-toggle="tab" href="#DataAnggota" role="tab"><span class="hidden-sm-up"></span> <span class="hidden-xs-down"> Data Anggota</span> &nbsp; 
@@ -34,34 +61,7 @@
                 <div class="tab-pane active  p-20" id="DataAnggota" role="tabpanel">
                     <div class="">
                         <h4>Template Data Anggota</h4><br>
-                        <div class="col-md-12 mt-30">
-                            <?php
-                            $data=$this->session->flashdata('sukses');
-                            if($data!=""){ 
-                                ?>
-                                <div class="alert alert-success">
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">×</span> </button>
-                                    <h3 class="text-success"><i class="fa fa-check-circle"></i> Sukses!</h3>
-                                    <?=$data;?>
-                                </div>
-                                <?php 
-                            } 
-                            ?>
-                            <?php 
-                            $data2=$this->session->flashdata('error');
-                            if($data2!=""){ 
-                                ?>
-                                <div class="alert alert-danger">
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">×</span> </button>
-                                    <h3 class="text-danger"><i class="fa fa-check-circle"></i> Gagal!</h3>
-                                    <?=$data2;?>
-                                </div>
-                                <?php 
-                            } 
-                            ?>
-                            <?php echo validation_errors(); ?>
-                        </div>
-                        <a href="<?php echo base_url()?>assets/download/template-data-anggota.csv" target="_blank" class="btn btn-info" target="blank"><i class="ti ti-download"></i> Unduh Template</a>
+                        <a href="<?php echo base_url()?>assets/download/template-data-anggota2.xls" target="_blank" class="btn btn-info" target="blank"><i class="ti ti-download"></i> Unduh Template</a>
                         <a style="color: white;" class="btn btn-success" data-toggle="modal" data-target="#dataanggota"><i class="ti ti-plus"></i>&nbsp; Unggah Data Anggota</a>
                     </div><br><br>
                     
@@ -97,16 +97,17 @@
                                         <td class="text-center"><?php echo $lamp->ukuran_file;?></td>
                                         <td class="text-center"><?php echo date('d/m/Y', strtotime($lamp->created_at))?></td>
                                         <td class="text-center"><?php echo $lamp->catatan;?></td>
-                                        <td class="text-center"></td>
+                                        <td class="text-center">
+                                            <a class="btn btn-info btn-sm" target="_blank" href="<?php echo base_url()?>assets/upload/<?php echo $lamp->nama_file;?>"><i class="ti ti-download"></i></a>
+                                            <a class="btn btn-danger btn-sm" href="<?php echo base_url('KoperasiC/hapus_lampiran').'/'.$lamp->id_lampiran?>" onClick="return confirm('Anda yakin akan menghapus file ini ?')"><i class="ti ti-trash"></i></a>
+                                        </td>
                                     </tr>
                                     <?php
                                 }
                                 ?>
                             </tbody>
                         </table>
-                    </div>
-
-                    
+                    </div>                    
                 </div>
 
                 <!-- data simpanan -->
@@ -120,6 +121,14 @@
                     <div class="table-responsive">
                         <table id="tabel_simpanan" class="table table-striped table-bordered display" >
                             <thead>
+                                <?php
+                                foreach ($manajemen_fitur as $key) {
+                                    if ($key->id_fitur == 1) {
+                                        $simpin = $key->id_detail_fitur;
+                                    }
+                                }
+                                $data_lampiran = $LoginM->get_lampiran($simpin, 'data_simpanan')->result();
+                                ?>
                                 <tr class="text-center">
                                     <th>No</th>
                                     <th>Nama File</th>
@@ -130,17 +139,28 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td class="text-center"></td>
-                                    <td class="text-center"></td>
-                                    <td class="text-center"></td>
-                                    <td class="text-center"></td>
-                                    <td class="text-center"></td>
-                                    <td class="text-center"></td>
-                                </tr>
+                                <?php
+                                $o=0;
+                                foreach ($data_lampiran as $lamp) {
+                                    $o++;
+                                    ?>
+                                    <tr>
+                                        <td class="text-center"><?php echo $o;?></td>
+                                        <td class="text-center"><?php echo $lamp->nama_file;?></td>
+                                        <td class="text-center"><?php echo $lamp->ukuran_file;?></td>
+                                        <td class="text-center"><?php echo date('d/m/Y', strtotime($lamp->created_at))?></td>
+                                        <td class="text-center"><?php echo $lamp->catatan;?></td>
+                                        <td class="text-center">
+                                            <a class="btn btn-info btn-sm" target="_blank" href="<?php echo base_url()?>assets/upload/<?php echo $lamp->nama_file;?>"><i class="ti ti-download"></i></a>
+                                            <a class="btn btn-danger btn-sm" href="<?php echo base_url('KoperasiC/hapus_lampiran').'/'.$lamp->id_lampiran?>" onClick="return confirm('Anda yakin akan menghapus file ini ?')"><i class="ti ti-trash"></i></a>
+                                        </td>
+                                    </tr>
+                                    <?php
+                                }
+                                ?>
                             </tbody>
                         </table>
-                    </div>
+                    </div>  
 
                 </div>
 
@@ -153,8 +173,16 @@
                     </div><br><br>
                     
                     <div class="table-responsive">
-                        <table id="tabel_pinjaman" class="table table-striped table-bordered display" >
+                        <table id="tabel_pinjaman" class="table table-striped table-bordered display">
                             <thead>
+                                <?php
+                                foreach ($manajemen_fitur as $key) {
+                                    if ($key->id_fitur == 1) {
+                                        $simpin = $key->id_detail_fitur;
+                                    }
+                                }
+                                $data_lampiran = $LoginM->get_lampiran($simpin, 'data_pinjaman')->result();
+                                ?>
                                 <tr class="text-center">
                                     <th>No</th>
                                     <th>Nama File</th>
@@ -165,14 +193,25 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td class="text-center"></td>
-                                    <td class="text-center"></td>
-                                    <td class="text-center"></td>
-                                    <td class="text-center"></td>
-                                    <td class="text-center"></td>
-                                    <td class="text-center"></td>
-                                </tr>
+                                <?php
+                                $o=0;
+                                foreach ($data_lampiran as $lamp) {
+                                    $o++;
+                                    ?>
+                                    <tr>
+                                        <td class="text-center"><?php echo $o;?></td>
+                                        <td class="text-center"><?php echo $lamp->nama_file;?></td>
+                                        <td class="text-center"><?php echo $lamp->ukuran_file;?></td>
+                                        <td class="text-center"><?php echo date('d/m/Y', strtotime($lamp->created_at))?></td>
+                                        <td class="text-center"><?php echo $lamp->catatan;?></td>
+                                        <td class="text-center">
+                                            <a class="btn btn-info btn-sm" target="_blank" href="<?php echo base_url()?>assets/upload/<?php echo $lamp->nama_file;?>"><i class="ti ti-download"></i></a>
+                                            <a class="btn btn-danger btn-sm" href="<?php echo base_url('KoperasiC/hapus_lampiran').'/'.$lamp->id_lampiran?>" onClick="return confirm('Anda yakin akan menghapus file ini ?')"><i class="ti ti-trash"></i></a>
+                                        </td>
+                                    </tr>
+                                    <?php
+                                }
+                                ?>
                             </tbody>
                         </table>
                     </div>
@@ -182,13 +221,21 @@
                 <div class="tab-pane p-20" id="DataAlokasi" role="tabpanel">
                     <div class="">
                         <h4>Template Alokasi Pembagian SHU</h4><br>
-                        <a href="" class="btn btn-info" target="blank"><i class="ti ti-download"></i> Unduh Template</a>
+                        <a href="<?php echo base_url()?>assets/download/template_shu.xlsx" class="btn btn-info" target="blank"><i class="ti ti-download"></i> Unduh Template</a>
                         <a style="color: white;" class="btn btn-success" data-toggle="modal" data-target="#datashu"><i class="ti ti-plus"></i>&nbsp; Tambah Data Alokasi Pembagian SHU</a>
                     </div><br><br>
                     
                     <div class="table-responsive">
-                        <table id="tabel_shu" class="table table-striped table-bordered display" >
+                        <table id="tabel_shu" class="table table-striped table-bordered display">
                             <thead>
+                                <?php
+                                foreach ($manajemen_fitur as $key) {
+                                    if ($key->id_fitur == 1) {
+                                        $simpin = $key->id_detail_fitur;
+                                    }
+                                }
+                                $data_lampiran = $LoginM->get_lampiran($simpin, 'data_shu')->result();
+                                ?>
                                 <tr class="text-center">
                                     <th>No</th>
                                     <th>Nama File</th>
@@ -199,14 +246,25 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td class="text-center"></td>
-                                    <td class="text-center"></td>
-                                    <td class="text-center"></td>
-                                    <td class="text-center"></td>
-                                    <td class="text-center"></td>
-                                    <td class="text-center"></td>
-                                </tr>
+                                <?php
+                                $o=0;
+                                foreach ($data_lampiran as $lamp) {
+                                    $o++;
+                                    ?>
+                                    <tr>
+                                        <td class="text-center"><?php echo $o;?></td>
+                                        <td class="text-center"><?php echo $lamp->nama_file;?></td>
+                                        <td class="text-center"><?php echo $lamp->ukuran_file;?></td>
+                                        <td class="text-center"><?php echo date('d/m/Y', strtotime($lamp->created_at))?></td>
+                                        <td class="text-center"><?php echo $lamp->catatan;?></td>
+                                        <td class="text-center">
+                                            <a class="btn btn-info btn-sm" target="_blank" href="<?php echo base_url()?>assets/upload/<?php echo $lamp->nama_file;?>"><i class="ti ti-download"></i></a>
+                                            <a class="btn btn-danger btn-sm" href="<?php echo base_url('KoperasiC/hapus_lampiran').'/'.$lamp->id_lampiran?>" onClick="return confirm('Anda yakin akan menghapus file ini ?')"><i class="ti ti-trash"></i></a>
+                                        </td>
+                                    </tr>
+                                    <?php
+                                }
+                                ?>
                             </tbody>
                         </table>
                     </div>
@@ -318,36 +376,36 @@
     </div>
     <!-- end modal data anggota -->
 
-
-
     <!-- start modal data simpanan -->
     <div class="modal fade" id="datasimpanan" tabindex="-1" role="dialog" aria-labelledby="lihat">
         <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title" id="exampleModalLabel1">Tambah Data Simpanan</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                </div>
-                <div class="modal-body">
-                    <div class="card-body">
-                        <div class="card">
-                            <div class="card-body">
-                                <form>
+            <form action="<?php echo base_url('KoperasiC/unggah_data')?>" enctype="multipart/form-data" method="post">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="exampleModalLabel1">Tambah Data Simpanan</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="card-body">
+                            <div class="card">
+                                <div class="card-body">
                                     <div class="p-20">
                                         <label class="control-label">Upload Data Simpanan</label><br>
-                                        <input type="file" class="form-control"  name="" id="" > <br>
+                                        <input type="file" class="form-control"  name="file_transfer" id="file_transfer" required> <br>
+                                        <input type="hidden" class="form-control"  name="id_detail_fitur" id="id_detail_fitur" required value="<?php echo $simpin?>"> <br>
+                                        <input type="hidden" class="form-control"  name="jenis_file" id="jenis_file" required value="data_simpanan"> <br>
                                         <label class="control-label">Catatan</label>
-                                        <textarea class="form-control"  name="" id="" ></textarea><br>
+                                        <textarea class="form-control"  name="catatan" id="catatan" ></textarea><br>
                                     </div>
-                                </form>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    <div class="modal-footer">
+                        <input type="submit" class="btn btn-info" name="submit" value="Simpan">
+                    </div>
                 </div>
-                <div class="modal-footer">
-                    <input type="submit" class="btn btn-danger" data-dismiss="modal" value="Simpan">
-                </div>
-            </div>
+            </form>
         </div>
     </div>
     <!-- end modal data simpanan -->
@@ -355,31 +413,33 @@
     <!-- start modal data pinjaman -->
     <div class="modal fade" id="datapinjaman" tabindex="-1" role="dialog" aria-labelledby="lihat">
         <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title" id="exampleModalLabel1">Tambah Data Pinjaman</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                </div>
-                <div class="modal-body">
-                    <div class="card-body">
-                        <div class="card">
-                            <div class="card-body">
-                                <form>
+            <form action="<?php echo base_url('KoperasiC/unggah_data')?>" enctype="multipart/form-data" method="post">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="exampleModalLabel1">Tambah Data Pinjaman</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="card-body">
+                            <div class="card">
+                                <div class="card-body">
                                     <div class="p-20">
                                         <label class="control-label">Upload Data Pinjaman</label><br>
-                                        <input type="file" class="form-control"  name="" id="" > <br>
+                                        <input type="file" class="form-control"  name="file_transfer" id="file_transfer" required> <br>
+                                        <input type="hidden" class="form-control"  name="id_detail_fitur" id="id_detail_fitur" required value="<?php echo $simpin?>"> <br>
+                                        <input type="hidden" class="form-control"  name="jenis_file" id="jenis_file" required value="data_pinjaman"> <br>
                                         <label class="control-label">Catatan</label>
-                                        <textarea class="form-control"  name="" id="" ></textarea><br>
+                                        <textarea class="form-control"  name="catatan" id="catatan" ></textarea><br>
                                     </div>
-                                </form>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    <div class="modal-footer">
+                        <input type="submit" class="btn btn-info" name="submit" value="Simpan">
+                    </div>
                 </div>
-                <div class="modal-footer">
-                    <input type="submit" class="btn btn-danger" data-dismiss="modal" value="Simpan">
-                </div>
-            </div>
+            </form>
         </div>
     </div>
     <!-- end modal data pinjaman -->
@@ -387,31 +447,33 @@
     <!-- start modal data SHU -->
     <div class="modal fade" id="datashu" tabindex="-1" role="dialog" aria-labelledby="lihat">
         <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title" id="exampleModalLabel1">Tambah Data Alokasi Pembagian SHU</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                </div>
-                <div class="modal-body">
-                    <div class="card-body">
-                        <div class="card">
-                            <div class="card-body">
-                                <form>
+            <form action="<?php echo base_url('KoperasiC/unggah_data')?>" enctype="multipart/form-data" method="post">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="exampleModalLabel1">Tambah Data Alokasi Pembagian SHU</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="card-body">
+                            <div class="card">
+                                <div class="card-body">
                                     <div class="p-20">
                                         <label class="control-label">Upload Data Alokasi Pembagian SHU</label><br>
-                                        <input type="file" class="form-control"  name="" id="" > <br>
+                                        <input type="file" class="form-control"  name="file_transfer" id="file_transfer" required> <br>
+                                        <input type="hidden" class="form-control"  name="id_detail_fitur" id="id_detail_fitur" required value="<?php echo $simpin?>"> <br>
+                                        <input type="hidden" class="form-control"  name="jenis_file" id="jenis_file" required value="data_shu"> <br>
                                         <label class="control-label">Catatan</label>
-                                        <textarea class="form-control"  name="" id="" ></textarea><br>
+                                        <textarea class="form-control"  name="catatan" id="catatan" ></textarea><br>
                                     </div>
-                                </form>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    <div class="modal-footer">
+                        <input type="submit" class="btn btn-info" name="submit" value="Simpan">
+                    </div>
                 </div>
-                <div class="modal-footer">
-                    <input type="submit" class="btn btn-danger" data-dismiss="modal" value="Simpan">
-                </div>
-            </div>
+            </form>
         </div>
     </div>
     <!-- end modal data SHU -->

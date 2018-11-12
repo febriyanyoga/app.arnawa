@@ -81,12 +81,12 @@
                                 </thead>
                                 <tbody>
                                     <?php
-                                    // array tagihan yang terakhir (butuh perpanjang)
+                                    // array tagihan yang terakhir(butuh perpanjang)
                                     $array_tag = array();
                                     foreach ($tagihan_terakhir as $t) {
                                         array_push($array_tag, $t->id_tagihan);
                                     }
-                                    //end
+                                    // end
 
                                     $i=0;
                                     foreach ($tagihan->result() as $tag) {
@@ -122,7 +122,7 @@
                                                         }
                                                         ?>
                                                     </div>
-                                                    <div>
+                                                    <div style="color: red;">
                                                         <?php 
                                                         if($now>$tanggal){
                                                             echo "Masa aktif habis";
@@ -280,7 +280,7 @@
                                                     }
                                                     ?>
                                                 </div>
-                                                <div>
+                                                <div style="color: red;">
                                                     <?php 
                                                     if($now>$tanggal){
                                                         echo "Masa aktif habis";

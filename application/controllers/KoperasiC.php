@@ -437,6 +437,23 @@ class KoperasiC extends CI_Controller {
         $this->load->view('LayoutV', $this->data);
     }
 
+     public function maintenance(){
+        $id  = $this->session->userdata('id_akun');
+        $this->data['macam_fitur']  = $this->LoginM->get_all_fitur(); //semua fitur
+        $this->data['macam_fitur_akun'] = $this->LoginM->get_fitur_by_akun($id); //fitur by akun
+        $this->data['data_akun'] = $this->LoginM->get_all_data($id)->result()[0];
+        $this->data['dataDiri'] = $this->session->userdata();
+
+        $this->data['activeF'] = 'active';
+        $this->data['activeS'] = 'active';
+        $this->data['in']     = 'in';
+
+        $this->data['select'] = 'selected';
+        $this->data['manajemen_fitur']      = $this->LoginM->get_detail_fitur_by_akun($id)->result();
+        $this->data['isi'] = $this->load->view('MaintenanceV', $this->data, TRUE);
+        $this->load->view('LayoutV', $this->data);
+    }
+
     public function unggah_data(){
         $this->form_validation->set_rules('id_detail_fitur','ID Detail Fitur','required');
         $this->form_validation->set_rules('catatan','Catatan','required');
@@ -482,6 +499,28 @@ class KoperasiC extends CI_Controller {
                 $this->session->set_flashdata('error','Tidak ada File yang diupload');
                 redirect_back();
             }
+        }
+    }
+
+    public function hapus_lampiran($id_lampiran){
+        define('EXT', '.'.pathinfo(__FILE__, PATHINFO_EXTENSION));
+        // define('FCPATH', __FILE__);
+        // define('SELF', pathinfo(__FILE__, PATHINFO_BASENAME));
+        define('PUBPATH',str_replace(SELF,'',FCPATH));
+        $this->db->where('id_lampiran',$id_lampiran);
+        $file = $this->db->get('lampiran')->row()->nama_file;
+
+        if(unlink(PUBPATH."assets/upload/".$file)){            
+            if($this->LoginM->hapus_lampiran($id_lampiran)){
+                $this->session->set_flashdata('sukses','File berhasil dihapus');
+                redirect_back();
+            }else{
+                $this->session->set_flashdata('error','File tidak berhasil dihapus');
+                redirect_back();
+            }
+        }else{
+            $this->session->set_flashdata('error','File tidak berhasil dihapus');
+            redirect_back();
         }
     }
 }

@@ -414,7 +414,133 @@
                                                                     </a>
                                                                     <ul aria-expanded="false" class="collapse  first-level">
                                                                         <li class="sidebar-item">
-                                                                            <a href="<?php echo base_url()?>CobaC/maintenance" class="sidebar-link">
+                                                                            <a href="<?php echo base_url()?>KoperasiC/maintenance" class="sidebar-link">
+                                                                                <i class="mdi mdi-email"></i>
+                                                                                <span class="hide-menu"> Master Data </span>
+                                                                            </a>
+                                                                        </li>
+                                                                    </ul>
+                                                                </li>
+                                                                <?php
+                                                            }
+
+
+                                                            if(in_array('3', $data_array_fitur)){
+                                                                $nama_fit = $LoginM->get_detail_fitur(3)->result()[0];
+                                                                ?>
+                                                                <li class="sidebar-item">
+                                                                    <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
+                                                                        <i class="<?php echo $nama_fit->icon;?>"></i>
+                                                                        <span class="hide-menu"><?php echo $nama_fit->nama_fitur?></span>
+                                                                    </a>
+                                                                    <ul aria-expanded="false" class="collapse  first-level">
+                                                                        <li class="sidebar-item">
+                                                                            <a href="<?php echo base_url()?>KoperasiC/maintenance" class="sidebar-link">
+                                                                                <i class="mdi mdi-email"></i>
+                                                                                <span class="hide-menu"> Master Data </span>
+                                                                            </a>
+                                                                        </li>
+                                                                    </ul>
+                                                                </li>
+                                                                <?php
+                                                            }
+
+
+                                                            if(in_array('4', $data_array_fitur)){
+                                                                $nama_fit = $LoginM->get_detail_fitur(4)->result()[0];
+                                                                ?>
+                                                                <li class="sidebar-item">
+                                                                    <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
+                                                                        <i class="<?php echo $nama_fit->icon;?>"></i>
+                                                                        <span class="hide-menu"><?php echo $nama_fit->nama_fitur?></span>
+                                                                    </a>
+                                                                    <ul aria-expanded="false" class="collapse  first-level">
+                                                                        <li class="sidebar-item">
+                                                                            <a href="<?php echo base_url()?>KoperasiC/maintenance" class="sidebar-link">
+                                                                                <i class="mdi mdi-email"></i>
+                                                                                <span class="hide-menu"> Master Data </span>
+                                                                            </a>
+                                                                        </li>
+                                                                    </ul>
+                                                                </li>
+                                                                <?php
+                                                            }
+
+
+                                                            if(in_array('5', $data_array_fitur)){
+                                                                $nama_fit = $LoginM->get_detail_fitur(5)->result()[0];
+                                                                ?>
+                                                                <li class="sidebar-item">
+                                                                    <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
+                                                                        <i class="<?php echo $nama_fit->icon;?>"></i>
+                                                                        <span class="hide-menu"><?php echo $nama_fit->nama_fitur?></span>
+                                                                    </a>
+                                                                    <ul aria-expanded="false" class="collapse  first-level">
+                                                                        <li class="sidebar-item">
+                                                                            <a href="<?php echo base_url()?>KoperasiC/maintenance" class="sidebar-link">
+                                                                                <i class="mdi mdi-email"></i>
+                                                                                <span class="hide-menu"> Master Data </span>
+                                                                            </a>
+                                                                        </li>
+                                                                    </ul>
+                                                                </li>
+                                                                <?php
+                                                            }
+
+
+                                                            if(in_array('6', $data_array_fitur)){
+                                                                $nama_fit = $LoginM->get_detail_fitur(6)->result()[0];
+                                                                ?>
+                                                                <li class="sidebar-item">
+                                                                    <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
+                                                                        <i class="<?php echo $nama_fit->icon;?>"></i>
+                                                                        <span class="hide-menu"><?php echo $nama_fit->nama_fitur?></span>
+                                                                    </a>
+                                                                    <ul aria-expanded="false" class="collapse  first-level">
+                                                                        <li class="sidebar-item">
+                                                                            <a href="<?php echo base_url()?>KoperasiC/maintenance" class="sidebar-link">
+                                                                                <i class="mdi mdi-email"></i>
+                                                                                <span class="hide-menu"> Master Data </span>
+                                                                            </a>
+                                                                        </li>
+                                                                    </ul>
+                                                                </li>
+                                                                <?php
+                                                            }
+
+
+                                                            if(in_array('7', $data_array_fitur)){
+                                                                $nama_fit = $LoginM->get_detail_fitur(7)->result()[0];
+                                                                ?>
+                                                                <li class="sidebar-item">
+                                                                    <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
+                                                                        <i class="<?php echo $nama_fit->icon;?>"></i>
+                                                                        <span class="hide-menu"><?php echo $nama_fit->nama_fitur?></span>
+                                                                    </a>
+                                                                    <ul aria-expanded="false" class="collapse  first-level">
+                                                                        <li class="sidebar-item">
+                                                                            <a href="<?php echo base_url()?>KoperasiC/maintenance" class="sidebar-link">
+                                                                                <i class="mdi mdi-email"></i>
+                                                                                <span class="hide-menu"> Master Data </span>
+                                                                            </a>
+                                                                        </li>
+                                                                    </ul>
+                                                                </li>
+                                                                <?php
+                                                            }
+
+
+                                                            if(in_array('8', $data_array_fitur)){
+                                                                $nama_fit = $LoginM->get_detail_fitur(8)->result()[0];
+                                                                ?>
+                                                                <li class="sidebar-item">
+                                                                    <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
+                                                                        <i class="<?php echo $nama_fit->icon;?>"></i>
+                                                                        <span class="hide-menu"><?php echo $nama_fit->nama_fitur?></span>
+                                                                    </a>
+                                                                    <ul aria-expanded="false" class="collapse  first-level">
+                                                                        <li class="sidebar-item">
+                                                                            <a href="<?php echo base_url()?>KoperasiC/maintenance" class="sidebar-link">
                                                                                 <i class="mdi mdi-email"></i>
                                                                                 <span class="hide-menu"> Master Data </span>
                                                                             </a>

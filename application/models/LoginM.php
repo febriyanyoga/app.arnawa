@@ -256,6 +256,12 @@ class LoginM extends CI_Model{
 		return TRUE;
 	}
 
+	public function hapus_lampiran($id_lampiran){
+		$this->db->where('id_lampiran', $id_lampiran);
+		$this->db->delete('lampiran');
+		return TRUE;
+	}
+
 	public function get_harga($id_detail_fitur){
 		$this->db->select('*');
 		$this->db->from('detail_fitur D');
