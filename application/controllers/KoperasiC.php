@@ -272,41 +272,6 @@ class KoperasiC extends CI_Controller {
 
         }
     }
-
-    // upload bukti transfer konfirmasi pembayaran
-    public function upload_image(){
-        $config['upload_path'] = './assets/images/bukti_trf/'; //path folder
-        $config['allowed_types'] = 'gif|jpg|png|jpeg|bmp'; //type yang dapat diakses bisa anda sesuaikan
-        $config['encrypt_name'] = TRUE; //Enkripsi nama yang terupload
-
-        $this->upload->initialize($config);
-        if(!empty($_FILES['file_transfer']['name'])){
-
-            if ($this->upload->do_upload('file_transfer')){
-                $gbr = $this->upload->data();
-                //Compress Image
-                $config['image_library']='gd2';
-                $config['source_image']='./assets/images/bukti_trf/'.$gbr['file_name'];
-                $config['create_thumb']= FALSE;
-                $config['maintain_ratio']= FALSE;
-                $config['quality']= '50%';
-                $config['width']= 600;
-                $config['height']= 400;
-                $config['new_image']= './assets/images/bukti_trf/'.$gbr['file_name'];
-                $this->load->library('image_lib', $config);
-                $this->image_lib->resize();
-
-                $gambar=$gbr['file_name'];
-                $judul=$this->input->post('xjudul');
-                $this->m_upload->simpan_upload($judul,$gambar);
-                echo "Image berhasil diupload";
-            }
-
-        }else{
-            echo "Image yang diupload kosong";
-        }
-
-    }
     //cetak bukti bayar
     public function invoice($id_tagihan){
         $this->data['data_tagihan'] = $this->LoginM->get_tagihan($id_tagihan)->result()[0];
@@ -472,4 +437,90 @@ class KoperasiC extends CI_Controller {
         $this->load->view('LayoutV', $this->data);
     }
 
+     public function maintenance(){
+        $id  = $this->session->userdata('id_akun');
+        $this->data['macam_fitur']  = $this->LoginM->get_all_fitur(); //semua fitur
+        $this->data['macam_fitur_akun'] = $this->LoginM->get_fitur_by_akun($id); //fitur by akun
+        $this->data['data_akun'] = $this->LoginM->get_all_data($id)->result()[0];
+        $this->data['dataDiri'] = $this->session->userdata();
+
+        $this->data['activeF'] = 'active';
+        $this->data['activeS'] = 'active';
+        $this->data['in']     = 'in';
+
+        $this->data['select'] = 'selected';
+        $this->data['manajemen_fitur']      = $this->LoginM->get_detail_fitur_by_akun($id)->result();
+        $this->data['isi'] = $this->load->view('MaintenanceV', $this->data, TRUE);
+        $this->load->view('LayoutV', $this->data);
+    }
+
+    public function unggah_data(){
+        $this->form_validation->set_rules('id_detail_fitur','ID Detail Fitur','required');
+        $this->form_validation->set_rules('catatan','Catatan','required');
+        $this->form_validation->set_rules('jenis_file','jenis file','required');
+
+        if($this->form_validation->run() == FALSE){
+            $this->session->set_flashdata('error','Data tidak berhasil diunggah. Cek kembali data yang anda masukkan');
+            redirect_back();
+        }else{
+            $config['upload_path']      = './assets/upload/'; //path folder
+            $config['allowed_types']    = 'xlsx|xlx|pdf|csv'; //type yang dapat diakses bisa anda sesuaikan
+            $config['encrypt_name']     = TRUE; //Enkripsi nama yang terupload
+
+            $this->upload->initialize($config);
+            if(!empty($_FILES['file_transfer']['name'])){
+
+                if ($this->upload->do_upload('file_transfer')){
+                    $gbr = $this->upload->data();
+
+                    $nama_file                  = $gbr['file_name'];
+                    $ukuran                     = $gbr['file_size']; 
+                    $id_detail_fitur            = $this->input->post('id_detail_fitur');
+                    $catatan                    = $this->input->post('catatan');
+                    $jenis_file                 = $this->input->post('jenis_file');
+
+                    $data_insert_lampiran = array(
+                        'id_detail_fitur'       => $id_detail_fitur, 
+                        'nama_file'             => $nama_file, 
+                        'catatan'               => $catatan, 
+                        'jenis_file'            => $jenis_file,
+                        'ukuran_file'           => $ukuran,
+                    );
+
+                    if($this->LoginM->insert_lampiran($data_insert_lampiran)){
+                        $this->session->set_flashdata('sukses','Data berhasil disimpan.');
+                        redirect_back();
+                    }else{
+                        $this->session->set_flashdata('error','Data tidak berhasil disimpan. Silahkan coba beberapa saat lagi');
+                        redirect_back();
+                    }
+                }
+            }else{
+                $this->session->set_flashdata('error','Tidak ada File yang diupload');
+                redirect_back();
+            }
+        }
+    }
+
+    public function hapus_lampiran($id_lampiran){
+        define('EXT', '.'.pathinfo(__FILE__, PATHINFO_EXTENSION));
+        // define('FCPATH', __FILE__);
+        // define('SELF', pathinfo(__FILE__, PATHINFO_BASENAME));
+        define('PUBPATH',str_replace(SELF,'',FCPATH));
+        $this->db->where('id_lampiran',$id_lampiran);
+        $file = $this->db->get('lampiran')->row()->nama_file;
+
+        if(unlink(PUBPATH."assets/upload/".$file)){            
+            if($this->LoginM->hapus_lampiran($id_lampiran)){
+                $this->session->set_flashdata('sukses','File berhasil dihapus');
+                redirect_back();
+            }else{
+                $this->session->set_flashdata('error','File tidak berhasil dihapus');
+                redirect_back();
+            }
+        }else{
+            $this->session->set_flashdata('error','File tidak berhasil dihapus');
+            redirect_back();
+        }
+    }
 }

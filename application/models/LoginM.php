@@ -256,6 +256,12 @@ class LoginM extends CI_Model{
 		return TRUE;
 	}
 
+	public function hapus_lampiran($id_lampiran){
+		$this->db->where('id_lampiran', $id_lampiran);
+		$this->db->delete('lampiran');
+		return TRUE;
+	}
+
 	public function get_harga($id_detail_fitur){
 		$this->db->select('*');
 		$this->db->from('detail_fitur D');
@@ -357,5 +363,18 @@ class LoginM extends CI_Model{
 	public function get_harga_fitur_by_id($id_harga_fitur){
 		$this->db->where('id_harga_fitur', $id_harga_fitur);
 		return $this->db->get('harga_fitur');
+	}
+
+
+	// fitur
+	public function insert_lampiran($data){
+		$this->db->insert('lampiran', $data);
+		return TRUE;
+	}
+
+	public function get_lampiran($id_detail_fitur, $jenis_lampiran){
+		$this->db->where('id_detail_fitur', $id_detail_fitur);
+		$this->db->where('jenis_file', $jenis_lampiran);
+		return $this->db->get('lampiran');
 	}
 }
