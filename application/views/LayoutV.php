@@ -136,7 +136,8 @@
 
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle waves-effect waves-dark" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="ti-bell font-20"></i>
+                                <i class="ti-bell font-20"><span class="label label-danger label-rounded label-sm badge" style="padding: 2px 5px; line-height: 12px; font-size: 45%; ">1</span></i>
+                                        
                             </a>
                             
                             <div class="dropdown-menu mailbox animated bounceInDown">
