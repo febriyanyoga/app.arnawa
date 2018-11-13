@@ -135,45 +135,104 @@
                         <!-- ============================================================== -->
 
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle waves-effect waves-dark" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="ti-bell font-20"><span class="label label-danger label-rounded label-sm badge" style="padding: 2px 5px; line-height: 12px; font-size: 45%; ">1</span></i>
-                                        
-                            </a>
+                            <?php 
+                            if($dataDiri['jenis_akun'] == "admin"){
+                                $jumlah = ($notif->num_rows());
+                                ?>
+                                <a class="nav-link dropdown-toggle waves-effect waves-dark" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <?php
+                                        if($jumlah != 0){
+                                            ?>
+                                            <i class="ti-bell font-20"><span class="label label-danger label-rounded label-sm badge" style="padding: 2px 5px; line-height: 12px; font-size: 45%; "><?php echo $jumlah;?></span></i>
+                                            <?php
+                                        }else{
+                                            ?>
+                                            <i class="ti-bell font-20"><span class="label label-danger label-rounded label-sm badge" style="padding: 2px 5px; line-height: 12px; font-size: 45%; "><?php echo $jumlah;?></span></i>
+                                            <?php
+                                        }
+                                        ?>
+
+                                </a>
+                                <?php
+                            }else{
+                                ?>
+                                <a class="nav-link dropdown-toggle waves-effect waves-dark" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="ti-bell font-20"></i>
+                                </a>
+                                <?php
+                            }
+                            if($dataDiri['jenis_akun'] == "admin"){
+                                // print_r($notif->result());
+                                // print_r($notif_all->result());
+                                ?>
+                                <div class="dropdown-menu mailbox animated bounceInDown">
+                                    <span class="with-arrow">
+                                        <span class="bg-success"></span>
+                                    </span>
+                                    <ul class="list-style-none">
+                                        <li>
+                                            <div class="drop-title bg-success text-white">
+                                                <h4 class="m-b-0 m-t-5"><?php echo $jumlah;?> New</h4>
+                                                <span class="font-light">Notifications</span>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="message-center notifications">
+                                                <?php
+                                                foreach ($notif->result() as $not) {
+                                                    ?>
+                                                    <a href="<?php echo site_url('AdminC/notif_detail_fitur').'/'.$not->id_akun.'/'.$not->id_detail_fitur;?>" class="message-item" title="Menambahkan fitur <?php echo $not->nama_fitur;?>">
+                                                        <span class="btn btn-danger btn-circle">
+                                                            <i class="<?php echo $not->icon;?>"></i>
+                                                        </span>
+                                                        <div class="mail-contnet">
+                                                            <h5 class="message-title"><?php echo $not->nama_usaha?></h5>
+                                                            <span class="mail-desc">Menambahkan fitur <?php echo $not->nama_fitur;?></span>
+                                                            <span class="time"><?php echo date('d/m/Y', strtotime($not->created_at_f))."&nbsp;&nbsp;".date('H:i', strtotime($not->created_at_f))?></span>
+                                                        </div>
+                                                    </a>
+                                                    <?php
+                                                }
+                                                ?>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <?php
+                            }else{
+                                ?>
+                                <div class="dropdown-menu mailbox animated bounceInDown">
+                                    <span class="with-arrow">
+                                        <span class="bg-success"></span>
+                                    </span>
+                                    <ul class="list-style-none">
+                                        <li>
+                                            <div class="drop-title bg-success text-white">
+                                                <h4 class="m-b-0 m-t-5">1 New</h4>
+                                                <span class="font-light">Notifications</span>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="message-center notifications">
+                                                <a href="javascript:void(0)" class="message-item">
+                                                    <span class="btn btn-danger btn-circle">
+                                                        <i class="fa fa-link"></i>
+                                                    </span>
+                                                    <div class="mail-contnet">
+                                                        <h5 class="message-title">Luanch User</h5>
+                                                        <span class="mail-desc">Just see the my new admin!</span>
+                                                        <span class="time">9:30 AM</span>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <?php
+                            }
+                            ?>
                             
-                            <div class="dropdown-menu mailbox animated bounceInDown">
-                                <span class="with-arrow">
-                                    <span class="bg-primary"></span>
-                                </span>
-                                <ul class="list-style-none">
-                                    <li>
-                                        <div class="drop-title bg-primary text-white">
-                                            <h4 class="m-b-0 m-t-5">1 New</h4>
-                                            <span class="font-light">Notifications</span>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="message-center notifications">
-                                            <!-- Message -->
-                                            <a href="javascript:void(0)" class="message-item">
-                                                <span class="btn btn-danger btn-circle">
-                                                    <i class="fa fa-link"></i>
-                                                </span>
-                                                <div class="mail-contnet">
-                                                    <h5 class="message-title">Luanch Admin</h5>
-                                                    <span class="mail-desc">Just see the my new admin!</span>
-                                                    <span class="time">9:30 AM</span>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <a class="nav-link text-center m-b-5" href="javascript:void(0);">
-                                            <strong>Check all notifications</strong>
-                                            <i class="fa fa-angle-right"></i>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
+
                         </li>
                         <!-- ============================================================== -->
                         <!-- End Comment -->

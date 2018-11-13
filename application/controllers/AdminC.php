@@ -17,8 +17,9 @@ class AdminC extends CI_Controller {
 		$this->data['jenis_usaha'] 	= $this->LoginM->ceknum($email_akun, $password)->row()->jenis_usaha;
 		$this->data['dataDiri'] 	= $this->session->userdata();
 		$this->data['fitur'] 		= $this->LoginM->get_fitur_by_akun($id_akun)->result();
-
+		$this->data['notif'] 		= $this->LoginM->get_detail_fitur_all();
 	}
+
 	public function index(){
 		$this->data['isi'] = $this->load->view('Dashboard_adminV', $this->data, TRUE);
 		$this->load->view('LayoutV', $this->data);
@@ -43,6 +44,14 @@ class AdminC extends CI_Controller {
 		$this->data['fitur2'] 		= $this->LoginM->get_fitur_by_akun($id_akun)->result();
 		$this->data['isi'] = $this->load->view('Detail_fitur', $this->data, TRUE);
 		$this->load->view('LayoutV', $this->data);
+	}
+
+	public function notif_detail_fitur($id_akun, $id_detail_fitur){
+		if($this->LoginM->update_detail_fitur($id_detail_fitur)){
+			redirect('AdminC/detail_fitur/'.$id_akun);
+		}else{
+			redirect_back();
+		}
 	}
 
 	// 	admin

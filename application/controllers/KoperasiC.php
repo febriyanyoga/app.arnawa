@@ -16,14 +16,15 @@ class KoperasiC extends CI_Controller {
         $this->data['manajemen_fitur']      = $this->LoginM->get_detail_fitur_by_akun($id_akun)->result();
         $this->data['jenis_usaha'] 	= $this->LoginM->ceknum($email_akun, $password)->row()->jenis_usaha;
         $this->data['dataDiri'] 	= $this->session->userdata();
-        $this->data['fitur'] 		= $this->LoginM->get_fitur_by_akun($id_akun)->result();
+        $this->data['fitur']        = $this->LoginM->get_fitur_by_akun($id_akun)->result();
         $this->data['activeD'] = '';
         $this->data['activeM'] = '';
         $this->data['activeT'] = '';
         $this->data['activeF'] = '';
         $this->data['activeS'] = '';
-        $this->data['in']       = '';
-        $this->data['LoginM'] = $this->LoginM;
+        $this->data['in']      = '';
+        $this->data['LoginM']  = $this->LoginM;
+        $this->data['notif']        = $this->LoginM->get_detail_fitur_all();
     }
 
     public function index(){

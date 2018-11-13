@@ -52,3 +52,5 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'LoginC';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
+
+$route['notifikasi'] = 'AdminC/detail_fitur';

@@ -191,6 +191,31 @@ class LoginM extends CI_Model{
 		}
 	}
 
+	public function update_detail_fitur($id_detail_fitur){
+		$data = array('status_notifikasi' => 'sudah_dibaca');
+		$this->db->where('id_detail_fitur', $id_detail_fitur);
+		$this->db->update('detail_fitur', $data);
+		return TRUE;
+	}
+
+	//belum dibaca
+	public function get_detail_fitur_all(){
+		$this->db->select('*');
+		$this->db->from('detail_fitur D');
+		$this->db->join('akun A', 'D.id_akun = A.id_akun');
+		$this->db->join('fitur F', 'D.id_fitur = F.id_fitur');
+		$this->db->where('D.status_notifikasi = "belum_dibaca"');
+		$this->db->order_by('D.id_detail_fitur');
+		$this->db->group_by('D.id_detail_fitur');
+		$query = $this->db->get();
+		if($query){
+			return $query;
+		}else{
+			echo "tidak ditemukan";
+		}
+	}
+
+
 	public function get_tagihan_by_fitur($id_detail_fitur){
 		$this->db->select('*');
 		$this->db->from('tagihan T');

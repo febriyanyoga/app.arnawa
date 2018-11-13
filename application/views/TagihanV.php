@@ -81,12 +81,10 @@
                                 </thead>
                                 <tbody>
                                     <?php
-                                    // array tagihan yang terakhir(butuh perpanjang)
                                     $array_tag = array();
                                     foreach ($tagihan_terakhir as $t) {
                                         array_push($array_tag, $t->id_tagihan);
                                     }
-                                    // end
 
                                     $i=0;
                                     foreach ($tagihan->result() as $tag) {
